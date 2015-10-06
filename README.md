@@ -1,6 +1,32 @@
-# Ember-cli-clipboard
+# ember-cli-clipboard
 
-This README outlines the details of collaborating on this Ember addon.
+A simple ember wrapper around [clipboard.js](http://zenorocha.github.io/clipboard.js/)
+
+## Usage
+
+```javascript
+
+{{#copy-button
+  clipboardText='text to be copied'
+  success='success'
+  error='error'
+}}
+  Click To Copy
+{{/copy-button}}
+```
+
+### Properties
+
+* `clipboardText` - string value that is sent to the clipboard on click
+
+### Actions
+
+The following clipboard.js custom events are sent as actions
+
+* `success` sent on successful copy
+* `error` sent on failed copy
+
+More information about the clipboard.js events can be found [here](https://github.com/zenorocha/clipboard.js/#events)
 
 ## Installation
 
