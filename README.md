@@ -1,5 +1,7 @@
 # ember-cli-clipboard
 
+[![Build Status](https://travis-ci.org/jkusa/ember-cli-clipboard.svg?branch=master)](https://travis-ci.org/jkusa/ember-cli-clipboard)
+
 A simple ember wrapper around [clipboard.js](http://zenorocha.github.io/clipboard.js/)
 
 ## Usage
