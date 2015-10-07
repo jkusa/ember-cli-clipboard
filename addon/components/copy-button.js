@@ -11,13 +11,19 @@ export default Ember.Component.extend({
   attributeBindings: [
     'clipboardText:data-clipboard-text',
     'clipboardTarget:data-clipboard-target',
-    'clipboardAction:data-clipboard-action'
+    'clipboardAction:data-clipboard-action',
+    'buttonType:type'
   ],
 
   /**
    * @property {Array} clipboardEvents - events supported by clipboard.js
    */
   clipboardEvents: ['success', 'error'],
+
+  /**
+   * @property {String} buttonType - type attribute for button element
+   */
+  buttonType: 'button',
 
   didInsertElement() {
     let clipboard = new Clipboard(`#${this.get('elementId')}`);

@@ -70,7 +70,7 @@ test('error action fires', function(assert) {
 });
 
 test('attributeBindings', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
 
   this.render(hbs`
     {{#copy-button
@@ -95,4 +95,8 @@ test('attributeBindings', function(assert) {
   assert.equal(btn.attr('data-clipboard-action'),
     'cut',
   'clipboardAction correctly bound to data-clipboard-action');
+
+  assert.equal(btn.attr('type'),
+    'button',
+  'buttonType correctly bound to type');
 });
