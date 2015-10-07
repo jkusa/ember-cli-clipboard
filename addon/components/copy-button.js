@@ -8,7 +8,11 @@ export default Ember.Component.extend({
   layout: layout,
   tagName: 'button',
   classNames: ['copy-btn'],
-  attributeBindings: ['clipboardText:data-clipboard-text'],
+  attributeBindings: [
+    'clipboardText:data-clipboard-text',
+    'clipboardTarget:data-clipboard-target',
+    'clipboardAction:data-clipboard-action'
+  ],
 
   /**
    * @property {Array} clipboardEvents - events supported by clipboard.js

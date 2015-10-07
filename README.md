@@ -8,8 +8,19 @@ A simple ember wrapper around [clipboard.js](http://zenorocha.github.io/clipboar
 
 ```javascript
 
+<!-- Set text directly -->
 {{#copy-button
   clipboardText='text to be copied'
+  success='success'
+  error='error'
+}}
+  Click To Copy
+{{/copy-button}}
+
+<!-- Get text from target element -->
+<input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard">
+{{#copy-button
+  clipboardTarget="#url"
   success='success'
   error='error'
 }}
@@ -19,7 +30,9 @@ A simple ember wrapper around [clipboard.js](http://zenorocha.github.io/clipboar
 
 ### Properties
 
-* `clipboardText` - string value that is sent to the clipboard on click
+* `clipboardText` - string value to be copied
+* `clipboardTarget` - selector string of element from which to copy text
+* `clipboardAction` - string value of operation: `copy` or `cut` (default is copy)
 
 ### Actions
 

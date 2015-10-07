@@ -68,3 +68,31 @@ test('error action fires', function(assert) {
    */
   this.$('button').click();
 });
+
+test('attributeBindings', function(assert) {
+  assert.expect(3);
+
+  this.render(hbs`
+    {{#copy-button
+      clipboardText='text'
+      clipboardAction='cut'
+      clipboardTarget='.foo'
+    }}
+      Click To Copy
+    {{/copy-button}}
+  `);
+
+  let btn = this.$('.copy-btn');
+
+  assert.equal(btn.attr('data-clipboard-text'),
+    'text',
+  'clipboardText correctly bound to data-clipboard-text');
+
+  assert.equal(btn.attr('data-clipboard-target'),
+    '.foo',
+  'clipboardTarget correctly bound to data-clipboard-target');
+
+  assert.equal(btn.attr('data-clipboard-action'),
+    'cut',
+  'clipboardAction correctly bound to data-clipboard-action');
+});
