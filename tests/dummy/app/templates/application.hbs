@@ -1,10 +1,82 @@
-<h2 id="title">welcome to ember-cli-clipboard</h2>
-
-{{#copy-button
-  clipboardText="Copied Text"
-  success='success'
-  error='error'
-}}
-  Click To Copy
-{{/copy-button}}
-<span> {{message}}</span>
+<main>
+    <header>ember-cli-clipboard Playground</header>
+    <div class="container">
+        <span>Below is the text copied to clipboard. You can type ⌘-p to paste elsewhere.</span>
+        <textarea id="copied-text" rows="4" columns="150" disabled="true">
+            {{copiedText}}
+        </textarea>
+        <div>
+            <input id="dummy1" type="text" value="Copy and paste using clipboardText option">
+            <span>
+                {{#copy-button
+                  clipboardText="Copy and paste using clipboardText option"
+                  success='success'
+                  error='error'
+                }}
+                    <span class="octicon octicon-clippy"></span>
+                {{/copy-button}}
+            </span>
+        </div>
+        <div>
+            <code>
+                &lt;input id=&quot;dummy1&quot; type=&quot;text&quot; value=&quot;Copy and paste using clipboardText option&quot;&gt;
+                \{{#copy-button
+                    clipboardText="Copy and paste using clipboardText option"
+                    success='success'
+                    error='error'
+                 }}
+                  &lt;span class=&quot;octicon octicon-clippy&quot;&gt;&lt;/span&gt;
+                \{{/clip-board}}
+            </code>
+        </div>
+        <div>
+            <input id="dummy2" type="text" value="Copy and paste using clipboardTarget option">
+            <span>
+                {{#copy-button
+                  clipboardTarget="#dummy2"
+                  success='success'
+                  error='error'
+                }}
+                    <span class="octicon octicon-clippy"></span>
+                {{/copy-button}}
+            </span>
+        </div>
+        <div>
+            <code>
+                &lt;input id=&quot;dummy2&quot; type=&quot;text&quot; value=&quot;Copy and paste using clipboardTarget option&quot;&gt;
+                 \{{#copy-button
+                    clipboardTarget="#dummy2"
+                    success='success'
+                    error='error'
+                 }}
+                  &lt;span class=&quot;octicon octicon-clippy&quot;&gt;&lt;/span&gt;
+                \{{/clip-board}}
+            </code>
+        </div>
+        <div>
+            <input id="dummy3" type="text" value="Cut and paste by using clipboardAction='cut'">
+            <span>
+                {{#copy-button
+                  clipboardTarget="#dummy3"
+                  clipboardAction="cut"
+                  success='success'
+                  error='error'
+                }}
+                    <span class="octicon octicon-clippy"></span>
+                {{/copy-button}}
+            </span>
+        </div>
+        <div>
+            <code>
+                &lt;input id=&quot;dummy3&quot; type=&quot;text&quot; value=&quot;Cut and paste by using clipboardAction='cut'&quot;&gt;
+                 \{{#copy-button
+                    clipboardTarget="#dummy2"
+                    success='success'
+                    error='error'
+                 }}
+                  &lt;span class=&quot;octicon octicon-clippy&quot;&gt;&lt;/span&gt;
+                \{{/clip-board}}
+            </code>
+        </div>
+    </div>
+</main>
