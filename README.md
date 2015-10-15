@@ -4,6 +4,10 @@
 
 A simple ember wrapper around [clipboard.js](http://zenorocha.github.io/clipboard.js/)
 
+## Demo Page
+
+http://jkusa.github.io/ember-cli-clipboard
+
 ## Usage
 
 ```javascript
@@ -42,6 +46,12 @@ The following clipboard.js custom events are sent as actions
 * `error` sent on failed copy
 
 More information about the clipboard.js events can be found [here](https://github.com/zenorocha/clipboard.js/#events)
+
+### Browser Support
+
+For browser support information, checkout the [clipboard.js](http://zenorocha.github.io/clipboard.js/) documentation:
+
+https://github.com/zenorocha/clipboard.js/#browser-support
 
 ## Installation
 
