@@ -1,10 +1,95 @@
-<h2 id="title">welcome to ember-cli-clipboard</h2>
+<header>
+  <div class="image">
+    <img src="clipboard.png" alt="clipboard">
+    <div class="install-wrapper">
+      <code class="install-cmd">ember install ember-cli-clipboard</code>
+    </div>
+  </div>
 
-{{#copy-button
-  clipboardText="Copied Text"
-  success='success'
-  error='error'
+  <h2>A simple ember wrapper around <a href="http://zenorocha.github.io/clipboard.js">clipboard.js</a></h2>
+
+  <div class="gh-link">
+    <a href="https://github.com/jkusa/ember-cli-clipboard">
+      <span> View On Github</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="container copy-direct">
+      {{#each flashMessages.arrangedQueue as |flash|}}
+        {{#if flash.copyDirect}}
+          {{#flash-message flash=flash as |component flash|}}
+            <p>{{flash.message}}</p>
+          {{/flash-message}}
+        {{/if}}
+      {{/each}}
+      <p class="container-header">
+        Set Text Directly
+      </p>
+      <div class="container-body">
+        <div class="install-wrapper">
+          <code class="install-cmd">ember install ember-cli-clipboard</code>
+          {{#copy-button
+            clipboardText="ember install ember-cli-clipboard"
+              success="copyDirectSuccess"
+              error="copyDirectError"
+          }}
+            {{fa-icon "copy" size=2}}
+          {{/copy-button}}
+        </div>
+      </div>
+      <div class="container-code highlight">
+        <pre><code class="hbs">\{{#copy-button
+  clipboardText="ember install ember-cli-clipboard"
+  success="success"
+  error="error"
+}}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container copy-target">
+      {{#each flashMessages.arrangedQueue as |flash|}}
+        {{#if flash.copyTarget}}
+          {{#flash-message flash=flash as |component flash|}}
+            <p>{{flash.message}}</p>
+          {{/flash-message}}
+        {{/if}}
+      {{/each}}
+      <p class="container-header">
+        Get Text From Target Element
+      </p>
+      <div class="container-body">
+        <input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard">
+        <div class="container-body-ctrls">
+        {{#copy-button
+          clipboardTarget="#url"
+          success="copyTargetSuccess"
+          error="copyTargetError"
+        }}
+          Copy URL
+        {{/copy-button}}
+        </div>
+      </div>
+      <div class="container-code highlight">
+        <pre><code class="hbs">&lt;input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard"&gt;
+\{{#copy-button
+  clipboardTarget="#url"
+  success="success"
+  error="error"
 }}
-  Click To Copy
-{{/copy-button}}
-<span> {{message}}</span>
+  Copy URL
+\{{/copy-button}}</code></pre>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="profile-link">
+    <a href="https://github.com/jkusa">@jkusa</a>
+  </div>
+</footer>

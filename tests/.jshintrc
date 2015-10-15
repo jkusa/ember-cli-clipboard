@@ -3,6 +3,7 @@
     "document",
     "window",
     "location",
+    "navigator",
     "setTimeout",
     "$",
     "-Promise",
