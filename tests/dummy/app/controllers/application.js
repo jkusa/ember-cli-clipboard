@@ -2,11 +2,11 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   actions: {
-    success() {
-      this.set('message', 'Success! Text copied to clipboard.');
+    success(event) {
+      this.set('copiedText', event.text);
     },
-    error() {
-      this.set('message', 'Type ⌘-c to copy');
+    error(e) {
+      this.set('copiedText', 'Oops.. something went wrong');
     }
   }
 });
