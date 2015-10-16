@@ -1,5 +1,6 @@
 body {
-  margin: 15px auto;
+  margin: 0 auto;
+  padding: 15px;
   width: 400px;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
