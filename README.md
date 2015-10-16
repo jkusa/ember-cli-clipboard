@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/jkusa/ember-cli-clipboard.svg?branch=master)](https://travis-ci.org/jkusa/ember-cli-clipboard) [![Ember Observer Score](http://emberobserver.com/badges/ember-cli-clipboard.svg)](http://emberobserver.com/addons/ember-cli-clipboard)
 
-A simple ember wrapper around [clipboard.js](http://zenorocha.github.io/clipboard.js/)
+A simple ember wrapper around [clipboard.js](http://zenorocha.github.io/clipboard.js/) (no flash)
 
 ## Demo Page
 
