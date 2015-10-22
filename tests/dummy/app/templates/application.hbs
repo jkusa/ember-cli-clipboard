@@ -17,7 +17,7 @@
 
 <main>
   <section>
-    <div class="container copy-direct">
+    <div class="container direct copy-direct">
       {{#each flashMessages.arrangedQueue as |flash|}}
         {{#if flash.copyDirect}}
           {{#flash-message flash=flash as |component flash|}}
@@ -33,8 +33,8 @@
           <code class="install-cmd">ember install ember-cli-clipboard</code>
           {{#copy-button
             clipboardText="ember install ember-cli-clipboard"
-              success="copyDirectSuccess"
-              error="copyDirectError"
+            success="copyDirectSuccess"
+            error="copyDirectError"
           }}
             {{fa-icon "copy" size=2}}
           {{/copy-button}}
@@ -53,7 +53,7 @@
   </section>
 
   <section>
-    <div class="container copy-target">
+    <div class="container target copy-target">
       {{#each flashMessages.arrangedQueue as |flash|}}
         {{#if flash.copyTarget}}
           {{#flash-message flash=flash as |component flash|}}
@@ -65,15 +65,15 @@
         Get Text From Target Element
       </p>
       <div class="container-body">
-        <input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard">
+        <input id="url" class="textfield" type="text" value="https://github.com/jkusa/ember-cli-clipboard">
         <div class="container-body-ctrls">
-        {{#copy-button
-          clipboardTarget="#url"
-          success="copyTargetSuccess"
-          error="copyTargetError"
-        }}
-          Copy URL
-        {{/copy-button}}
+          {{#copy-button
+            clipboardTarget="#url"
+            success="copyTargetSuccess"
+            error="copyTargetError"
+          }}
+            Copy URL
+          {{/copy-button}}
         </div>
       </div>
       <div class="container-code highlight">
@@ -84,6 +84,45 @@
   error="error"
 }}
   Copy URL
+\{{/copy-button}}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container target cut-target">
+      {{#each flashMessages.arrangedQueue as |flash|}}
+        {{#if flash.cutTarget}}
+          {{#flash-message flash=flash as |component flash|}}
+            <p>{{flash.message}}</p>
+          {{/flash-message}}
+        {{/if}}
+      {{/each}}
+      <p class="container-header">
+        Cut Text From Target Element
+      </p>
+      <div class="container-body">
+        <textarea id="textarea" class="textfield" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </textarea>
+        <div class="container-body-ctrls">
+          {{#copy-button
+            clipboardTarget="#textarea"
+            clipboardAction="cut"
+            success="cutTargetSuccess"
+            error="cutTargetError"
+          }}
+            Cut Text
+          {{/copy-button}}
+        </div>
+      </div>
+      <div class="container-code highlight">
+        <pre><code class="hbs">&lt;textarea id="textarea"&gt;Lorem ipsum dolor sit amet, consectetur...&lt;/textarea&gt;
+\{{#copy-button
+  clipboardTarget="#textarea"
+  clipboardAction="cut"
+  success="success"
+  error="error"
+}}
+  Cut Text
 \{{/copy-button}}</code></pre>
       </div>
     </div>

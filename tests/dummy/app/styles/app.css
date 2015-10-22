@@ -118,7 +118,7 @@ pre {
   margin-top: 0;
 }
 
-#url {
+.textfield {
   font-size: 14px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -145,7 +145,7 @@ pre {
   border: 1px solid #CCCCCC;
 }
 
-.install-wrapper, input {
+.install-wrapper, input, textarea {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   background-color: #ffffff;;
 }
@@ -154,7 +154,7 @@ pre {
   cursor: pointer;
 }
 
-.copy-target .copy-btn {
+.target .copy-btn {
   padding: 9px 15px;
   color: #fffdfd;
   background-color: #555;

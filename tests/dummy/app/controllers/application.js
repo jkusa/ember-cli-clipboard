@@ -1,25 +1,30 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
+const { get } = Ember;
 
+export default Ember.Controller.extend({
   sendSuccessMessage(options) {
-    Ember.get(this, 'flashMessages').success('Success! Text copied to clipboard.', options);
+    let action = options.action || 'copied';
+    get(this, 'flashMessages').success(`Success! Text ${action} to clipboard.`, options);
   },
 
   sendErrorMessage(options) {
+    let action    = options.action || 'copy',
+        actionKey = action === 'cut' ? 'x' : 'c';
+
     if(/iPhone|iPad/i.test(navigator.userAgent)) {
       options.message = 'iOS not supported :(';
       options.type = 'warn';
     }
     else if (/Mac/i.test(navigator.userAgent)) {
-      options.message = 'Press ⌘-c to copy (Safari)';
+      options.message = `Press ⌘-${actionKey} to ${action} (Safari)`;
       options.type = 'info';
     }
     else {
-      options.message = 'Press Ctrl-c to copy';
+      options.message = `Press Ctrl-${actionKey} to ${action}`;
       options.type = 'info';
     }
-    Ember.get(this, 'flashMessages').add(options);
+    get(this, 'flashMessages').add(options);
   },
 
   actions: {
@@ -38,5 +43,13 @@ export default Ember.Controller.extend({
     copyDirectError() {
       this.sendErrorMessage({copyDirect: true});
     },
+
+    cutTargetSuccess() {
+      this.sendSuccessMessage({cutTarget: true, action: 'cut'});
+    },
+
+    cutTargetError() {
+      this.sendErrorMessage({cutTarget: true, action: 'cut'});
+    }
   }
 });
