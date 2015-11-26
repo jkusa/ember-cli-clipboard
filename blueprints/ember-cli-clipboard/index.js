@@ -4,6 +4,6 @@ module.exports = {
   normalizeEntityName: function() {},
 
   afterInstall: function (options) {
-    return this.addBowerPackageToProject('clipboard', '~1.4.2');
+    return this.addBowerPackageToProject('clipboard', '~1.5.5');
   }
 };

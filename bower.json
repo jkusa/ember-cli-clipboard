@@ -11,7 +11,7 @@
     "jquery": "^1.11.3",
     "loader.js": "ember-cli/loader.js#3.2.1",
     "qunit": "~1.18.0",
-    "clipboard": "~1.4.2",
+    "clipboard": "~1.5.5",
     "highlightjs": "8.8.0",
     "font-awesome": "~4.4.0",
     "es5-shim": "^4.0.5"
