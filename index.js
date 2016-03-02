@@ -8,6 +8,10 @@ module.exports = {
     this.app = app;
     this._super.included(app);
 
+    if (process.env.EMBER_CLI_FASTBOOT) {
+      return;
+    }
+
     app.import(app.bowerDirectory + '/clipboard/dist/clipboard.js');
   }
 };
