@@ -69,14 +69,29 @@ test('error action fires', function(assert) {
   this.$('button').click();
 });
 
+test('button is not disabled by default', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs`
+    {{#copy-button}}
+      Click To Copy
+    {{/copy-button}}
+  `);
+
+  assert.equal(this.$('.copy-btn').attr('disabled'),
+    undefined,
+  'disabled correctly bound to type');
+});
+
 test('attributeBindings', function(assert) {
-  assert.expect(4);
+  assert.expect(5);
 
   this.render(hbs`
     {{#copy-button
       clipboardText='text'
       clipboardAction='cut'
       clipboardTarget='.foo'
+      disabled=true
     }}
       Click To Copy
     {{/copy-button}}
@@ -99,4 +114,8 @@ test('attributeBindings', function(assert) {
   assert.equal(btn.attr('type'),
     'button',
   'buttonType correctly bound to type');
+
+  assert.equal(btn.attr('disabled'),
+    'disabled',
+  'disabled correctly bound to type');
 });
