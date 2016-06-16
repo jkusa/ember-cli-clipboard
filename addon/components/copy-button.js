@@ -2,7 +2,7 @@ import Ember from 'ember';
 import layout from '../templates/components/copy-button';
 /* global Clipboard */
 
-const { get, set } = Ember;
+const { get, run, set } = Ember;
 
 export default Ember.Component.extend({
   layout: layout,
@@ -12,7 +12,8 @@ export default Ember.Component.extend({
     'clipboardText:data-clipboard-text',
     'clipboardTarget:data-clipboard-target',
     'clipboardAction:data-clipboard-action',
-    'buttonType:type'
+    'buttonType:type',
+    'disabled'
   ],
 
   /**
@@ -25,14 +26,21 @@ export default Ember.Component.extend({
    */
   buttonType: 'button',
 
+  /**
+   * @property {Boolean} disabled - disabled state for button element
+   */
+  disabled: false,
+
   didInsertElement() {
     let clipboard = new Clipboard(`#${this.get('elementId')}`);
     set(this, 'clipboard', clipboard);
 
     get(this, 'clipboardEvents').forEach(action => {
-      clipboard.on(action, Ember.run.bind(this, function(e) {
+      clipboard.on(action, run.bind(this, e => {
         try {
-          this.sendAction(action, e);
+          if (!this.get('disabled')) {
+            this.sendAction(action, e);
+          }
         }
         catch(error) {
           Ember.Logger.debug(error.message);
