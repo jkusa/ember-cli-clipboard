@@ -51,7 +51,7 @@
     "broccoli-funnel": "^1.0.1",
     "clipboard": "^1.5.10",
     "ember-cli-babel": "^5.1.5",
-    "ember-cli-htmlbars": "0.7.9"
+    "ember-cli-htmlbars": "^1.0.10"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
