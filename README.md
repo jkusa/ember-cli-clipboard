@@ -16,8 +16,8 @@ http://jkusa.github.io/ember-cli-clipboard
 <!-- Set text directly -->
 {{#copy-button
   clipboardText='text to be copied'
-  success='success'
-  error='error'
+  success=(action 'success')
+  error=(action 'error')
 }}
   Click To Copy
 {{/copy-button}}
@@ -26,8 +26,8 @@ http://jkusa.github.io/ember-cli-clipboard
 <input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard">
 {{#copy-button
   clipboardTarget="#url"
-  success='success'
-  error='error'
+  success=(action 'success')
+  error=(action 'error')
 }}
   Click To Copy
 {{/copy-button}}
