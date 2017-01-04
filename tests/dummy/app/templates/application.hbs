@@ -40,15 +40,15 @@
           {{/copy-button}}
         </div>
       </div>
-      <div class="container-code highlight">
-        <pre><code class="hbs">\{{#copy-button
+      {{#code-block}}
+\{{#copy-button
   clipboardText="ember install ember-cli-clipboard"
   success="success"
   error="error"
 }}
   &lt;i class="copy"&gt;&lt;/i&gt;
-\{{/copy-button}}</code></pre>
-      </div>
+\{{/copy-button}}
+      {{/code-block}}
     </div>
   </section>
 
@@ -76,16 +76,16 @@
           {{/copy-button}}
         </div>
       </div>
-      <div class="container-code highlight">
-        <pre><code class="hbs">&lt;input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard"&gt;
+      {{#code-block}}
+&lt;input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard"&gt;
 \{{#copy-button
   clipboardTarget="#url"
   success="success"
   error="error"
 }}
   Copy URL
-\{{/copy-button}}</code></pre>
-      </div>
+\{{/copy-button}}
+      {{/code-block}}
     </div>
   </section>
 
@@ -114,8 +114,8 @@
           {{/copy-button}}
         </div>
       </div>
-      <div class="container-code highlight">
-        <pre><code class="hbs">&lt;textarea id="textarea"&gt;Lorem ipsum dolor sit amet, consectetur...&lt;/textarea&gt;
+        {{#code-block}}
+&lt;textarea id="textarea"&gt;Lorem ipsum dolor sit amet, consectetur...&lt;/textarea&gt;
 \{{#copy-button
   clipboardTarget="#textarea"
   clipboardAction="cut"
@@ -123,8 +123,8 @@
   error="error"
 }}
   Cut Text
-\{{/copy-button}}</code></pre>
-      </div>
+\{{/copy-button}}
+      {{/code-block}}
     </div>
   </section>
 </main>
