@@ -33,22 +33,22 @@
           <code class="install-cmd">ember install ember-cli-clipboard</code>
           {{#copy-button
             clipboardText="ember install ember-cli-clipboard"
-            success="copyDirectSuccess"
-            error="copyDirectError"
+            success=(action "copyDirectSuccess")
+            error=(action "copyDirectError")
           }}
             {{fa-icon "copy" size=2}}
           {{/copy-button}}
         </div>
       </div>
-      <div class="container-code highlight">
-        <pre><code class="hbs">\{{#copy-button
+      {{#code-block}}
+\{{#copy-button
   clipboardText="ember install ember-cli-clipboard"
-  success="success"
-  error="error"
+  success=(action "onSuccess")
+  error=(action "onError")
 }}
   &lt;i class="copy"&gt;&lt;/i&gt;
-\{{/copy-button}}</code></pre>
-      </div>
+\{{/copy-button}}
+      {{/code-block}}
     </div>
   </section>
 
@@ -69,23 +69,23 @@
         <div class="container-body-ctrls">
           {{#copy-button
             clipboardTarget="#url"
-            success="copyTargetSuccess"
-            error="copyTargetError"
+            success=(action "copyTargetSuccess")
+            error=(action "copyTargetError")
           }}
             Copy URL
           {{/copy-button}}
         </div>
       </div>
-      <div class="container-code highlight">
-        <pre><code class="hbs">&lt;input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard"&gt;
+      {{#code-block}}
+&lt;input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard"&gt;
 \{{#copy-button
   clipboardTarget="#url"
-  success="success"
-  error="error"
+  success=(action "onSuccess")
+  error=(action "onError")
 }}
   Copy URL
-\{{/copy-button}}</code></pre>
-      </div>
+\{{/copy-button}}
+      {{/code-block}}
     </div>
   </section>
 
@@ -107,24 +107,24 @@
           {{#copy-button
             clipboardTarget="#textarea"
             clipboardAction="cut"
-            success="cutTargetSuccess"
-            error="cutTargetError"
+            success=(action "cutTargetSuccess")
+            error=(action "cutTargetError")
           }}
             Cut Text
           {{/copy-button}}
         </div>
       </div>
-      <div class="container-code highlight">
-        <pre><code class="hbs">&lt;textarea id="textarea"&gt;Lorem ipsum dolor sit amet, consectetur...&lt;/textarea&gt;
+        {{#code-block}}
+&lt;textarea id="textarea"&gt;Lorem ipsum dolor sit amet, consectetur...&lt;/textarea&gt;
 \{{#copy-button
   clipboardTarget="#textarea"
   clipboardAction="cut"
-  success="success"
-  error="error"
+  success=(action "onSuccess")
+  error=(action "onError")
 }}
   Cut Text
-\{{/copy-button}}</code></pre>
-      </div>
+\{{/copy-button}}
+      {{/code-block}}
     </div>
   </section>
 </main>
