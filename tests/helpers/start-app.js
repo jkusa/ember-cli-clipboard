@@ -1,6 +1,9 @@
 import Ember from 'ember';
 import Application from '../../app';
 import config from '../../config/environment';
+import registerTestHelpers from '../helpers/ember-cli-clipboard';
+
+registerTestHelpers();
 
 const merge = Ember.assign || Ember.merge;
 
