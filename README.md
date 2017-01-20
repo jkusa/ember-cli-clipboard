@@ -48,6 +48,111 @@ The following clipboard.js custom events are sent as actions
 
 More information about the clipboard.js events can be found [here](https://github.com/zenorocha/clipboard.js/#events)
 
+### Test Helpers
+
+Some browsers do not allow simulated clicks to fire `execCommand('copy')`. This makes testing difficult. To assist with integration testing, the following test helpers are available to test the wiring of the `success` and `error` action handlers.
+
+#### Integration Test Helpers
+
+* `triggerSuccess(context, selector='.copy-btn')`
+* `triggerError(context, selector='.copy-btn')`
+
+Example:
+
+```js
+// tests/integration/components/my-test.js
+
+...
+
+import {
+  triggerError,
+  triggerSuccess
+} from '../../helpers/ember-cli-clipboard';
+
+...
+
+test('copy-button integration', function(assert) {
+  assert.expect(2);
+
+  this.set('success', () => {
+    assert.ok(true, '`success` action handler correctly fired');
+  });
+
+  this.set('error', () => {
+    assert.ok(true, '`error` action handler correctly fired');
+  });
+
+  this.render(hbs`
+    {{#copy-button
+      classNames='my-copy-btn'
+      clipboardText='text to copy'
+      success=(action success)
+      error=(action error)
+    }}
+      Click To Copy
+    {{/copy-button}}
+  `);
+
+  triggerError(this, '.my-copy-btn');
+  triggerSuccess(this, '.my-copy-btn');
+});
+
+```
+
+#### Acceptance Test Helpers
+
+* `triggerCopySuccess(selector='.copy-btn')`
+* `triggerCopyError(selector='.copy-btn')`
+
+To use the helpers in acceptance tests you need to register them in the `/tests/helpers/start-app.js` file.
+
+```js
+// tests/helpers/start-app.js
+
+...
+
+import registerClipboardHelpers from '../helpers/ember-cli-clipboard';
+
+registerClipboardHelpers();
+
+export default function startApp(attrs) {
+
+...
+
+```
+
+Example:
+
+```js
+// tests/acceptance/my-test.js
+
+...
+
+test('copy button message', function(assert) {
+  assert.expect(3);
+
+  visit('/');
+  andThen(() => {
+    assert.notOk(!!find('.alert').length,
+      'no alert message is initially present');
+  });
+
+  triggerCopySuccess();
+
+  andThen(() => {
+    assert.ok(!!find('.alert.alert-success').length,
+      'a success message is displayed when a copy is successful');
+  });
+
+  triggerCopyError();
+
+  andThen(() => {
+    assert.ok(!!find('.alert.alert-info').length,
+      'an error message is displayed when a copy is unsuccessful');
+  });
+});
+```
+
 ### Browser Support
 
 For browser support information, checkout the [clipboard.js](http://zenorocha.github.io/clipboard.js/) documentation:

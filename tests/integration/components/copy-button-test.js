@@ -1,6 +1,11 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
+import {
+  triggerError,
+  triggerSuccess
+} from '../../helpers/ember-cli-clipboard';
+
 moduleForComponent('copy-button', 'Integration | Component | copy button', {
   integration: true
 });
@@ -63,10 +68,45 @@ test('error action fires', function(assert) {
   `);
 
   /*
-   * Can only test error case here b/c browsers do not allow simulated
-   * clicks for `execCommand('copy')`
+   * Can only directly test error case here b/c browsers do not allow simulated
+   * clicks for `execCommand('copy')`. See test-helpers to test action integration.
    */
   this.$('button').click();
+});
+
+test('test-helpers fire correct actions', function(assert) {
+  assert.expect(2);
+
+  this.on('success', () => {
+    assert.notOk(true, 'success action incorrectly fired');
+  });
+
+  this.set('error', () => {
+    assert.ok(true, 'triggerError correctly fired `error` action for selector');
+  });
+
+  this.render(hbs`
+    {{#copy-button
+      classNames='my-copy-btn'
+      clipboardText='text'
+      success='success'
+      error=(action error)
+    }}
+      Click To Copy
+    {{/copy-button}}
+  `);
+
+  triggerError(this, '.my-copy-btn');
+
+  this.set('error', () => {
+    assert.notOk(true, 'error action incorrectly fired');
+  });
+
+  this.on('success', () => {
+    assert.ok(true, 'triggerSuccess correctly fired `success` action for selector');
+  });
+
+  triggerSuccess(this);
 });
 
 test('button is not disabled by default', function(assert) {

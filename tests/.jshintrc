@@ -23,7 +23,9 @@
     "currentURL",
     "currentPath",
     "currentRouteName",
-    "hljs"
+    "hljs",
+    "triggerCopySuccess",
+    "triggerCopyError"
   ],
   "node": false,
   "browser": false,
