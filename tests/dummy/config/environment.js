@@ -43,7 +43,8 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.baseURL = '/ember-cli-clipboard';
+    ENV.locationType = 'hash';
+    ENV.rootURL = '/ember-cli-clipboard/';
   }
 
   return ENV;
