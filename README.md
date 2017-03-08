@@ -11,8 +11,7 @@ http://jkusa.github.io/ember-cli-clipboard
 
 ## Usage
 
-```javascript
-
+```hbs
 <!-- Set text directly -->
 {{#copy-button
   clipboardText='text to be copied'
