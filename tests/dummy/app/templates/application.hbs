@@ -31,13 +31,15 @@
       <div class="container-body">
         <div class="install-wrapper">
           <code class="install-cmd">ember install ember-cli-clipboard</code>
-          {{#copy-button
-            clipboardText="ember install ember-cli-clipboard"
-            success=(action "copyDirectSuccess")
-            error=(action "copyDirectError")
-          }}
-            {{fa-icon "copy" size=2}}
-          {{/copy-button}}
+          {{#if (is-clipboard-supported)}}
+            {{#copy-button
+              clipboardText="ember install ember-cli-clipboard"
+              success=(action "copyDirectSuccess")
+              error=(action "copyDirectError")
+            }}
+              {{fa-icon "copy" size=2}}
+            {{/copy-button}}
+          {{/if}}
         </div>
       </div>
       {{#code-block}}
