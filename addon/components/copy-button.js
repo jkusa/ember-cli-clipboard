@@ -13,7 +13,8 @@ export default Ember.Component.extend({
     'clipboardTarget:data-clipboard-target',
     'clipboardAction:data-clipboard-action',
     'buttonType:type',
-    'disabled'
+    'disabled',
+    'title'
   ],
 
   /**

@@ -35,6 +35,7 @@
             clipboardText="ember install ember-cli-clipboard"
             success=(action "copyDirectSuccess")
             error=(action "copyDirectError")
+            title='copy to clipboard'
           }}
             {{fa-icon "copy" size=2}}
           {{/copy-button}}
@@ -45,6 +46,7 @@
   clipboardText="ember install ember-cli-clipboard"
   success=(action "onSuccess")
   error=(action "onError")
+  title='copy to clipboard'
 }}
   &lt;i class="copy"&gt;&lt;/i&gt;
 \{{/copy-button}}
