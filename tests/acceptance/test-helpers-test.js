@@ -4,12 +4,15 @@ import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
 moduleForAcceptance('Acceptance | test helpers');
 
 test('test-helpers', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
 
   visit('/');
   andThen(() => {
     assert.notOk(!!find('.alert').length,
       'no alert message is initially present');
+
+    assert.ok(find('.if-supported .container-body').text().match(/Clipboard is( not)? supported/),
+      'whether clipboard is supported is shown');
   });
 
   triggerCopySuccess();
