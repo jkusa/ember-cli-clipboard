@@ -31,15 +31,13 @@
       <div class="container-body">
         <div class="install-wrapper">
           <code class="install-cmd">ember install ember-cli-clipboard</code>
-          {{#if (is-clipboard-supported)}}
-            {{#copy-button
-              clipboardText="ember install ember-cli-clipboard"
-              success=(action "copyDirectSuccess")
-              error=(action "copyDirectError")
-            }}
-              {{fa-icon "copy" size=2}}
-            {{/copy-button}}
-          {{/if}}
+          {{#copy-button
+            clipboardText="ember install ember-cli-clipboard"
+            success=(action "copyDirectSuccess")
+            error=(action "copyDirectError")
+          }}
+            {{fa-icon "copy" size=2}}
+          {{/copy-button}}
         </div>
       </div>
       {{#code-block}}
@@ -126,6 +124,28 @@
 }}
   Cut Text
 \{{/copy-button}}
+      {{/code-block}}
+    </div>
+  </section>
+
+  <section>
+    <div class="container if-supported">
+      <p class="container-header">
+        Check If Clipboard Is Supported
+      </p>
+      <div class="container-body">
+        {{#if (is-clipboard-supported)}}
+          Clipboard is supported
+        {{else}}
+          Clipboard is not supported
+        {{/if}}
+      </div>
+      {{#code-block}}
+\{{#if (is-clipboard-supported)}}
+  Clipboard is supported
+\{{else}}
+  Clipboard is not supported
+\{{/if}}
       {{/code-block}}
     </div>
   </section>
