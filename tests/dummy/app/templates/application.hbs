@@ -129,6 +129,28 @@
       {{/code-block}}
     </div>
   </section>
+
+  <section>
+    <div class="container if-supported">
+      <p class="container-header">
+        Check If Clipboard Is Supported
+      </p>
+      <div class="container-body">
+        {{#if (is-clipboard-supported)}}
+          Clipboard is supported
+        {{else}}
+          Clipboard is not supported
+        {{/if}}
+      </div>
+      {{#code-block}}
+\{{#if (is-clipboard-supported)}}
+  Clipboard is supported
+\{{else}}
+  Clipboard is not supported
+\{{/if}}
+      {{/code-block}}
+    </div>
+  </section>
 </main>
 
 <footer>
