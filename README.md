@@ -37,6 +37,7 @@ http://jkusa.github.io/ember-cli-clipboard
 * `clipboardText` - string value to be copied
 * `clipboardTarget` - selector string of element from which to copy text
 * `clipboardAction` - string value of operation: `copy` or `cut` (default is copy)
+* `title` - string value of the button's [title attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title)
 
 ### Actions
 
@@ -47,11 +48,23 @@ The following clipboard.js custom events are sent as actions
 
 More information about the clipboard.js events can be found [here](https://github.com/zenorocha/clipboard.js/#events)
 
-### Test Helpers
+## Template Helper
+
+The helper `is-clipboard-supported` can be used to check if [clipboard.js](http://zenorocha.github.io/clipboard.js/) is supported or not. 
+
+```hbs
+{{#if (is-clipboard-supported)}}
+  {{#copy-button clipboardTarget="#url"}}  
+    Click To Copy
+  {{/copy-button}}
+{{/if}}
+```
+
+## Test Helpers
 
 Some browsers do not allow simulated clicks to fire `execCommand('copy')`. This makes testing difficult. To assist with integration testing, the following test helpers are available to test the wiring of the `success` and `error` action handlers.
 
-#### Integration Test Helpers
+### Integration Test Helpers
 
 * `triggerSuccess(context, selector='.copy-btn')`
 * `triggerError(context, selector='.copy-btn')`
@@ -98,7 +111,7 @@ test('copy-button integration', function(assert) {
 
 ```
 
-#### Acceptance Test Helpers
+### Acceptance Test Helpers
 
 * `triggerCopySuccess(selector='.copy-btn')`
 * `triggerCopyError(selector='.copy-btn')`
@@ -152,7 +165,7 @@ test('copy button message', function(assert) {
 });
 ```
 
-### Browser Support
+## Browser Support
 
 For browser support information, checkout the [clipboard.js](http://zenorocha.github.io/clipboard.js/) documentation:
 
