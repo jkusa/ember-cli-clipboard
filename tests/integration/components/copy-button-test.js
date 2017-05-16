@@ -124,7 +124,7 @@ test('button is not disabled by default', function(assert) {
 });
 
 test('attributeBindings', function(assert) {
-  assert.expect(5);
+  assert.expect(6);
 
   this.render(hbs`
     {{#copy-button
@@ -132,6 +132,7 @@ test('attributeBindings', function(assert) {
       clipboardAction='cut'
       clipboardTarget='.foo'
       disabled=true
+      title='text'
     }}
       Click To Copy
     {{/copy-button}}
@@ -158,4 +159,8 @@ test('attributeBindings', function(assert) {
   assert.equal(btn.attr('disabled'),
     'disabled',
   'disabled correctly bound to type');
+
+  assert.equal(btn.attr('title'),
+    'text',
+  'text correctly bound to title');
 });
