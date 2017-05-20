@@ -38,6 +38,9 @@ http://jkusa.github.io/ember-cli-clipboard
 * `clipboardTarget` - selector string of element from which to copy text
 * `clipboardAction` - string value of operation: `copy` or `cut` (default is copy)
 * `title` - string value of the button's [title attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title)
+* `buttonType` - string value of the button's [type attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Attributes)
+* `disabled` - boolean value of the button's [disabled attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Attributes)
+* `aria-label` - string value of the button's [aria-label attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute)
 
 ### Actions
 
