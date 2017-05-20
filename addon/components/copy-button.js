@@ -14,6 +14,7 @@ export default Ember.Component.extend({
     'clipboardAction:data-clipboard-action',
     'buttonType:type',
     'disabled',
+    'aria-label',
     'title'
   ],
 
