@@ -79,14 +79,14 @@ test('error action fires', function(assert) {
 test('component lazyily computes', function(assert) { 
   assert.expect(1);
   
-  let obj = Ember.Object.create({
+  let obj = Ember.Object.extend({
     hasBeenCalled: false,
     
     value: Ember.computed(function(){
       this.set('hasBeenCalled', true);
       return 42;
     })
-  });
+  }).create();
     
   this.set('obj', obj);
     
