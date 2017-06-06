@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 import {
   triggerError,
@@ -74,6 +75,29 @@ test('error action fires', function(assert) {
   this.$('button').click();
 });
 
+
+test('component lazyily computes', function(assert) { 
+  assert.expect(1);
+  
+  let obj = Ember.Object.create({
+    hasBeenCalled: false,
+    
+    value: Ember.computed(function(){
+      this.set('hasBeenCalled', true);
+      return 42;
+  });
+    
+  this.set('obj', obj);
+    
+  this.render(hbs`
+    {{#copy-button clipboardText=obj.value}}
+      Click To Copy
+    {{/copy-button}}
+  `);
+  
+  assert.notOk(obj.get('hasBeenCalled'), 'value not lazily bound');
+});
+
 test('test-helpers fire correct actions', function(assert) {
   assert.expect(2);
 
@@ -128,7 +152,6 @@ test('attributeBindings', function(assert) {
 
   this.render(hbs`
     {{#copy-button
-      clipboardText='text'
       clipboardAction='cut'
       clipboardTarget='.foo'
       disabled=true
@@ -140,10 +163,6 @@ test('attributeBindings', function(assert) {
   `);
 
   let btn = this.$('.copy-btn');
-
-  assert.equal(btn.attr('data-clipboard-text'),
-    'text',
-  'clipboardText correctly bound to data-clipboard-text');
 
   assert.equal(btn.attr('data-clipboard-target'),
     '.foo',
