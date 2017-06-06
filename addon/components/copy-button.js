@@ -9,7 +9,6 @@ export default Ember.Component.extend({
   tagName: 'button',
   classNames: ['copy-btn'],
   attributeBindings: [
-    'clipboardText:data-clipboard-text',
     'clipboardTarget:data-clipboard-target',
     'clipboardAction:data-clipboard-action',
     'buttonType:type',
@@ -34,7 +33,12 @@ export default Ember.Component.extend({
   disabled: false,
 
   didInsertElement() {
-    let clipboard = new Clipboard(`#${this.get('elementId')}`);
+    let clipboard = new Clipboard(
+      `#${this.get('elementId')}`,
+      {
+        text: () => this.get('clipboardText')
+      }
+    );
     set(this, 'clipboard', clipboard);
 
     get(this, 'clipboardEvents').forEach(action => {
