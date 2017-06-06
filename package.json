@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "broccoli-funnel": "^1.1.0",
-    "clipboard": "^1.6.0",
+    "clipboard": "~1.7.0",
     "ember-cli-babel": "^5.1.7",
     "ember-cli-htmlbars": "^1.1.1"
   },
