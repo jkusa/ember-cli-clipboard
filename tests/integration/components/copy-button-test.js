@@ -85,6 +85,7 @@ test('component lazyily computes', function(assert) {
     value: Ember.computed(function(){
       this.set('hasBeenCalled', true);
       return 42;
+    })
   });
     
   this.set('obj', obj);
