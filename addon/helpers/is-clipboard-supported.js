@@ -1,5 +1,4 @@
 import Ember from 'ember';
-/* global Clipboard */
 
-export const isClipboardSupported = Clipboard.isSupported;
+export const isClipboardSupported = window.Clipboard ? window.Clipboard.isSupported: () => false;
 export default Ember.Helper.helper(isClipboardSupported);

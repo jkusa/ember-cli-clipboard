@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import layout from '../templates/components/copy-button';
-/* global Clipboard */
 
 const { get, run, set } = Ember;
 
@@ -34,7 +33,7 @@ export default Ember.Component.extend({
   disabled: false,
 
   didInsertElement() {
-    let clipboard = new Clipboard(`#${this.get('elementId')}`);
+    let clipboard = new window.Clipboard(`#${this.get('elementId')}`);
     set(this, 'clipboard', clipboard);
 
     get(this, 'clipboardEvents').forEach(action => {
