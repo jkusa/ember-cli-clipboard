@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { helper } from '@ember/component/helper';
 
 export const isClipboardSupported = window && window.Clipboard ? window.Clipboard.isSupported : () => false;
-export default Ember.Helper.helper(isClipboardSupported);
+export default helper(isClipboardSupported);

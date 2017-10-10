@@ -1,7 +1,5 @@
+import { run } from '@ember/runloop';
 import Test from 'ember-test';
-import Ember from 'ember';
-
-const { run } = Ember;
 
 /* === Integration Test Helpers === */
 

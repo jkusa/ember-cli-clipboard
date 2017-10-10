@@ -1,9 +1,10 @@
+import Component from '@ember/component';
+import { run } from '@ember/runloop';
+import { set, get } from '@ember/object';
 import Ember from 'ember';
 import layout from '../templates/components/copy-button';
 
-const { get, run, set } = Ember;
-
-export default Ember.Component.extend({
+export default Component.extend({
   layout: layout,
   tagName: 'button',
   classNames: ['copy-btn'],
