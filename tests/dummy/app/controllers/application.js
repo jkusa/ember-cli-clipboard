@@ -1,8 +1,7 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { get } from '@ember/object';
 
-const { get } = Ember;
-
-export default Ember.Controller.extend({
+export default Controller.extend({
   sendSuccessMessage(options) {
     let action = options.action || 'copied';
     get(this, 'flashMessages').success(`Success! Text ${action} to clipboard.`, options);
