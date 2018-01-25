@@ -134,15 +134,16 @@ pre {
 
 .copy-direct .copy-btn {
   position: relative;
-  margin-left: 45px;
-  top: 1px;
   background-color: transparent;
   border: none;
 }
 
 .container-body .install-wrapper {
-  padding: 2px 7px;
+  align-items: center;
   border: 1px solid #CCCCCC;
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 7px;
 }
 
 .install-wrapper, input, textarea {
