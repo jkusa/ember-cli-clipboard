@@ -37,6 +37,7 @@ http://jkusa.github.io/ember-cli-clipboard
 * `clipboardText` - string value to be copied
 * `clipboardTarget` - selector string of element from which to copy text
 * `clipboardAction` - string value of operation: `copy` or `cut` (default is copy)
+* `useClipboardNode` - boolean to scope element listener to copy-button component (default false)
 * `title` - string value of the button's [title attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title)
 * `buttonType` - string value of the button's [type attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Attributes)
 * `disabled` - boolean value of the button's [disabled attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Attributes)

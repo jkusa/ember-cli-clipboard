@@ -33,8 +33,20 @@ export default Component.extend({
    */
   disabled: false,
 
+  /**
+   * If true - scope event listener to this element
+   * If false - scope event listener to document.body (clipboardjs)
+   * @property {Boolean} useClipboardNode
+   */
+  useClipboardNode: false,
+
   didInsertElement() {
-    let clipboard = new window.ClipboardJS(`#${this.get('elementId')}`);
+    let clipboard;
+    if (get(this, 'useClipboardNode')) {
+      clipboard = new window.Clipboard(this.element);
+    } else {
+      clipboard = new window.Clipboard(`#${this.get('elementId')}`);
+    }
     set(this, 'clipboard', clipboard);
 
     get(this, 'clipboardEvents').forEach(action => {
