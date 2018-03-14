@@ -30,7 +30,7 @@ test('component renders and cleans up', function(assert) {
   assert.notOk(!!this.$('.copy-btn').length, 'Component cleaned up');
 });
 
-test('component renders and cleans up with useClipboardNode', function(assert) {
+test('component renders and cleans up with delegateClickEvent: false', function(assert) {
   assert.expect(2);
 
   this.set('enabled', true);
@@ -38,7 +38,7 @@ test('component renders and cleans up with useClipboardNode', function(assert) {
     {{#if enabled}}
       {{#copy-button
         clipboardText='text'
-        useClipboardNode=true
+        delegateClickEvent=false
       }}
         Click To Copy
       {{/copy-button}}
@@ -95,7 +95,7 @@ test('error action fires', function(assert) {
   this.$('button').click();
 });
 
-test('error action fires with useClipboardNode', function(assert) {
+test('error action fires with delegateClickEvent: false', function(assert) {
   assert.expect(1);
 
   this.on('error', () => {
@@ -105,7 +105,7 @@ test('error action fires with useClipboardNode', function(assert) {
   this.render(hbs`
     {{#copy-button
       clipboardText='text'
-      useClipboardNode=true
+      delegateClickEvent=false
       success='success'
       error='error'
     }}
@@ -135,42 +135,6 @@ test('test-helpers fire correct actions', function(assert) {
     {{#copy-button
       classNames='my-copy-btn'
       clipboardText='text'
-      success='success'
-      error=(action error)
-    }}
-      Click To Copy
-    {{/copy-button}}
-  `);
-
-  triggerError(this, '.my-copy-btn');
-
-  this.set('error', () => {
-    assert.notOk(true, 'error action incorrectly fired');
-  });
-
-  this.on('success', () => {
-    assert.ok(true, 'triggerSuccess correctly fired `success` action for selector');
-  });
-
-  triggerSuccess(this);
-});
-
-test('test-helpers fire correct actions with useClipboardNode', function(assert) {
-  assert.expect(2);
-
-  this.on('success', () => {
-    assert.notOk(true, 'success action incorrectly fired');
-  });
-
-  this.set('error', () => {
-    assert.ok(true, 'triggerError correctly fired `error` action for selector');
-  });
-
-  this.render(hbs`
-    {{#copy-button
-      classNames='my-copy-btn'
-      clipboardText='text'
-      useClipboardNode=true
       success='success'
       error=(action error)
     }}

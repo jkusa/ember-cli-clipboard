@@ -36,16 +36,16 @@ export default Component.extend({
   /**
    * If true - scope event listener to this element
    * If false - scope event listener to document.body (clipboardjs)
-   * @property {Boolean} useClipboardNode
+   * @property {Boolean} delegateClickEvent
    */
-  useClipboardNode: false,
+  delegateClickEvent: true,
 
   didInsertElement() {
     let clipboard;
-    if (get(this, 'useClipboardNode')) {
-      clipboard = new window.Clipboard(this.element);
+    if (!get(this, 'delegateClickEvent')) {
+      clipboard = new window.ClipboardJS(this.element);
     } else {
-      clipboard = new window.Clipboard(`#${this.get('elementId')}`);
+      clipboard = new window.ClipboardJS(`#${this.get('elementId')}`);
     }
     set(this, 'clipboard', clipboard);
 
