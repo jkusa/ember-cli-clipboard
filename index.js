@@ -7,7 +7,7 @@ var fastbootTransform = require('fastboot-transform');
 module.exports = {
   name: 'ember-cli-clipboard',
 
-  treeForVendor: function() {
+  treeForVendor() {
     var Funnel = require('broccoli-funnel');
     var clipboardPath = path.join(path.dirname(require.resolve('clipboard')), '..');
 
@@ -16,9 +16,9 @@ module.exports = {
     }));
   },
 
-  included: function included(app) {
+  included() {
     this._super.included.apply(this, arguments);
 
-    app.import('vendor/clipboard/dist/clipboard.js');
+    this.import('vendor/clipboard/dist/clipboard.js');
   }
 };
