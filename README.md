@@ -53,11 +53,11 @@ More information about the clipboard.js events can be found [here](https://githu
 
 ## Template Helper
 
-The helper `is-clipboard-supported` can be used to check if [clipboard.js](http://zenorocha.github.io/clipboard.js/) is supported or not. 
+The helper `is-clipboard-supported` can be used to check if [clipboard.js](http://zenorocha.github.io/clipboard.js/) is supported or not.
 
 ```hbs
 {{#if (is-clipboard-supported)}}
-  {{#copy-button clipboardTarget="#url"}}  
+  {{#copy-button clipboardTarget="#url"}}
     Click To Copy
   {{/copy-button}}
 {{/if}}
@@ -188,7 +188,7 @@ https://github.com/zenorocha/clipboard.js/#browser-support
 ## Running Tests
 
 * `ember test`
-* `ember test --server`
+* `ember test --serve`
 
 ## Building
 

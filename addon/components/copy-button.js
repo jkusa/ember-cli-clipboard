@@ -34,7 +34,7 @@ export default Component.extend({
   disabled: false,
 
   didInsertElement() {
-    let clipboard = new window.Clipboard(`#${this.get('elementId')}`);
+    let clipboard = new window.ClipboardJS(`#${this.get('elementId')}`);
     set(this, 'clipboard', clipboard);
 
     get(this, 'clipboardEvents').forEach(action => {
