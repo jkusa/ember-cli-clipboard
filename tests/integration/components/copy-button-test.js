@@ -95,6 +95,38 @@ test('error action fires', function(assert) {
   this.$('button').click();
 });
 
+test('click scoped to document.body', function(assert) {
+  assert.expect(2);
+
+  this.on('error', () => {
+    assert.ok(true, 'error action successfully called');
+  });
+
+  this.render(hbs`
+    <div class="bubble-me">
+      {{#copy-button
+        clipboardText='text'
+        success='success'
+        error='error'
+      }}
+        Click To Copy
+      {{/copy-button}}
+    </div>
+  `);
+
+  this.bubbleMe = () => assert.ok(true, 'bubbleMe was called');
+  let bubbleMe = document.querySelector('.bubble-me');
+  bubbleMe.addEventListener('click', this.bubbleMe, false);
+
+  /*
+   * Can only directly test error case here b/c browsers do not allow simulated
+   * clicks for `execCommand('copy')`. See test-helpers to test action integration.
+   */
+  this.$('button').click();
+
+  document.body.removeEventListener('click', this.bubbleMe, false);
+});
+
 test('error action fires with delegateClickEvent: false', function(assert) {
   assert.expect(1);
 
