@@ -95,38 +95,6 @@ test('error action fires', function(assert) {
   this.$('button').click();
 });
 
-test('click scoped to document.body', function(assert) {
-  assert.expect(2);
-
-  this.on('error', () => {
-    assert.ok(true, 'error action successfully called');
-  });
-
-  this.render(hbs`
-    <div class="bubble-me">
-      {{#copy-button
-        clipboardText='text'
-        success='success'
-        error='error'
-      }}
-        Click To Copy
-      {{/copy-button}}
-    </div>
-  `);
-
-  this.bubbleMe = () => assert.ok(true, 'bubbleMe was called');
-  let bubbleMe = document.querySelector('.bubble-me');
-  bubbleMe.addEventListener('click', this.bubbleMe, false);
-
-  /*
-   * Can only directly test error case here b/c browsers do not allow simulated
-   * clicks for `execCommand('copy')`. See test-helpers to test action integration.
-   */
-  this.$('button').click();
-
-  document.body.removeEventListener('click', this.bubbleMe, false);
-});
-
 test('error action fires with delegateClickEvent: false', function(assert) {
   assert.expect(1);
 
@@ -150,6 +118,67 @@ test('error action fires with delegateClickEvent: false', function(assert) {
    * clicks for `execCommand('copy')`. See test-helpers to test action integration.
    */
   this.$('button').click();
+});
+
+test('click scoped to document.body', function(assert) {
+  assert.expect(1);
+
+  this.on('error', () => {
+    assert.ok(true, 'error action successfully called');
+  });
+
+  this.render(hbs`
+    {{#copy-button
+      class="copy-button"
+      clipboardText='text'
+      success='success'
+      error='error'
+    }}
+      Click To Copy
+    {{/copy-button}}
+  `);
+
+  // even though remove node, document.body is still listening
+  let el = document.querySelector('.copy-button');
+  let clone = el.cloneNode(true);
+  el.parentNode.replaceChild(clone, el);
+
+  /*
+   * Can only directly test error case here b/c browsers do not allow simulated
+   * clicks for `execCommand('copy')`. See test-helpers to test action integration.
+   */
+  document.querySelector('.copy-button').click();
+});
+
+test('click scoped to element', function(assert) {
+  assert.expect(0);
+
+  this.on('error', () => {
+    assert.ok(false, 'listener should be removed');
+  });
+
+  this.render(hbs`
+    {{#copy-button
+      class="copy-button"
+      clipboardText='text'
+      delegateClickEvent=false
+      success='success'
+      error='error'
+    }}
+      Click To Copy
+    {{/copy-button}}
+  `);
+
+  // remove button and no assertions will be run
+  let el = document.querySelector('.copy-button');
+  let clone = el.cloneNode(true);
+  el.parentNode.replaceChild(clone, el);
+
+  /*
+   * Can only directly test error case here b/c browsers do not allow simulated
+   * clicks for `execCommand('copy')`. See test-helpers to test action integration.
+   */
+  document.querySelector('.copy-button').click();
 });
 
 test('test-helpers fire correct actions', function(assert) {
