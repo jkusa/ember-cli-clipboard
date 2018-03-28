@@ -37,6 +37,7 @@ http://jkusa.github.io/ember-cli-clipboard
 * `clipboardText` - string value to be copied
 * `clipboardTarget` - selector string of element from which to copy text
 * `clipboardAction` - string value of operation: `copy` or `cut` (default is copy)
+* `delegateClickEvent` - clipboard.js defaults event listeners to the body in order to reduce memory footprint if there are hundreds of event listeners on a page. If you want to scope the event listener to the copy button, set this property to `false`
 * `title` - string value of the button's [title attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title)
 * `buttonType` - string value of the button's [type attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Attributes)
 * `disabled` - boolean value of the button's [disabled attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Attributes)
