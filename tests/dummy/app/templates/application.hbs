@@ -10,7 +10,8 @@
 
   <div class="gh-link">
     <a href="https://github.com/jkusa/ember-cli-clipboard">
-      <span> View On Github</span>
+      <img class='gh-icon' src='github.svg'>
+      <span>View On Github</span>
     </a>
   </div>
 </header>
@@ -37,7 +38,7 @@
             error=(action "copyDirectError")
             title='copy to clipboard'
           }}
-            {{fa-icon "copy" size=2}}
+            <img class='copy-icon' src='clippy.svg'>
           {{/copy-button}}
         </div>
       </div>
