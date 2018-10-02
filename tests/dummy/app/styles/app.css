@@ -65,15 +65,17 @@ pre {
   color: #FFFDFD;
 }
 
+.gh-link a:hover .gh-icon {
+  filter: invert(100%);
+}
+
 .gh-link span {
   display: inline-block;
   font-size: inherit;
 }
 
-.gh-link span:before {
-  font: normal normal normal 14px/1 FontAwesome;
-  content: "\f09b";
-  font-size: 26px;
+.gh-link .gh-icon {
+  height: 22px;
   vertical-align: sub;
 }
 
@@ -163,19 +165,6 @@ pre {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-}
-
-.fa-copy {
-  padding: 4px;
-  font-size: 18px;
-  border: 1px solid transparent;
-}
-
-.fa-copy:hover {
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  background-color: #f8f8f8;
 }
 
 .alert {

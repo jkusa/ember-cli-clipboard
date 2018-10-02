@@ -1,7 +1,6 @@
 {
   "name": "ember-cli-clipboard",
   "dependencies": {
-    "font-awesome": "~4.4.0",
     "highlightjs": "8.8.0"
   }
 }

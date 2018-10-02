@@ -22,7 +22,6 @@
     "ember-cli-eslint": "^4.0.0",
     "ember-cli-fastboot": "^1.0.5",
     "ember-cli-flash": "^1.4.2",
-    "ember-cli-font-awesome": "0.1.1",
     "ember-cli-github-pages": "0.1.2",
     "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-htmlbars-inline-precompile": "^1.0.0",
