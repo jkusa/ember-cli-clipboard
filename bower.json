@@ -1,6 +1,0 @@
-{
-  "name": "ember-cli-clipboard",
-  "dependencies": {
-    "highlightjs": "8.8.0"
-  }
-}
