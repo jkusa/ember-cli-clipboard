@@ -17,6 +17,7 @@
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^3.0.0",
+    "ember-auto-import": "^1.2.12",
     "ember-cli": "^2.16.0",
     "ember-cli-dependency-checker": "^2.0.0",
     "ember-cli-eslint": "^4.0.0",
@@ -35,6 +36,7 @@
     "ember-load-initializers": "^1.0.0",
     "ember-resolver": "^4.0.0",
     "ember-source": "~2.16.0",
+    "highlight.js": "^9.12.0",
     "loader.js": "^4.2.3"
   },
   "dependencies": {
@@ -42,8 +44,7 @@
     "clipboard": "^2.0.0",
     "ember-cli-babel": "^6.8.0",
     "ember-cli-htmlbars": "^2.0.2",
-    "fastboot-transform": "0.1.1",
-    "highlightjs": "^9.10.0"
+    "fastboot-transform": "0.1.1"
   },
   "keywords": [
     "ember-addon",
