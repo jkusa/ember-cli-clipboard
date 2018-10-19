@@ -78,7 +78,14 @@ function fireComponentAction(context, selector, actionName) {
  * @returns {Object} component object
  */
 function getComponentBySelector(context, selector='.copy-btn') {
-  let emberId = context.$(selector).attr('id');
+  let emberId;
+
+  if(context.$){
+    emberId = context.$(selector).attr('id');
+  } else {
+    emberId = context.element.querySelector(selector).id
+  }
+
   return (context.container || context.owner).lookup('-view-registry:main')[emberId];
 }
 
