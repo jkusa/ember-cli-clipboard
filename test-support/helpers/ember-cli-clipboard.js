@@ -79,7 +79,7 @@ function fireComponentAction(context, selector, actionName) {
  */
 function getComponentBySelector(context, selector='.copy-btn') {
   let emberId = context.$(selector).attr('id');
-  return context.container.lookup('-view-registry:main')[emberId];
+  return (context.container || context.owner).lookup('-view-registry:main')[emberId];
 }
 
 /**
