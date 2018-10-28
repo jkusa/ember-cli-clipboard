@@ -1,8 +1,9 @@
 import Component from '@ember/component';
-import { run } from '@ember/runloop';
-import { set, get } from '@ember/object';
+import { set } from '@ember/object';
 import Ember from 'ember';
 import layout from '../templates/components/copy-button';
+
+const CLIPBOARD_EVENTS = ['success', 'error'];
 
 export default Component.extend({
   layout: layout,
@@ -17,11 +18,6 @@ export default Component.extend({
     'aria-label',
     'title'
   ],
-
-  /**
-   * @property {Array} clipboardEvents - events supported by clipboard.js
-   */
-  clipboardEvents: ['success', 'error'],
 
   /**
    * @property {String} buttonType - type attribute for button element
@@ -42,28 +38,29 @@ export default Component.extend({
 
   didInsertElement() {
     let clipboard;
-    if (!get(this, 'delegateClickEvent')) {
+    if (!this.delegateClickEvent) {
       clipboard = new window.ClipboardJS(this.element);
     } else {
       clipboard = new window.ClipboardJS(`#${this.get('elementId')}`);
     }
     set(this, 'clipboard', clipboard);
 
-    get(this, 'clipboardEvents').forEach(action => {
-      clipboard.on(action, run.bind(this, e => {
+    CLIPBOARD_EVENTS.forEach(event => {
+      clipboard.on(event,  () => {
         try {
-          if (!this.get('disabled')) {
-            this.sendAction(action, e);
+          if (!this.disabled) {
+            const action = this[event] || (() => null);
+            action(...arguments);
           }
         }
         catch(error) {
           Ember.Logger.debug(error.message);
         }
-      }));
+      });
     });
   },
 
   willDestroyElement() {
-    get(this, 'clipboard').destroy();
+    this.clipboard.destroy();
   }
 });

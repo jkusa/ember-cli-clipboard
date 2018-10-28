@@ -1,278 +1,267 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render, find, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 import {
-  triggerError,
-  triggerSuccess
-} from '../../helpers/ember-cli-clipboard';
+  triggerCopyError,
+  triggerCopySuccess
+} from 'ember-cli-clipboard/test-support';
 
-moduleForComponent('copy-button', 'Integration | Component | copy button', {
-  integration: true
-});
+module('Integration | Component | copy button', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('component renders and cleans up', function(assert) {
-  assert.expect(2);
+  hooks.beforeEach(function() {
+    this.actions = {};
+    this.send = (actionName, ...args) => this.actions[actionName].apply(this, args);
+  });
 
-  this.set('enabled', true);
-  this.render(hbs`
-    {{#if enabled}}
+  test('component renders and cleans up', async function(assert) {
+    assert.expect(2);
+
+    this.set('enabled', true);
+    await render(hbs`
+      {{#if enabled}}
+        {{#copy-button
+          clipboardText='text'
+        }}
+          Click To Copy
+        {{/copy-button}}
+      {{/if}}
+    `);
+
+    assert.ok(find('.copy-btn'), 'Component rendered');
+
+    this.set('enabled', false);
+    assert.notOk(find('.copy-btn'), 'Component cleaned up');
+  });
+
+  test('component renders and cleans up with delegateClickEvent: false', async function(assert) {
+    assert.expect(2);
+
+    this.set('enabled', true);
+    await render(hbs`
+      {{#if enabled}}
+        {{#copy-button
+          clipboardText='text'
+          delegateClickEvent=false
+        }}
+          Click To Copy
+        {{/copy-button}}
+      {{/if}}
+    `);
+
+    assert.ok(find('.copy-btn'), 'Component rendered');
+
+    this.set('enabled', false);
+    assert.notOk(find('.copy-btn'), 'Component cleaned up');
+  });
+
+  test('components renders text', async function(assert) {
+    assert.expect(2);
+
+    await render(hbs`{{copy-button}}`);
+
+    assert.dom('*').hasText('', 'Component renders no text without block');
+
+    await render(hbs`
+      {{#copy-button}}
+        Click To Copy
+      {{/copy-button}}
+    `);
+
+    assert.dom('*').hasText('Click To Copy', 'Component yields text with block');
+  });
+
+  test('error action fires', async function(assert) {
+    assert.expect(1);
+
+    this.set('error', () => {
+      assert.ok(true, 'error action successfully called');
+    });
+
+    await render(hbs`
       {{#copy-button
         clipboardText='text'
+        error=error
       }}
         Click To Copy
       {{/copy-button}}
-    {{/if}}
-  `);
+    `);
 
-  assert.ok(!!this.$('.copy-btn').length, 'Component rendered');
+    /*
+     * Can only directly test error case here b/c browsers do not allow simulated
+     * clicks for `execCommand('copy')`. See test-helpers to test action integration.
+     */
+    await click('button');
+  });
 
-  this.set('enabled', false);
-  assert.notOk(!!this.$('.copy-btn').length, 'Component cleaned up');
-});
+  test('error action fires with delegateClickEvent: false', async function(assert) {
+    assert.expect(1);
 
-test('component renders and cleans up with delegateClickEvent: false', function(assert) {
-  assert.expect(2);
+    this.actions.error = () => {
+      assert.ok(true, 'error action successfully called');
+    };
 
-  this.set('enabled', true);
-  this.render(hbs`
-    {{#if enabled}}
+    await render(hbs`
       {{#copy-button
         clipboardText='text'
         delegateClickEvent=false
+        error=(action 'error')
       }}
         Click To Copy
       {{/copy-button}}
-    {{/if}}
-  `);
+    `);
 
-  assert.ok(!!this.$('.copy-btn').length, 'Component rendered');
-
-  this.set('enabled', false);
-  assert.notOk(!!this.$('.copy-btn').length, 'Component cleaned up');
-});
-
-test('components renders text', function(assert) {
-  assert.expect(2);
-
-  this.render(hbs`{{copy-button}}`);
-
-  assert.equal(this.$().text().trim(),
-    '',
-  'Component renders no text without block');
-
-  this.render(hbs`
-    {{#copy-button}}
-      Click To Copy
-    {{/copy-button}}
-  `);
-
-  assert.equal(this.$().text().trim(),
-    'Click To Copy',
-  'Component yields text with block');
-});
-
-test('error action fires', function(assert) {
-  assert.expect(1);
-
-  this.on('error', () => {
-    assert.ok(true, 'error action successfully called');
+    /*
+     * Can only directly test error case here b/c browsers do not allow simulated
+     * clicks for `execCommand('copy')`. See test-helpers to test action integration.
+     */
+    await click('button');
   });
 
-  this.render(hbs`
-    {{#copy-button
-      clipboardText='text'
-      success='success'
-      error='error'
-    }}
-      Click To Copy
-    {{/copy-button}}
-  `);
+  test('click scoped to document.body', async function(assert) {
+    assert.expect(1);
 
-  /*
-   * Can only directly test error case here b/c browsers do not allow simulated
-   * clicks for `execCommand('copy')`. See test-helpers to test action integration.
-   */
-  this.$('button').click();
-});
+    this.actions.error = () => {
+      assert.ok(true, 'error action successfully called');
+    };
 
-test('error action fires with delegateClickEvent: false', function(assert) {
-  assert.expect(1);
+    await render(hbs`
+      {{#copy-button
+        class="copy-button"
+        clipboardText='text'
+        error=(action 'error')
+      }}
+        Click To Copy
+      {{/copy-button}}
+    `);
 
-  this.on('error', () => {
-    assert.ok(true, 'error action successfully called');
+    // even though remove node, document.body is still listening
+    let el = document.querySelector('.copy-button');
+    let clone = el.cloneNode(true);
+    el.parentNode.replaceChild(clone, el);
+
+    /*
+     * Can only directly test error case here b/c browsers do not allow simulated
+     * clicks for `execCommand('copy')`. See test-helpers to test action integration.
+     */
+    document.querySelector('.copy-button').click();
   });
 
-  this.render(hbs`
-    {{#copy-button
-      clipboardText='text'
-      delegateClickEvent=false
-      success='success'
-      error='error'
-    }}
-      Click To Copy
-    {{/copy-button}}
-  `);
+  test('click scoped to element', async function(assert) {
+    assert.expect(0);
 
-  /*
-   * Can only directly test error case here b/c browsers do not allow simulated
-   * clicks for `execCommand('copy')`. See test-helpers to test action integration.
-   */
-  this.$('button').click();
-});
+    this.actions.error = () => {
+      assert.ok(false, 'listener should be removed');
+    };
 
-test('click scoped to document.body', function(assert) {
-  assert.expect(1);
+    await render(hbs`
+      {{#copy-button
+        class="copy-button"
+        clipboardText='text'
+        delegateClickEvent=false
+        success='success'
+        error='error'
+      }}
+        Click To Copy
+      {{/copy-button}}
+    `);
 
-  this.on('error', () => {
-    assert.ok(true, 'error action successfully called');
+    // remove button and no assertions will be run
+    let el = document.querySelector('.copy-button');
+    let clone = el.cloneNode(true);
+    el.parentNode.replaceChild(clone, el);
+
+    /*
+     * Can only directly test error case here b/c browsers do not allow simulated
+     * clicks for `execCommand('copy')`. See test-helpers to test action integration.
+     */
+    document.querySelector('.copy-button').click();
   });
 
-  this.render(hbs`
-    {{#copy-button
-      class="copy-button"
-      clipboardText='text'
-      success='success'
-      error='error'
-    }}
-      Click To Copy
-    {{/copy-button}}
-  `);
+  test('test-helpers fire correct actions', async function(assert) {
+    assert.expect(2);
 
-  // even though remove node, document.body is still listening
-  let el = document.querySelector('.copy-button');
-  let clone = el.cloneNode(true);
-  el.parentNode.replaceChild(clone, el);
+    this.setProperties({
+      success: () => assert.notOk(true, 'success action incorrectly fired'),
+      error: () => assert.ok(true, 'triggerError correctly fired `error` action for selector')
+    });
 
-  /*
-   * Can only directly test error case here b/c browsers do not allow simulated
-   * clicks for `execCommand('copy')`. See test-helpers to test action integration.
-   */
-  document.querySelector('.copy-button').click();
-});
+    this.actions.error = () => {
+    };
 
-test('click scoped to element', function(assert) {
-  assert.expect(0);
+    await render(hbs`
+      {{#copy-button
+        classNames='my-copy-btn'
+        clipboardText='text'
+        success=(action success)
+        error=(action error)
+      }}
+        Click To Copy
+      {{/copy-button}}
+    `);
 
-  this.on('error', () => {
-    assert.ok(false, 'listener should be removed');
+    triggerCopyError('.my-copy-btn');
+
+    this.setProperties({
+      error: () => assert.notOk(true, 'error action incorrectly fired'),
+      success: () => assert.ok(true, 'triggerSuccess correctly fired `success` action for selector')
+    });
+
+    triggerCopySuccess();
   });
 
-  this.render(hbs`
-    {{#copy-button
-      class="copy-button"
-      clipboardText='text'
-      delegateClickEvent=false
-      success='success'
-      error='error'
-    }}
-      Click To Copy
-    {{/copy-button}}
-  `);
+  test('button is not disabled by default', async function(assert) {
+    assert.expect(1);
 
-  // remove button and no assertions will be run
-  let el = document.querySelector('.copy-button');
-  let clone = el.cloneNode(true);
-  el.parentNode.replaceChild(clone, el);
+    await render(hbs`
+      {{#copy-button}}
+        Click To Copy
+      {{/copy-button}}
+    `);
 
-  /*
-   * Can only directly test error case here b/c browsers do not allow simulated
-   * clicks for `execCommand('copy')`. See test-helpers to test action integration.
-   */
-  document.querySelector('.copy-button').click();
-});
-
-test('test-helpers fire correct actions', function(assert) {
-  assert.expect(2);
-
-  this.on('success', () => {
-    assert.notOk(true, 'success action incorrectly fired');
+    assert.dom('.copy-btn').doesNotHaveAttribute('disabled',
+      'disabled correctly bound to type');
   });
 
-  this.set('error', () => {
-    assert.ok(true, 'triggerError correctly fired `error` action for selector');
+  test('attributeBindings', async function(assert) {
+    assert.expect(7);
+
+    await render(hbs`
+      {{#copy-button
+        clipboardText='text'
+        clipboardAction='cut'
+        clipboardTarget='.foo'
+        disabled=true
+        aria-label='foo bar'
+        title='text'
+      }}
+        Click To Copy
+      {{/copy-button}}
+    `);
+
+    const btn = '.copy-btn';
+
+    assert.dom(btn).hasAttribute('data-clipboard-text', 'text',
+    'clipboardText correctly bound to data-clipboard-text');
+
+    assert.dom(btn).hasAttribute('data-clipboard-target', '.foo',
+    'clipboardTarget correctly bound to data-clipboard-target');
+
+    assert.dom(btn).hasAttribute('data-clipboard-action', 'cut',
+    'clipboardAction correctly bound to data-clipboard-action');
+
+    assert.dom(btn).hasAttribute('type', 'button',
+    'buttonType correctly bound to type');
+
+    assert.dom(btn).hasAttribute('disabled', '',
+    'disabled correctly bound to type');
+
+    assert.dom(btn).hasAttribute('aria-label', 'foo bar',
+    'aria-label attribute correctly bound');
+
+    assert.dom(btn).hasAttribute('title', 'text',
+    'text correctly bound to title');
   });
-
-  this.render(hbs`
-    {{#copy-button
-      classNames='my-copy-btn'
-      clipboardText='text'
-      success='success'
-      error=(action error)
-    }}
-      Click To Copy
-    {{/copy-button}}
-  `);
-
-  triggerError(this, '.my-copy-btn');
-
-  this.set('error', () => {
-    assert.notOk(true, 'error action incorrectly fired');
-  });
-
-  this.on('success', () => {
-    assert.ok(true, 'triggerSuccess correctly fired `success` action for selector');
-  });
-
-  triggerSuccess(this);
-});
-
-test('button is not disabled by default', function(assert) {
-  assert.expect(1);
-
-  this.render(hbs`
-    {{#copy-button}}
-      Click To Copy
-    {{/copy-button}}
-  `);
-
-  assert.equal(this.$('.copy-btn').attr('disabled'),
-    undefined,
-  'disabled correctly bound to type');
-});
-
-test('attributeBindings', function(assert) {
-  assert.expect(7);
-
-  this.render(hbs`
-    {{#copy-button
-      clipboardText='text'
-      clipboardAction='cut'
-      clipboardTarget='.foo'
-      disabled=true
-      aria-label='foo bar'
-      title='text'
-    }}
-      Click To Copy
-    {{/copy-button}}
-  `);
-
-  let btn = this.$('.copy-btn');
-
-  assert.equal(btn.attr('data-clipboard-text'),
-    'text',
-  'clipboardText correctly bound to data-clipboard-text');
-
-  assert.equal(btn.attr('data-clipboard-target'),
-    '.foo',
-  'clipboardTarget correctly bound to data-clipboard-target');
-
-  assert.equal(btn.attr('data-clipboard-action'),
-    'cut',
-  'clipboardAction correctly bound to data-clipboard-action');
-
-  assert.equal(btn.attr('type'),
-    'button',
-  'buttonType correctly bound to type');
-
-  assert.equal(btn.attr('disabled'),
-    'disabled',
-  'disabled correctly bound to type');
-
-  assert.equal(btn.attr('aria-label'),
-    'foo bar',
-  'aria-label attribute correctly bound');
-
-  assert.equal(btn.attr('title'),
-    'text',
-  'text correctly bound to title');
 });

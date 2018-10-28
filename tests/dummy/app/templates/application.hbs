@@ -10,7 +10,7 @@
 
   <div class="gh-link">
     <a href="https://github.com/jkusa/ember-cli-clipboard">
-      <img class='gh-icon' src='github.svg'>
+      <img class="gh-icon" src="github.svg" alt="github">
       <span>View On Github</span>
     </a>
   </div>
@@ -36,18 +36,19 @@
             clipboardText="ember install ember-cli-clipboard"
             success=(action "copyDirectSuccess")
             error=(action "copyDirectError")
-            title='copy to clipboard'
+            title="copy to clipboard"
           }}
-            <img class='copy-icon' src='clippy.svg'>
+            <img class="copy-icon" src="clippy.svg" alt="clipboard">
           {{/copy-button}}
         </div>
       </div>
+      {{! template-lint-disable block-indentation }}
       {{#code-block}}
 \{{#copy-button
   clipboardText="ember install ember-cli-clipboard"
   success=(action "onSuccess")
   error=(action "onError")
-  title='copy to clipboard'
+  title="copy to clipboard"
 }}
   &lt;i class="copy"&gt;&lt;/i&gt;
 \{{/copy-button}}
@@ -68,7 +69,12 @@
         Get Text From Target Element
       </p>
       <div class="container-body">
-        <input id="url" class="textfield" type="text" value="https://github.com/jkusa/ember-cli-clipboard">
+        <input
+          id="url"
+          class="textfield"
+          type="text"
+          value="https://github.com/jkusa/ember-cli-clipboard"
+        >
         <div class="container-body-ctrls">
           {{#copy-button
             clipboardTarget="#url"
@@ -79,6 +85,7 @@
           {{/copy-button}}
         </div>
       </div>
+      {{! template-lint-disable block-indentation }}
       {{#code-block}}
 &lt;input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard"&gt;
 \{{#copy-button
@@ -117,7 +124,8 @@
           {{/copy-button}}
         </div>
       </div>
-        {{#code-block}}
+      {{! template-lint-disable block-indentation }}
+      {{#code-block}}
 &lt;textarea id="textarea"&gt;Lorem ipsum dolor sit amet, consectetur...&lt;/textarea&gt;
 \{{#copy-button
   clipboardTarget="#textarea"
@@ -143,6 +151,7 @@
           Clipboard is not supported
         {{/if}}
       </div>
+      {{! template-lint-disable block-indentation }}
       {{#code-block}}
 \{{#if (is-clipboard-supported)}}
   Clipboard is supported

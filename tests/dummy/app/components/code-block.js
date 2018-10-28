@@ -14,6 +14,6 @@ export default Component.extend({
   lang: 'hbs',
 
   didRender() {
-    hljs.highlightBlock(this.$('pre code')[0]);
+    hljs.highlightBlock(this.element.querySelector('pre code'));
   }
 });
