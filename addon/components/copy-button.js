@@ -53,7 +53,14 @@ export default Component.extend({
       clipboard.on(action, run.bind(this, e => {
         try {
           if (!this.get('disabled')) {
-            this.sendAction(action, e);
+            const actionRetrieved = this.get(action);
+
+            if (typeof(actionRetrieved) === 'string') {
+              // Note that `sendAction` is deprecated and this will trigger a deprecation message.
+              this.sendAction(actionRetrieved, e);
+            } else if (typeof(actionRetrieved) === 'function') {
+              actionRetrieved(e);
+            }
           }
         }
         catch(error) {

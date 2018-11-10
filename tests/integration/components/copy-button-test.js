@@ -95,6 +95,30 @@ test('error action fires', function(assert) {
   this.$('button').click();
 });
 
+test('error action defined as closure action fires', function(assert) {
+  assert.expect(1);
+
+  this.set('error', () => {
+    assert.ok(true, 'error action successfully called');
+  });
+
+  this.render(hbs`
+    {{#copy-button
+      clipboardText='text'
+      success='success'
+      error=(action error)
+    }}
+      Click To Copy
+    {{/copy-button}}
+  `);
+
+  /*
+   * Can only directly test error case here b/c browsers do not allow simulated
+   * clicks for `execCommand('copy')`. See test-helpers to test action integration.
+   */
+  this.$('button').click();
+});
+
 test('error action fires with delegateClickEvent: false', function(assert) {
   assert.expect(1);
 
