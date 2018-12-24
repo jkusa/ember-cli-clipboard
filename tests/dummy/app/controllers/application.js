@@ -27,10 +27,17 @@ export default Controller.extend({
   },
 
   actions: {
+
+    copyBlockSuccess() {
+      alert('copied');
+    },
+    copyBlockError() {
+      alert('error');
+    },
+
     copyTargetSuccess() {
       this.sendSuccessMessage({copyTarget: true});
     },
-
     copyTargetError() {
       this.sendErrorMessage({copyTarget: true});
     },

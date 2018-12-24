@@ -19,6 +19,42 @@
 <main>
   <section>
     <div class="container direct copy-direct">
+      <p class="container-header" style="margin-top:18px;">
+        copy-block
+      </p>
+      <div class="container-body">
+        <div class="install-wrapper">
+          {{#copy-block
+            clipboardText="kubectl apply -f https://app.mayaonline.io/v3/scripts/2303F521A18B7A09BCD0:1514678400000:W1kXaD1CLg3p4DyWs5enDYMc.yaml"
+            success=(action "copyBlockSuccess")
+            error=(action "copyBlockError")
+            title='copy to clipboard'
+            class='copy-block'
+          }}
+          <div>
+            <code class="install-cmd">kubectl apply -f https://app.mayaonline.io/v3/scripts/
+              2303F521A18B7A09BCD0:1514678400000
+              :W1kXaD1CLg3p4DyWs5enDYMc.yaml</code>
+          </div>
+          {{/copy-block}}
+        </div>
+      </div>
+      {{#code-block}}
+\{{#copy-block
+  clipboardText="ember install ember-cli-clipboard"
+  success=(action "onSuccess")
+  error=(action "onError")
+  title='copy to clipboard'
+  class='copy-block'
+}}
+  &lt;code&gt;.....&lt;/code&gt;
+\{{/copy-block}}
+      {{/code-block}}
+    </div>
+  </section>
+
+  <section>
+    <div class="container direct copy-direct">
       {{#each flashMessages.arrangedQueue as |flash|}}
         {{#if flash.copyDirect}}
           {{#flash-message flash=flash as |component flash|}}

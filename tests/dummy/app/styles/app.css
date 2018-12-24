@@ -139,7 +139,9 @@ pre {
   background-color: transparent;
   border: none;
 }
-
+.copy-block {
+  cursor: pointer;
+}
 .container-body .install-wrapper {
   align-items: center;
   border: 1px solid #CCCCCC;
