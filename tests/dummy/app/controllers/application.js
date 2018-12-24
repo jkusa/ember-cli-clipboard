@@ -27,14 +27,6 @@ export default Controller.extend({
   },
 
   actions: {
-
-    copyBlockSuccess() {
-      alert('copied');
-    },
-    copyBlockError() {
-      alert('error');
-    },
-
     copyTargetSuccess() {
       this.sendSuccessMessage({copyTarget: true});
     },
@@ -50,6 +42,12 @@ export default Controller.extend({
       this.sendErrorMessage({copyDirect: true});
     },
 
+    copyBlockSuccess() {
+      this.sendSuccessMessage({copyBlock: true});
+    },
+    copyBlockError() {
+      this.sendErrorMessage({copyBlock: true});
+    },
     cutTargetSuccess() {
       this.sendSuccessMessage({cutTarget: true, action: 'cut'});
     },
