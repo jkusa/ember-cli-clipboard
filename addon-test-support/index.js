@@ -1,5 +1,5 @@
-import { run } from '@ember/runloop';
 import { getContext } from '@ember/test-helpers';
+import { run } from '@ember/runloop';
 
 /**
  * Fires `success` action for an instance of a copy-button component
