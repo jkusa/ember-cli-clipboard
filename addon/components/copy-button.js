@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { set } from '@ember/object';
-import Ember from 'ember';
 import layout from '../templates/components/copy-button';
+
 
 const CLIPBOARD_EVENTS = ['success', 'error'];
 
@@ -31,33 +31,47 @@ export default Component.extend({
 
   /**
    * If true - scope event listener to this element
-   * If false - scope event listener to document.body (clipboardjs)
+   * If false - scope event listener to document.body (ClipboardJS)
    * @property {Boolean} delegateClickEvent
    */
   delegateClickEvent: true,
 
-  didInsertElement() {
-    let clipboard;
-    if (!this.delegateClickEvent) {
-      clipboard = new window.ClipboardJS(this.element);
-    } else {
-      clipboard = new window.ClipboardJS(`#${this.get('elementId')}`);
-    }
-    set(this, 'clipboard', clipboard);
+  /**
+   * Creates new `ClipboardJS` instance
+   * @private
+   * @returns {Object} newly created ClipboardJS object
+   */
+  _createClipboard() {
+    const trigger = this.delegateClickEvent ? `#${this.elementId}` : this.element;
+    return new window.ClipboardJS(trigger);
+  },
 
+  /**
+   * Registers Ember Actions with ClipboardJS events
+   * @private
+   * @param {Object} clipboard - ClipboardJS object
+   * @returns {Void}
+   */
+  _registerActions(clipboard) {
     CLIPBOARD_EVENTS.forEach(event => {
       clipboard.on(event,  () => {
-        try {
-          if (!this.disabled) {
-            const action = this[event] || (() => null);
+        if (!this.disabled) {
+          const action = this[event] || (() => {});
+          if(typeof action === 'string') {
+            // eslint-disable-next-line ember/closure-actions
+            this.sendAction(action, ...arguments);
+          } else {
             action(...arguments);
           }
         }
-        catch(error) {
-          Ember.Logger.debug(error.message);
-        }
       });
     });
+  },
+
+  didInsertElement() {
+    const clipboard = this._createClipboard();
+    this._registerActions(clipboard);
+    set(this, 'clipboard', clipboard);
   },
 
   willDestroyElement() {

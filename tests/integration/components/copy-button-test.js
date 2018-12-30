@@ -69,16 +69,15 @@ module('Integration | Component | copy button', function(hooks) {
   });
 
   test('error action fires', async function(assert) {
-    assert.expect(1);
+    assert.expect(2);
 
-    this.set('error', () => {
-      assert.ok(true, 'error action successfully called');
-    });
+    this.set('error', () =>
+      assert.ok(true, '`error` closure action successfully called'));
 
     await render(hbs`
       {{#copy-button
         clipboardText='text'
-        error=error
+        error=(action error)
       }}
         Click To Copy
       {{/copy-button}}
@@ -89,20 +88,26 @@ module('Integration | Component | copy button', function(hooks) {
      * clicks for `execCommand('copy')`. See test-helpers to test action integration.
      */
     await click('button');
+
+    this.actions.error = () => {
+      assert.ok(true, '`error` bubbling action successfully called');
+    }
+    this.set('error', 'error')
+
+    await click('button');
   });
 
   test('error action fires with delegateClickEvent: false', async function(assert) {
     assert.expect(1);
 
-    this.actions.error = () => {
-      assert.ok(true, 'error action successfully called');
-    };
+    this.set('error', () =>
+      assert.ok(true, '`error` action successfully called'));
 
     await render(hbs`
       {{#copy-button
         clipboardText='text'
         delegateClickEvent=false
-        error=(action 'error')
+        error=(action error)
       }}
         Click To Copy
       {{/copy-button}}
@@ -118,15 +123,14 @@ module('Integration | Component | copy button', function(hooks) {
   test('click scoped to document.body', async function(assert) {
     assert.expect(1);
 
-    this.actions.error = () => {
-      assert.ok(true, 'error action successfully called');
-    };
+    this.set('error', () =>
+      assert.ok(true, '`error` action successfully called'));
 
     await render(hbs`
       {{#copy-button
         class="copy-button"
         clipboardText='text'
-        error=(action 'error')
+        error=(action error)
       }}
         Click To Copy
       {{/copy-button}}
@@ -141,23 +145,21 @@ module('Integration | Component | copy button', function(hooks) {
      * Can only directly test error case here b/c browsers do not allow simulated
      * clicks for `execCommand('copy')`. See test-helpers to test action integration.
      */
-    document.querySelector('.copy-button').click();
+    await click('.copy-button');
   });
 
   test('click scoped to element', async function(assert) {
     assert.expect(0);
 
-    this.actions.error = () => {
-      assert.ok(false, 'listener should be removed');
-    };
+    this.set('error', () =>
+      assert.ok(false, 'listener should be removed'));
 
     await render(hbs`
       {{#copy-button
         class="copy-button"
         clipboardText='text'
         delegateClickEvent=false
-        success='success'
-        error='error'
+        error=(action error)
       }}
         Click To Copy
       {{/copy-button}}
@@ -172,7 +174,7 @@ module('Integration | Component | copy button', function(hooks) {
      * Can only directly test error case here b/c browsers do not allow simulated
      * clicks for `execCommand('copy')`. See test-helpers to test action integration.
      */
-    document.querySelector('.copy-button').click();
+    await click('.copy-button');
   });
 
   test('button is not disabled by default', async function(assert) {
