@@ -3,7 +3,7 @@ import { run } from '@ember/runloop';
 
 /**
  * Fires `success` action for an instance of a copy-button component
- * @function triggerSuccess
+ * @function triggerCopySuccess
  * @param {String} selector - css selector of the copy-button instance
  * @returns {Void}
  */
@@ -14,7 +14,7 @@ export function triggerCopySuccess(selector) {
 
 /**
  * Fires `error` action for an instance of a copy-button component
- * @function triggerError
+ * @function triggerCopyError
  * @param {String} selector - css selector of the copy-button instance
  * @returns {Void}
  */
@@ -27,7 +27,8 @@ export function triggerCopyError(selector) {
  * Fires named action for an instance of a copy-button component
  * @function _fireComponentAction
  * @param {Object} owner - an owner object
- * @param {String} selector - selector of the copy-button instance
+ * @param {String} selector - css selector of the copy-button instance
+ * @returns {Void}
  * @param {String} actionName - name of action
  * @returns {Void}
  */
@@ -39,9 +40,9 @@ export function _fireComponentAction(owner, selector, actionName) {
 /**
  * Fetches component reference for a given context and selector
  * @function getComponentBySelector
- * @param {Object} context - test context
- * @param {String|Element} selector - selector of the copy-button instance
- * @returns {Object} component object
+ * @param {Object} owner - an owner object
+ * @param {String} selector - css selector of the copy-button instance
+ * @returns {Ember.Component} component object
  */
 function _getComponentBySelector(owner, selector='.copy-btn') {
   const emberId = document.querySelector(selector).getAttribute('id');

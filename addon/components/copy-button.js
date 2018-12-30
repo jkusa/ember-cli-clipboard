@@ -38,6 +38,7 @@ export default Component.extend({
 
   /**
    * Creates new `ClipboardJS` instance
+   * @method _createClipboard
    * @private
    * @returns {Object} newly created ClipboardJS object
    */
@@ -48,6 +49,7 @@ export default Component.extend({
 
   /**
    * Registers Ember Actions with ClipboardJS events
+   * @method _registerActions
    * @private
    * @param {Object} clipboard - ClipboardJS object
    * @returns {Void}
