@@ -18,7 +18,7 @@ module('Integration | Component | copy button', function(hooks) {
     await render(hbs`
       {{#if enabled}}
         {{#copy-button
-          clipboardText='text'
+          clipboardText="text"
         }}
           Click To Copy
         {{/copy-button}}
@@ -38,7 +38,7 @@ module('Integration | Component | copy button', function(hooks) {
     await render(hbs`
       {{#if enabled}}
         {{#copy-button
-          clipboardText='text'
+          clipboardText="text"
           delegateClickEvent=false
         }}
           Click To Copy
@@ -76,7 +76,7 @@ module('Integration | Component | copy button', function(hooks) {
 
     await render(hbs`
       {{#copy-button
-        clipboardText='text'
+        clipboardText="text"
         error=(action error)
       }}
         Click To Copy
@@ -105,7 +105,7 @@ module('Integration | Component | copy button', function(hooks) {
 
     await render(hbs`
       {{#copy-button
-        clipboardText='text'
+        clipboardText="text"
         delegateClickEvent=false
         error=(action error)
       }}
@@ -129,7 +129,7 @@ module('Integration | Component | copy button', function(hooks) {
     await render(hbs`
       {{#copy-button
         class="copy-button"
-        clipboardText='text'
+        clipboardText="text"
         error=(action error)
       }}
         Click To Copy
@@ -157,7 +157,7 @@ module('Integration | Component | copy button', function(hooks) {
     await render(hbs`
       {{#copy-button
         class="copy-button"
-        clipboardText='text'
+        clipboardText="text"
         delegateClickEvent=false
         error=(action error)
       }}
@@ -195,12 +195,12 @@ module('Integration | Component | copy button', function(hooks) {
 
     await render(hbs`
       {{#copy-button
-        clipboardText='text'
-        clipboardAction='cut'
-        clipboardTarget='.foo'
+        clipboardText="text"
+        clipboardAction="cut"
+        clipboardTarget=".foo"
         disabled=true
-        aria-label='foo bar'
-        title='text'
+        aria-label="foo bar"
+        title="text"
       }}
         Click To Copy
       {{/copy-button}}

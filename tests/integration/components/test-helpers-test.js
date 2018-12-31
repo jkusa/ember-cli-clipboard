@@ -27,8 +27,8 @@ module('Integration | Component | integration test helpers', function(hooks) {
 
     await render(hbs`
       {{#copy-button
-        classNames='my-copy-btn'
-        clipboardText='text'
+        classNames="my-copy-btn"
+        clipboardText="text"
         success=(action success)
         error=(action error)
       }}
@@ -56,8 +56,8 @@ module('Integration | Component | integration test helpers', function(hooks) {
 
     await render(hbs`
       {{#copy-button
-        classNames='my-copy-btn'
-        clipboardText='text'
+        classNames="my-copy-btn"
+        clipboardText="text"
         success=(action success)
         error=(action error)
       }}
