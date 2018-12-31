@@ -28,7 +28,6 @@ export function triggerCopyError(selector) {
  * @function _fireComponentAction
  * @param {Object} owner - an owner object
  * @param {String} selector - css selector of the copy-button instance
- * @returns {Void}
  * @param {String} actionName - name of action
  * @returns {Void}
  */
@@ -41,7 +40,7 @@ export function _fireComponentAction(owner, selector, actionName) {
  * Fetches component reference for a given context and selector
  * @function getComponentBySelector
  * @param {Object} owner - an owner object
- * @param {String} selector - css selector of the copy-button instance
+ * @param {String} [selector='.copy-btn'] - css selector of the copy-button instance
  * @returns {Ember.Component} component object
  */
 function _getComponentBySelector(owner, selector='.copy-btn') {

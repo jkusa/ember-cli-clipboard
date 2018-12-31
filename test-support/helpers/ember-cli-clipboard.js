@@ -1,7 +1,7 @@
 import { _fireComponentAction as fireComponentAction } from 'ember-cli-clipboard/test-support'
 import { registerAsyncHelper } from '@ember/test';
 
-const getOwnerFromContext = c=> c.container || c.owner;
+const getOwnerFromContext = c => c.container || c.owner;
 
 /* === Legacy Integration Test Helpers === */
 
@@ -32,12 +32,12 @@ export function triggerError(context, selector) {
 /* === Register Legacy Acceptance Test Helpers === */
 
 export default function() {
-  registerAsyncHelper('triggerCopySuccess', function(app, selector='.copy-btn') {
+  registerAsyncHelper('triggerCopySuccess', function(app, selector) {
     const owner = app.__container__; 
     fireComponentAction(owner, selector, 'success');
   });
 
-  registerAsyncHelper('triggerCopyError', function(app, selector='.copy-btn') {
+  registerAsyncHelper('triggerCopyError', function(app, selector) {
     const owner = app.__container__; 
     fireComponentAction(owner, selector, 'error');
   });
