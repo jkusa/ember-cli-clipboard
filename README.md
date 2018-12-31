@@ -73,7 +73,7 @@ Some browsers do not allow simulated clicks to fire `execCommand('copy')`. This 
 * `triggerCopySuccess(selector='.copy-btn')`
 * `triggerCopyError(selector='.copy-btn')`
 
-If you are using the **NEW Ember Testing API** , available in **ember-cli-qunit >= 4.2** and **ember-cli-mocha >= 0.15.0**, then you can simply import the test helpers where needed (for both acceptance and integration tests).
+If you are using the **NEW Ember Testing API**, available in **ember-cli-qunit >= 4.2** and **ember-cli-mocha >= 0.15.0**, then you can simply import the test helpers where needed (for both acceptance and integration tests).
 
 ```js
 // tests/acceptance/my-test.js
@@ -192,30 +192,16 @@ test('copy-button integration', function(assert) {
 
 ```
 
-
 ## Browser Support
 
 For browser support information, checkout the [clipboard.js](http://zenorocha.github.io/clipboard.js/) documentation:
 
 https://github.com/zenorocha/clipboard.js/#browser-support
 
-## Installation
+## Contributing
 
-* `git clone` this repository
-* `npm install`
+Contributions are welcomed. Please read the [contributing guidelines](CONTRIBUTING.md).
 
-## Running
+## License
 
-* `ember server`
-* Visit your app at http://localhost:4200.
-
-## Running Tests
-
-* `ember test`
-* `ember test --serve`
-
-## Building
-
-* `ember build`
-
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+This project is licensed under the [MIT License](LICENSE.md).
