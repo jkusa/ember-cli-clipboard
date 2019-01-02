@@ -1,11 +1,10 @@
-/* eslint-env node */
 'use strict';
 
 var path = require('path');
 var fastbootTransform = require('fastboot-transform');
 
 module.exports = {
-  name: 'ember-cli-clipboard',
+  name: require('./package').name,
 
   treeForVendor() {
     var Funnel = require('broccoli-funnel');
@@ -20,5 +19,7 @@ module.exports = {
     this._super.included.apply(this, arguments);
 
     this.import('vendor/clipboard/dist/clipboard.js');
-  }
+  },
+
+  isDevelopingAddon: () => true
 };

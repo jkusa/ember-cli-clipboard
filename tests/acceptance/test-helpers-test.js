@@ -1,31 +1,29 @@
-import { test } from 'qunit';
-import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
+import { findAll, find, visit } from '@ember/test-helpers';
+import { module, test } from 'qunit';
+import { setupApplicationTest } from 'ember-qunit';
+import { triggerCopyError, triggerCopySuccess } from 'ember-cli-clipboard/test-support';
 
-moduleForAcceptance('Acceptance | test helpers');
+module('Acceptance | test helpers', function(hooks) {
+  setupApplicationTest(hooks);
 
-test('test-helpers', function(assert) {
-  assert.expect(4);
+  test('test-helpers', async function(assert) {
+    assert.expect(4);
 
-  visit('/');
-  andThen(() => {
-    assert.notOk(!!find('.alert').length,
+    await visit('/');
+    assert.notOk(!!findAll('.alert').length,
       'no alert message is initially present');
 
-    assert.ok(find('.if-supported .container-body').text().match(/Clipboard is( not)? supported/),
+    assert.ok(find('.if-supported .container-body').textContent.match(/Clipboard is( not)? supported/),
       'whether clipboard is supported is shown');
-  });
 
-  triggerCopySuccess();
+    triggerCopySuccess();
 
-  andThen(() => {
-    assert.ok(!!find('.alert.alert-success').length,
+    assert.ok(!!findAll('.alert.alert-success').length,
       'a success message is displayed when a copy is successful');
-  });
 
-  triggerCopyError();
+    triggerCopyError();
 
-  andThen(() => {
-    assert.ok(!!find('.alert.alert-info').length,
+    assert.ok(!!findAll('.alert.alert-info').length,
       'an error message is displayed when a copy is unsuccessful');
   });
 });

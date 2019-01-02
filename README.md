@@ -14,9 +14,9 @@ http://jkusa.github.io/ember-cli-clipboard
 ```hbs
 <!-- Set text directly -->
 {{#copy-button
-  clipboardText='text to be copied'
-  success=(action 'success')
-  error=(action 'error')
+  clipboardText="text to be copied"
+  success=(action "success")
+  error=(action "error")
 }}
   Click To Copy
 {{/copy-button}}
@@ -25,8 +25,8 @@ http://jkusa.github.io/ember-cli-clipboard
 <input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard">
 {{#copy-button
   clipboardTarget="#url"
-  success=(action 'success')
-  error=(action 'error')
+  success=(action "success")
+  error=(action "error")
 }}
   Click To Copy
 {{/copy-button}}
@@ -68,64 +68,27 @@ The helper `is-clipboard-supported` can be used to check if [clipboard.js](http:
 
 Some browsers do not allow simulated clicks to fire `execCommand('copy')`. This makes testing difficult. To assist with integration testing, the following test helpers are available to test the wiring of the `success` and `error` action handlers.
 
-### Integration Test Helpers
-
-* `triggerSuccess(context, selector='.copy-btn')`
-* `triggerError(context, selector='.copy-btn')`
-
-Example:
-
-```js
-// tests/integration/components/my-test.js
-
-...
-
-import {
-  triggerError,
-  triggerSuccess
-} from '../../helpers/ember-cli-clipboard';
-
-...
-
-test('copy-button integration', function(assert) {
-  assert.expect(2);
-
-  this.set('success', () => {
-    assert.ok(true, '`success` action handler correctly fired');
-  });
-
-  this.set('error', () => {
-    assert.ok(true, '`error` action handler correctly fired');
-  });
-
-  this.render(hbs`
-    {{#copy-button
-      classNames='my-copy-btn'
-      clipboardText='text to copy'
-      success=(action success)
-      error=(action error)
-    }}
-      Click To Copy
-    {{/copy-button}}
-  `);
-
-  triggerError(this, '.my-copy-btn');
-  triggerSuccess(this, '.my-copy-btn');
-});
-
-```
-
 ### Acceptance Test Helpers
 
 * `triggerCopySuccess(selector='.copy-btn')`
 * `triggerCopyError(selector='.copy-btn')`
 
-To use the helpers in acceptance tests you need to register them in the `/tests/helpers/start-app.js` file.
+If you are using the **NEW Ember Testing API**, available in **ember-cli-qunit >= 4.2** and **ember-cli-mocha >= 0.15.0**, then you can simply import the test helpers where needed (for both acceptance and integration tests).
+
+```js
+// tests/acceptance/my-test.js
+
+import {
+  triggerCopyError,
+  triggerCopySuccess
+} from 'ember-cli-clipboard/test-support';
+
+```
+
+Otherwise, to use the helpers in acceptance tests you need to register them in the `/tests/helpers/start-app.js` file.
 
 ```js
 // tests/helpers/start-app.js
-
-...
 
 import registerClipboardHelpers from '../helpers/ember-cli-clipboard';
 
@@ -142,7 +105,6 @@ Example:
 ```js
 // tests/acceptance/my-test.js
 
-...
 
 test('copy button message', function(assert) {
   assert.expect(3);
@@ -168,6 +130,67 @@ test('copy button message', function(assert) {
   });
 });
 ```
+### Integration Test Helpers
+
+* New Testing API (**ember-cli-qunit >= 4.2** or **ember-cli-mocha >= 0.15.0**)
+
+  * `triggerCopySuccess(selector='.copy-btn')`
+  * `triggerCopyError(selector='.copy-btn')`
+* Old Testing API
+  * `triggerSuccess(context, selector='.copy-btn')`
+  * `triggerError(context, selector='.copy-btn')`
+
+Example:
+
+```js
+// tests/integration/components/my-test.js
+
+// if using NEW ember testing api
+import {
+  triggerCopyError,
+  triggerCopySuccess
+} from 'ember-cli-clipboard/test-support';
+
+// if using OLD ember testing api
+import {
+  triggerError,
+  triggerSuccess
+} from '../../helpers/ember-cli-clipboard';
+
+...
+
+test('copy-button integration', function(assert) {
+  assert.expect(2);
+
+  this.set('success', () => {
+    assert.ok(true, '`success` action handler correctly fired');
+  });
+
+  this.set('error', () => {
+    assert.ok(true, '`error` action handler correctly fired');
+  });
+
+  this.render(hbs`
+    {{#copy-button
+      classNames="my-copy-btn"
+      clipboardText="text to copy"
+      success=(action success)
+      error=(action error)
+    }}
+      Click To Copy
+    {{/copy-button}}
+  `);
+
+  //If using NEW ember testing api
+  triggerCopyError('.my-copy-btn');
+  triggerCopySuccess('.my-copy-btn');
+
+  //If using OLD ember testing api
+  triggerError(this, '.my-copy-btn');
+  triggerSuccess(this, '.my-copy-btn');
+});
+
+```
 
 ## Browser Support
 
@@ -175,24 +198,10 @@ For browser support information, checkout the [clipboard.js](http://zenorocha.gi
 
 https://github.com/zenorocha/clipboard.js/#browser-support
 
-## Installation
+## Contributing
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+Contributions are welcomed. Please read the [contributing guidelines](CONTRIBUTING.md).
 
-## Running
+## License
 
-* `ember server`
-* Visit your app at http://localhost:4200.
-
-## Running Tests
-
-* `ember test`
-* `ember test --serve`
-
-## Building
-
-* `ember build`
-
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+This project is licensed under the [MIT License](LICENSE.md).

@@ -1,8 +1,9 @@
 import Component from '@ember/component';
-import { run } from '@ember/runloop';
-import { set, get } from '@ember/object';
-import Ember from 'ember';
+import { set } from '@ember/object';
 import layout from '../templates/components/copy-button';
+
+
+const CLIPBOARD_EVENTS = ['success', 'error'];
 
 export default Component.extend({
   layout: layout,
@@ -19,11 +20,6 @@ export default Component.extend({
   ],
 
   /**
-   * @property {Array} clipboardEvents - events supported by clipboard.js
-   */
-  clipboardEvents: ['success', 'error'],
-
-  /**
    * @property {String} buttonType - type attribute for button element
    */
   buttonType: 'button',
@@ -35,35 +31,52 @@ export default Component.extend({
 
   /**
    * If true - scope event listener to this element
-   * If false - scope event listener to document.body (clipboardjs)
+   * If false - scope event listener to document.body (ClipboardJS)
    * @property {Boolean} delegateClickEvent
    */
   delegateClickEvent: true,
 
-  didInsertElement() {
-    let clipboard;
-    if (!get(this, 'delegateClickEvent')) {
-      clipboard = new window.ClipboardJS(this.element);
-    } else {
-      clipboard = new window.ClipboardJS(`#${this.get('elementId')}`);
-    }
-    set(this, 'clipboard', clipboard);
+  /**
+   * Creates new `ClipboardJS` instance
+   * @method _createClipboard
+   * @private
+   * @returns {Object} newly created ClipboardJS object
+   */
+  _createClipboard() {
+    const trigger = this.delegateClickEvent ? `#${this.elementId}` : this.element;
+    return new window.ClipboardJS(trigger);
+  },
 
-    get(this, 'clipboardEvents').forEach(action => {
-      clipboard.on(action, run.bind(this, e => {
-        try {
-          if (!this.get('disabled')) {
-            this.sendAction(action, e);
+  /**
+   * Registers Ember Actions with ClipboardJS events
+   * @method _registerActions
+   * @private
+   * @param {Object} clipboard - ClipboardJS object
+   * @returns {Void}
+   */
+  _registerActions(clipboard) {
+    CLIPBOARD_EVENTS.forEach(event => {
+      clipboard.on(event,  () => {
+        if (!this.disabled) {
+          const action = this[event] || (() => {});
+          if(typeof action === 'string') {
+            // eslint-disable-next-line ember/closure-actions
+            this.sendAction(action, ...arguments);
+          } else {
+            action(...arguments);
           }
         }
-        catch(error) {
-          Ember.Logger.debug(error.message);
-        }
-      }));
+      });
     });
   },
 
+  didInsertElement() {
+    const clipboard = this._createClipboard();
+    this._registerActions(clipboard);
+    set(this, 'clipboard', clipboard);
+  },
+
   willDestroyElement() {
-    get(this, 'clipboard').destroy();
+    this.clipboard.destroy();
   }
 });
