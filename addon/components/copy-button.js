@@ -77,6 +77,8 @@ export default Component.extend({
   },
 
   willDestroyElement() {
-    this.clipboard.destroy();
+    if (this.clipboard) {
+      this.clipboard.destroy();
+    }
   }
 });
