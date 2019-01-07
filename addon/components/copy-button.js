@@ -59,7 +59,7 @@ export default Component.extend({
       clipboard.on(event,  () => {
         if (!this.disabled) {
           const action = this[event] || (() => {});
-          if(typeof action === 'string') {
+          if (typeof action === 'string') {
             // eslint-disable-next-line ember/closure-actions
             this.sendAction(action, ...arguments);
           } else {
