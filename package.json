@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-clipboard",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "Clipboard.js button component",
   "scripts": {
     "build": "ember build",
