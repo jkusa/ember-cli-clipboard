@@ -8,8 +8,8 @@ import { run } from '@ember/runloop';
  * @returns {Void}
  */
 export function triggerCopySuccess(selector) {
-    const { owner } = getContext();
-    _fireComponentAction(owner, selector, 'success');
+  const { owner } = getContext();
+  _fireComponentAction(owner, selector, 'success');
 }
 
 /**
@@ -19,8 +19,8 @@ export function triggerCopySuccess(selector) {
  * @returns {Void}
  */
 export function triggerCopyError(selector) {
-    const { owner } = getContext();
-    _fireComponentAction(owner, selector, 'error');
+  const { owner } = getContext();
+  _fireComponentAction(owner, selector, 'error');
 }
 
 /**
@@ -43,7 +43,7 @@ export function _fireComponentAction(owner, selector, actionName) {
  * @param {String} [selector='.copy-btn'] - css selector of the copy-button instance
  * @returns {Ember.Component} component object
  */
-function _getComponentBySelector(owner, selector='.copy-btn') {
+function _getComponentBySelector(owner, selector = '.copy-btn') {
   const emberId = document.querySelector(selector).getAttribute('id');
   return owner.lookup('-view-registry:main')[emberId];
 }
