@@ -19,7 +19,5 @@ module.exports = {
     this._super.included.apply(this, arguments);
 
     this.import('vendor/clipboard/dist/clipboard.js');
-  },
-
-  isDevelopingAddon: () => true
+  }
 };
