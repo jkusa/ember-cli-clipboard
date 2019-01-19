@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find, click } from '@ember/test-helpers';
+import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | copy button', function(hooks) {
@@ -25,10 +25,10 @@ module('Integration | Component | copy button', function(hooks) {
       {{/if}}
     `);
 
-    assert.ok(find('.copy-btn'), 'Component rendered');
+    assert.dom('.copy-btn').exists('Component rendered');
 
     this.set('enabled', false);
-    assert.notOk(find('.copy-btn'), 'Component cleaned up');
+    assert.dom('.copy-btn').doesNotExist('Component cleaned up');
   });
 
   test('component renders and cleans up with delegateClickEvent: false', async function(assert) {
@@ -46,10 +46,10 @@ module('Integration | Component | copy button', function(hooks) {
       {{/if}}
     `);
 
-    assert.ok(find('.copy-btn'), 'Component rendered');
+    assert.dom('.copy-btn').exists('Component rendered');
 
     this.set('enabled', false);
-    assert.notOk(find('.copy-btn'), 'Component cleaned up');
+    assert.dom('.copy-btn').doesNotExist('Component cleaned up');
   });
 
   test('components renders text', async function(assert) {

@@ -1,7 +1,10 @@
 import { findAll, find, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import { triggerCopyError, triggerCopySuccess } from 'ember-cli-clipboard/test-support';
+import {
+  triggerCopyError,
+  triggerCopySuccess
+} from 'ember-cli-clipboard/test-support';
 
 module('Acceptance | test helpers', function(hooks) {
   setupApplicationTest(hooks);
