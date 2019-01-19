@@ -1,4 +1,6 @@
-import { _fireComponentAction as fireComponentAction } from 'ember-cli-clipboard/test-support'
+import {
+  _fireComponentAction as fireComponentAction
+} from 'ember-cli-clipboard/test-support'
 import { registerAsyncHelper } from '@ember/test';
 
 const getOwnerFromContext = c => c.container || c.owner;
