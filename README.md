@@ -130,6 +130,7 @@ test('copy button message', function(assert) {
   });
 });
 ```
+
 ### Integration Test Helpers
 
 * New Testing API (**ember-cli-qunit >= 4.2** or **ember-cli-mocha >= 0.15.0**)
