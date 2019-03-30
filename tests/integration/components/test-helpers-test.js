@@ -21,7 +21,11 @@ module('Integration | Component | integration test helpers', function(hooks) {
 
     this.setProperties({
       success: () => assert.notOk(true, 'success action incorrectly fired'),
-      error: () => assert.ok(true, 'triggerError correctly fired `error` action for selector')
+      error: () =>
+        assert.ok(
+          true,
+          'triggerError correctly fired `error` action for selector'
+        )
     });
 
     await render(hbs`
@@ -39,7 +43,11 @@ module('Integration | Component | integration test helpers', function(hooks) {
 
     this.setProperties({
       error: () => assert.notOk(true, 'error action incorrectly fired'),
-      success: () => assert.ok(true, 'triggerSuccess correctly fired `success` action for selector')
+      success: () =>
+        assert.ok(
+          true,
+          'triggerSuccess correctly fired `success` action for selector'
+        )
     });
 
     triggerCopySuccess();
@@ -50,7 +58,11 @@ module('Integration | Component | integration test helpers', function(hooks) {
 
     this.setProperties({
       success: () => assert.notOk(true, 'success action incorrectly fired'),
-      error: () => assert.ok(true, 'triggerError correctly fired `error` action for selector')
+      error: () =>
+        assert.ok(
+          true,
+          'triggerError correctly fired `error` action for selector'
+        )
     });
 
     await render(hbs`
@@ -68,7 +80,11 @@ module('Integration | Component | integration test helpers', function(hooks) {
 
     this.setProperties({
       error: () => assert.notOk(true, 'error action incorrectly fired'),
-      success: () => assert.ok(true, 'triggerSuccess correctly fired `success` action for selector')
+      success: () =>
+        assert.ok(
+          true,
+          'triggerSuccess correctly fired `success` action for selector'
+        )
     });
 
     legacyTriggerSuccess(this);

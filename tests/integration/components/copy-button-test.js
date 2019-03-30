@@ -8,7 +8,8 @@ module('Integration | Component | copy button', function(hooks) {
 
   hooks.beforeEach(function() {
     this.actions = {};
-    this.send = (actionName, ...args) => this.actions[actionName].apply(this, args);
+    this.send = (actionName, ...args) =>
+      this.actions[actionName].apply(this, args);
   });
 
   test('component renders and cleans up', async function(assert) {
@@ -65,14 +66,17 @@ module('Integration | Component | copy button', function(hooks) {
       {{/copy-button}}
     `);
 
-    assert.dom('*').hasText('Click To Copy', 'Component yields text with block');
+    assert
+      .dom('*')
+      .hasText('Click To Copy', 'Component yields text with block');
   });
 
   test('error action fires', async function(assert) {
     assert.expect(2);
 
     this.set('error', () =>
-      assert.ok(true, '`error` closure action successfully called'));
+      assert.ok(true, '`error` closure action successfully called')
+    );
 
     await render(hbs`
       {{#copy-button
@@ -91,8 +95,8 @@ module('Integration | Component | copy button', function(hooks) {
 
     this.actions.error = () => {
       assert.ok(true, '`error` bubbling action successfully called');
-    }
-    this.set('error', 'error')
+    };
+    this.set('error', 'error');
 
     await click('button');
   });
@@ -101,7 +105,8 @@ module('Integration | Component | copy button', function(hooks) {
     assert.expect(1);
 
     this.set('error', () =>
-      assert.ok(true, '`error` action successfully called'));
+      assert.ok(true, '`error` action successfully called')
+    );
 
     await render(hbs`
       {{#copy-button
@@ -124,7 +129,8 @@ module('Integration | Component | copy button', function(hooks) {
     assert.expect(1);
 
     this.set('error', () =>
-      assert.ok(true, '`error` action successfully called'));
+      assert.ok(true, '`error` action successfully called')
+    );
 
     await render(hbs`
       {{#copy-button
@@ -151,8 +157,7 @@ module('Integration | Component | copy button', function(hooks) {
   test('click scoped to element', async function(assert) {
     assert.expect(0);
 
-    this.set('error', () =>
-      assert.ok(false, 'listener should be removed'));
+    this.set('error', () => assert.ok(false, 'listener should be removed'));
 
     await render(hbs`
       {{#copy-button
@@ -186,8 +191,9 @@ module('Integration | Component | copy button', function(hooks) {
       {{/copy-button}}
     `);
 
-    assert.dom('.copy-btn').doesNotHaveAttribute('disabled',
-      'disabled correctly bound to type');
+    assert
+      .dom('.copy-btn')
+      .doesNotHaveAttribute('disabled', 'disabled correctly bound to type');
   });
 
   test('attributeBindings', async function(assert) {
@@ -208,25 +214,48 @@ module('Integration | Component | copy button', function(hooks) {
 
     const btn = '.copy-btn';
 
-    assert.dom(btn).hasAttribute('data-clipboard-text', 'text',
-    'clipboardText correctly bound to data-clipboard-text');
+    assert
+      .dom(btn)
+      .hasAttribute(
+        'data-clipboard-text',
+        'text',
+        'clipboardText correctly bound to data-clipboard-text'
+      );
 
-    assert.dom(btn).hasAttribute('data-clipboard-target', '.foo',
-    'clipboardTarget correctly bound to data-clipboard-target');
+    assert
+      .dom(btn)
+      .hasAttribute(
+        'data-clipboard-target',
+        '.foo',
+        'clipboardTarget correctly bound to data-clipboard-target'
+      );
 
-    assert.dom(btn).hasAttribute('data-clipboard-action', 'cut',
-    'clipboardAction correctly bound to data-clipboard-action');
+    assert
+      .dom(btn)
+      .hasAttribute(
+        'data-clipboard-action',
+        'cut',
+        'clipboardAction correctly bound to data-clipboard-action'
+      );
 
-    assert.dom(btn).hasAttribute('type', 'button',
-    'buttonType correctly bound to type');
+    assert
+      .dom(btn)
+      .hasAttribute('type', 'button', 'buttonType correctly bound to type');
 
-    assert.dom(btn).hasAttribute('disabled', '',
-    'disabled correctly bound to type');
+    assert
+      .dom(btn)
+      .hasAttribute('disabled', '', 'disabled correctly bound to type');
 
-    assert.dom(btn).hasAttribute('aria-label', 'foo bar',
-    'aria-label attribute correctly bound');
+    assert
+      .dom(btn)
+      .hasAttribute(
+        'aria-label',
+        'foo bar',
+        'aria-label attribute correctly bound'
+      );
 
-    assert.dom(btn).hasAttribute('title', 'text',
-    'text correctly bound to title');
+    assert
+      .dom(btn)
+      .hasAttribute('title', 'text', 'text correctly bound to title');
   });
 });

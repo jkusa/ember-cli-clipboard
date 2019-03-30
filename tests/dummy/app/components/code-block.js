@@ -5,7 +5,6 @@ import handlebars from 'highlight.js/lib/languages/handlebars';
 
 hljs.registerLanguage('handlebars', handlebars);
 
-
 export default Component.extend({
   layout,
 
