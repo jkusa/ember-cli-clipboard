@@ -7,11 +7,8 @@ hljs.registerLanguage('handlebars', handlebars);
 
 export default Component.extend({
   layout,
-
-  classNames: ['container-code', 'highlight'],
-
-  lang: 'hbs',
-
+  classNames: ['code-block', 'highlight'],
+  lang: 'htmlbars',
   didRender() {
     hljs.highlightBlock(this.element.querySelector('pre code'));
   }

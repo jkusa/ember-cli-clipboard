@@ -19,7 +19,7 @@ module('Acceptance | test helpers', function(hooks) {
     );
 
     assert.ok(
-      find('.if-supported .container-body').textContent.match(
+      find('.application__supported-text').textContent.match(
         /Clipboard is( not)? supported/
       ),
       'whether clipboard is supported is shown'

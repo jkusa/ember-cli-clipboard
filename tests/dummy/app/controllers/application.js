@@ -1,55 +1,34 @@
 import Controller from '@ember/controller';
-import { get } from '@ember/object';
+import uuidv1 from 'uuid/v1';
 
 export default Controller.extend({
-  sendSuccessMessage(options) {
-    let action = options.action || 'copied';
-    get(this, 'flashMessages').success(
-      `Success! Text ${action} to clipboard.`,
-      options
-    );
-  },
-
-  sendErrorMessage(options) {
-    let action = options.action || 'copy',
-      actionKey = action === 'cut' ? 'x' : 'c';
-
-    if (/iPhone|iPad/i.test(navigator.userAgent)) {
-      options.message = 'iOS not supported :(';
-      options.type = 'warn';
-    } else if (/Mac/i.test(navigator.userAgent)) {
-      options.message = `Press ⌘-${actionKey} to ${action} (Safari)`;
-      options.type = 'info';
-    } else {
-      options.message = `Press Ctrl-${actionKey} to ${action}`;
-      options.type = 'info';
-    }
-    get(this, 'flashMessages').add(options);
-  },
-
   actions: {
-    copyTargetSuccess() {
-      this.sendSuccessMessage({ copyTarget: true });
+    generateToken() {
+      return uuidv1();
     },
 
-    copyTargetError() {
-      this.sendErrorMessage({ copyTarget: true });
+    getSuccessMessage(action) {
+      return {
+        type: 'success',
+        message: `Success! Text ${action} to clipboard.`
+      };
     },
 
-    copyDirectSuccess() {
-      this.sendSuccessMessage({ copyDirect: true });
-    },
+    getErrorMessage(action) {
+      const options = {};
 
-    copyDirectError() {
-      this.sendErrorMessage({ copyDirect: true });
-    },
-
-    cutTargetSuccess() {
-      this.sendSuccessMessage({ cutTarget: true, action: 'cut' });
-    },
-
-    cutTargetError() {
-      this.sendErrorMessage({ cutTarget: true, action: 'cut' });
+      const actionKey = action === 'cut' ? 'x' : 'c';
+      if (/iPhone|iPad/i.test(navigator.userAgent)) {
+        options.message = 'iOS not supported :(';
+        options.type = 'warn';
+      } else if (/Mac/i.test(navigator.userAgent)) {
+        options.message = `Press ⌘-${actionKey} to ${action} (Safari)`;
+        options.type = 'info';
+      } else {
+        options.message = `Press Ctrl-${actionKey} to ${action}`;
+        options.type = 'info';
+      }
+      return options;
     }
   }
 });

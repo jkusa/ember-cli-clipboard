@@ -42,10 +42,13 @@ export default Component.extend({
    * @returns {Object} newly created ClipboardJS object
    */
   _createClipboard() {
+    const { clipboardText: text } = this;
     const trigger = this.delegateClickEvent
       ? `#${this.elementId}`
       : this.element;
-    return new window.ClipboardJS(trigger);
+    return new window.ClipboardJS(trigger, {
+      text: typeof text === 'function' ? text : undefined
+    });
   },
 
   /**
@@ -71,10 +74,30 @@ export default Component.extend({
     });
   },
 
-  didInsertElement() {
+  /**
+   * Registers ClipboardJS object with component
+   * @method _registerClipboard
+   * @private
+   * @returns {Void}
+   */
+  _registerClipboard() {
+    if (this.clipboard) {
+      this.clipboard.destroy();
+    }
+
     const clipboard = this._createClipboard();
     this._registerActions(clipboard);
     set(this, 'clipboard', clipboard);
+  },
+
+  didInsertElement() {
+    this._super(...arguments);
+    this._registerClipboard();
+  },
+
+  didUpdateAttrs() {
+    this._super(...arguments);
+    this._registerClipboard();
   },
 
   willDestroyElement() {

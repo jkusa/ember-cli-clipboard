@@ -1,0 +1,23 @@
+.doc-section {
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 4px 2px #ccc;
+  -moz-box-shadow: 1px 1px 4px 2px #ccc;
+  -webkit-box-shadow: 1px 1px 4px 2px #ccc;
+  margin: 20px 0;
+
+  &__header {
+    font-weight: bold;
+  }
+
+  &__header-title {
+    padding: 10px;
+  }
+
+  &__body {
+    display: flex;
+    flex-flow: column;
+  }
+}
