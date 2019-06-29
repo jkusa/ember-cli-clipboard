@@ -1,92 +1,75 @@
 <header>
-  <div class="image">
+  <div class="application__header-image">
     <img src="clipboard.png" alt="clipboard">
-    <div class="install-wrapper">
-      <code class="install-cmd">ember install ember-cli-clipboard</code>
+    <div class="application__install-wrapper">
+      <code class="application__install-cmd">ember install ember-cli-clipboard</code>
     </div>
   </div>
 
-  <h2>A simple ember wrapper around <a href="http://zenorocha.github.io/clipboard.js">clipboard.js</a></h2>
+  <h2>A simple ember wrapper around <a class="application__clipboard-link" href="http://zenorocha.github.io/clipboard.js">clipboard.js</a></h2>
 
-  <div class="gh-link">
-    <a href="https://github.com/jkusa/ember-cli-clipboard">
-      <img class="gh-icon" src="github.svg" alt="github">
-      <span>View On Github</span>
-    </a>
-  </div>
+  <GhLink />
 </header>
 
 <main>
-  <section>
-    <div class="container direct copy-direct">
-      {{#each flashMessages.arrangedQueue as |flash|}}
-        {{#if flash.copyDirect}}
-          {{#flash-message flash=flash as |component flash|}}
-            <p>{{flash.message}}</p>
-          {{/flash-message}}
-        {{/if}}
-      {{/each}}
-      <p class="container-header">
-        Set Text Directly
-      </p>
-      <div class="container-body">
-        <div class="install-wrapper">
-          <code class="install-cmd">ember install ember-cli-clipboard</code>
-          {{#copy-button
-            clipboardText="ember install ember-cli-clipboard"
-            success=(action "copyDirectSuccess")
-            error=(action "copyDirectError")
-            title="copy to clipboard"
-          }}
-            <img class="copy-icon" src="clippy.svg" alt="clipboard">
-          {{/copy-button}}
-        </div>
-      </div>
-      {{! template-lint-disable block-indentation }}
-      {{#code-block}}
+  <DocSection @title="Set Text Directly" as |showMessage|>
+    <div class="application__direct-text-example">
+      <code class="application__install-cmd">ember install ember-cli-clipboard</code>
+      <CopyButton @classNames="application__copy-icon" 
+        @clipboardText="ember install ember-cli-clipboard"
+        @success={{ pipe (action "getSuccessMessage" "copy") (action showMessage) }}
+        @error={{ pipe (action "getErrorMessage" "copy") (action showMessage) }} title="copy to clipboard">
+        <img src="clippy.svg" alt="clipboard">
+      </CopyButton>
+    </div>
+    {{! template-lint-disable block-indentation }}
+    {{#code-block}}
+&lt;CopyButton
+ @clipboardText="ember install ember-cli-clipboard"
+ @success=\{{action "onSuccess"}}
+ @error=\{{action "onError"}}
+ title="copy to clipboard"
+&gt;
+  &lt;i class="copy"&gt;&lt;/i&gt;
+&lt;/CopyButton&gt;
+    {{/code-block}}
+  </DocSection>
+
+  <DocSection @title="Lazily Set Text From Action" as |showMessage|>
+    {{#copy-button
+      classNames="application__copy-button" 
+      clipboardText=(action "generateToken")
+      success=(pipe (action "getSuccessMessage" "copy") (action showMessage))
+      error=(pipe (action "getErrorMessage" "copy") (action showMessage))
+      title="copy to clipboard"
+    }}
+      Generate & Copy Token
+    {{/copy-button}}
+    {{! template-lint-disable block-indentation }}
+    {{#code-block}}
 \{{#copy-button
-  clipboardText="ember install ember-cli-clipboard"
+  clipboardText=(action "generateToken")
   success=(action "onSuccess")
   error=(action "onError")
   title="copy to clipboard"
 }}
-  &lt;i class="copy"&gt;&lt;/i&gt;
+  Generate & Copy Token
 \{{/copy-button}}
-      {{/code-block}}
-    </div>
-  </section>
+    {{/code-block}}
+  </DocSection>
 
-  <section>
-    <div class="container target copy-target">
-      {{#each flashMessages.arrangedQueue as |flash|}}
-        {{#if flash.copyTarget}}
-          {{#flash-message flash=flash as |component flash|}}
-            <p>{{flash.message}}</p>
-          {{/flash-message}}
-        {{/if}}
-      {{/each}}
-      <p class="container-header">
-        Get Text From Target Element
-      </p>
-      <div class="container-body">
-        <input
-          id="url"
-          class="textfield"
-          type="text"
-          value="https://github.com/jkusa/ember-cli-clipboard"
-        >
-        <div class="container-body-ctrls">
-          {{#copy-button
-            clipboardTarget="#url"
-            success=(action "copyTargetSuccess")
-            error=(action "copyTargetError")
-          }}
-            Copy URL
-          {{/copy-button}}
-        </div>
-      </div>
-      {{! template-lint-disable block-indentation }}
-      {{#code-block}}
+  <DocSection @title="Get Text From Target Element" as |showMessage|>
+    <input id="url" class="application__textfield" type="text" value="https://github.com/jkusa/ember-cli-clipboard">
+    {{#copy-button
+      classNames="application__copy-button" 
+      clipboardTarget="#url"
+      success=(pipe (action "getSuccessMessage" "copy") (action showMessage))
+      error=(pipe (action "getErrorMessage" "copy") (action showMessage))
+    }}
+      Copy URL
+    {{/copy-button}}
+    {{! template-lint-disable block-indentation }}
+    {{#code-block}}
 &lt;input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard"&gt;
 \{{#copy-button
   clipboardTarget="#url"
@@ -95,37 +78,22 @@
 }}
   Copy URL
 \{{/copy-button}}
-      {{/code-block}}
-    </div>
-  </section>
+    {{/code-block}}
+  </DocSection>
 
-  <section>
-    <div class="container target cut-target">
-      {{#each flashMessages.arrangedQueue as |flash|}}
-        {{#if flash.cutTarget}}
-          {{#flash-message flash=flash as |component flash|}}
-            <p>{{flash.message}}</p>
-          {{/flash-message}}
-        {{/if}}
-      {{/each}}
-      <p class="container-header">
-        Cut Text From Target Element
-      </p>
-      <div class="container-body">
-        <textarea id="textarea" class="textfield" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </textarea>
-        <div class="container-body-ctrls">
-          {{#copy-button
-            clipboardTarget="#textarea"
-            clipboardAction="cut"
-            success=(action "cutTargetSuccess")
-            error=(action "cutTargetError")
-          }}
-            Cut Text
-          {{/copy-button}}
-        </div>
-      </div>
-      {{! template-lint-disable block-indentation }}
-      {{#code-block}}
+  <DocSection @title="Cut Text From Target Element" as |showMessage|>
+    <textarea id="textarea" class="application__textfield" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </textarea>
+    {{#copy-button
+      classNames="application__copy-button"
+      clipboardTarget="#textarea"
+      clipboardAction="cut"
+      success=(pipe (action "getSuccessMessage" "cut") (action showMessage))
+      error=(pipe (action "getErrorMessage" "cut") (action showMessage))
+    }}
+      Cut Text
+    {{/copy-button}}
+    {{! template-lint-disable block-indentation }}
+    {{#code-block}}
 &lt;textarea id="textarea"&gt;Lorem ipsum dolor sit amet, consectetur...&lt;/textarea&gt;
 \{{#copy-button
   clipboardTarget="#textarea"
@@ -135,36 +103,30 @@
 }}
   Cut Text
 \{{/copy-button}}
-      {{/code-block}}
-    </div>
-  </section>
+    {{/code-block}}
+  </DocSection>
 
-  <section>
-    <div class="container if-supported">
-      <p class="container-header">
-        Check If Clipboard Is Supported
-      </p>
-      <div class="container-body">
-        {{#if (is-clipboard-supported)}}
-          Clipboard is supported
-        {{else}}
-          Clipboard is not supported
-        {{/if}}
-      </div>
-      {{! template-lint-disable block-indentation }}
-      {{#code-block}}
+  <DocSection @title="Check If Clipboard Is Supported">
+    <p class="application__supported-text">
+      {{#if (is-clipboard-supported)}}
+        <span>Clipboard <span class="application__is-supported">is</span> supported</span>
+      {{else}}
+        <span>Clipboard <span class="application__is-supported">is not</span> supported</span>
+      {{/if}}
+    </p>
+    {{! template-lint-disable block-indentation }}
+    {{#code-block}}
 \{{#if (is-clipboard-supported)}}
-  Clipboard is supported
+  &lt;span&gt;Clipboard is supported&lt;/span&gt;
 \{{else}}
-  Clipboard is not supported
+  &lt;span&gt;Clipboard is not supported&lt;/span&gt;
 \{{/if}}
-      {{/code-block}}
-    </div>
-  </section>
+    {{/code-block}}
+  </DocSection>
 </main>
 
 <footer>
-  <div class="profile-link">
+  <div class="application__profile-link">
     <a href="https://github.com/jkusa">@jkusa</a>
   </div>
 </footer>

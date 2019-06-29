@@ -1,0 +1,33 @@
+.alert {
+  animation: fadeIn 1s ease;
+  -moz-animation: fadeIn 1s ease;
+  -webkit-animation: fadeIn 1s ease;
+  border-style: solid;
+  border-width: 0 0 1px 0;
+  border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+  font-size: 16px;
+  margin-bottom: 20px;
+  padding: 10px;
+  position: absolute;
+  width: 378px;
+}
+
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #31708f;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #3c763d;
+}
+
+.alert-warn {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #8a6d3b;
+}

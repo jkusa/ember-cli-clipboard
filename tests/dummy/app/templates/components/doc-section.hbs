@@ -1,0 +1,11 @@
+<div class="doc-section__header">
+  {{#each messageQueue as |flash|}}
+    <FlashMessage @flash={{flash}} as |component flash|>
+      <p>{{flash.message}}</p>
+    </FlashMessage>
+  {{/each}}
+  <p class="doc-section__header-title">{{@title}}</p>
+</div>
+<div class="doc-section__body">
+  {{yield (action "showMessage")}}
+</div>
