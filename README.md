@@ -132,28 +132,23 @@ test('copy button message', function(assert) {
 
   visit('/');
   andThen(() => {
-    assert.notOk(
-      !!find('.alert').length,
-      'no alert message is initially present'
-    );
+    assert.dom('.alert').doesNotExist('no alert message is initially present');
   });
 
   triggerCopySuccess();
 
   andThen(() => {
-    assert.ok(
-      !!find('.alert.alert-success').length,
-      'a success message is displayed when a copy is successful'
-    );
+    assert
+      .dom('.alert.alert-success')
+      .exists('a success message is displayed when a copy is successful');
   });
 
   triggerCopyError();
 
   andThen(() => {
-    assert.ok(
-      !!find('.alert.alert-info').length,
-      'an error message is displayed when a copy is unsuccessful'
-    );
+    assert
+      .dom('.alert.alert-info')
+      .exists('an error message is displayed when a copy is unsuccessful');
   });
 });
 ```
