@@ -1,39 +1,26 @@
 import Component from '@ember/component';
-import { set } from '@ember/object';
+import { set, action } from '@ember/object';
+import ClipboardJS from 'clipboard';
+
 import layout from '../templates/components/copy-button';
 
 const CLIPBOARD_EVENTS = ['success', 'error'];
 
-export default Component.extend({
-  layout: layout,
-  tagName: 'button',
-  classNames: ['copy-btn'],
-  attributeBindings: [
-    'clipboardText:data-clipboard-text',
-    'clipboardTarget:data-clipboard-target',
-    'clipboardAction:data-clipboard-action',
-    'buttonType:type',
-    'disabled',
-    'aria-label',
-    'title'
-  ],
-
-  /**
-   * @property {String} buttonType - type attribute for button element
-   */
-  buttonType: 'button',
+export default class extends Component {
+  layout = layout;
+  tagName = '';
 
   /**
    * @property {Boolean} disabled - disabled state for button element
    */
-  disabled: false,
+  disabled = false;
 
   /**
    * If true - scope event listener to this element
    * If false - scope event listener to document.body (ClipboardJS)
    * @property {Boolean} delegateClickEvent
    */
-  delegateClickEvent: true,
+  delegateClickEvent = true;
 
   /**
    * Creates new `ClipboardJS` instance
@@ -44,12 +31,13 @@ export default Component.extend({
   _createClipboard() {
     const { clipboardText: text } = this;
     const trigger = this.delegateClickEvent
-      ? `#${this.elementId}`
-      : this.element;
-    return new window.ClipboardJS(trigger, {
+      ? `#${this.buttonElementId}`
+      : this.buttonElement;
+
+    return new ClipboardJS(trigger, {
       text: typeof text === 'function' ? text : undefined
     });
-  },
+  }
 
   /**
    * Registers Ember Actions with ClipboardJS events
@@ -72,7 +60,7 @@ export default Component.extend({
         }
       });
     });
-  },
+  }
 
   /**
    * Registers ClipboardJS object with component
@@ -88,21 +76,29 @@ export default Component.extend({
     const clipboard = this._createClipboard();
     this._registerActions(clipboard);
     set(this, 'clipboard', clipboard);
-  },
+  }
 
-  didInsertElement() {
-    this._super(...arguments);
+  @action
+  setupElement(element) {
+    // TODO: do we really need to default to setting the element id?
+    element.id = Math.random()
+      .toString(36)
+      .replace(/[^a-z]+/g, '')
+      .substr(0, 5);
+
+    this.buttonElement = element;
+    this.buttonElementId = element.id;
+  }
+
+  @action
+  registerClipboard() {
     this._registerClipboard();
-  },
+  }
 
-  didUpdateAttrs() {
-    this._super(...arguments);
-    this._registerClipboard();
-  },
-
-  willDestroyElement() {
+  @action
+  destroyClipboard() {
     if (this.clipboard) {
       this.clipboard.destroy();
     }
   }
-});
+}

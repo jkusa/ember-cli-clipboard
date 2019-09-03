@@ -19,6 +19,7 @@ module('Integration | Component | copy button', function(hooks) {
     await render(hbs`
       {{#if enabled}}
         {{#copy-button
+          class='copy-btn'
           clipboardText="text"
         }}
           Click To Copy
@@ -39,6 +40,7 @@ module('Integration | Component | copy button', function(hooks) {
     await render(hbs`
       {{#if enabled}}
         {{#copy-button
+          class='copy-btn'
           clipboardText="text"
           delegateClickEvent=false
         }}
@@ -144,6 +146,7 @@ module('Integration | Component | copy button', function(hooks) {
 
     // even though remove node, document.body is still listening
     let el = document.querySelector('.copy-button');
+    await this.pauseTest();
     let clone = el.cloneNode(true);
     el.parentNode.replaceChild(clone, el);
 
@@ -160,14 +163,14 @@ module('Integration | Component | copy button', function(hooks) {
     this.set('error', () => assert.ok(false, 'listener should be removed'));
 
     await render(hbs`
-      {{#copy-button
+      <CopyButton
         class="copy-button"
-        clipboardText="text"
-        delegateClickEvent=false
-        error=(action error)
-      }}
+        @clipboardText="text"
+        @delegateClickEvent=false
+        @error=(action error)
+      >
         Click To Copy
-      {{/copy-button}}
+      </CopyButton>
     `);
 
     // remove button and no assertions will be run
@@ -186,7 +189,7 @@ module('Integration | Component | copy button', function(hooks) {
     assert.expect(1);
 
     await render(hbs`
-      {{#copy-button}}
+      {{#copy-button class='copy-btn'}}
         Click To Copy
       {{/copy-button}}
     `);
@@ -201,6 +204,7 @@ module('Integration | Component | copy button', function(hooks) {
 
     await render(hbs`
       {{#copy-button
+        class='copy-btn'
         clipboardText="text"
         clipboardAction="cut"
         clipboardTarget=".foo"

@@ -1,1 +1,14 @@
-{{yield}}
+<button 
+  ...attributes
+  data-clipboard-text={{this.clipboardText}}
+  data-clipboard-target={{this.clipboardTarget}}
+  data-clipboard-action={{this.clipboardAction}}
+  disabled={{this.disabled}}
+
+  {{did-insert this.setupElement}}
+  {{did-insert this.registerClipboard}}
+  {{did-update this.registerClipboard}}
+  {{will-destroy this.destroyClipboard}}
+>
+  {{yield}}
+</button>

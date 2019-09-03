@@ -40,10 +40,10 @@ export function _fireComponentAction(owner, selector, actionName) {
  * Fetches component reference for a given context and selector
  * @function getComponentBySelector
  * @param {Object} owner - an owner object
- * @param {String} [selector='.copy-btn'] - css selector of the copy-button instance
+ * @param {String} selector - css selector of the copy-button instance
  * @returns {Ember.Component} component object
  */
-function _getComponentBySelector(owner, selector = '.copy-btn') {
+function _getComponentBySelector(owner, selector) {
   const emberId = document.querySelector(selector).getAttribute('id');
   return owner.lookup('-view-registry:main')[emberId];
 }
