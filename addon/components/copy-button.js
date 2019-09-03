@@ -22,6 +22,30 @@ export default class extends Component {
    */
   delegateClickEvent = true;
 
+  @action
+  setupElement(element) {
+    // TODO: do we really need to default to setting the element id?
+    element.id = Math.random()
+      .toString(36)
+      .replace(/[^a-z]+/g, '')
+      .substr(0, 5);
+
+    this.buttonElement = element;
+    this.buttonElementId = element.id;
+  }
+
+  @action
+  registerClipboard() {
+    this._registerClipboard();
+  }
+
+  @action
+  destroyClipboard() {
+    if (this.clipboard) {
+      this.clipboard.destroy();
+    }
+  }
+
   /**
    * Creates new `ClipboardJS` instance
    * @method _createClipboard
@@ -76,29 +100,5 @@ export default class extends Component {
     const clipboard = this._createClipboard();
     this._registerActions(clipboard);
     set(this, 'clipboard', clipboard);
-  }
-
-  @action
-  setupElement(element) {
-    // TODO: do we really need to default to setting the element id?
-    element.id = Math.random()
-      .toString(36)
-      .replace(/[^a-z]+/g, '')
-      .substr(0, 5);
-
-    this.buttonElement = element;
-    this.buttonElementId = element.id;
-  }
-
-  @action
-  registerClipboard() {
-    this._registerClipboard();
-  }
-
-  @action
-  destroyClipboard() {
-    if (this.clipboard) {
-      this.clipboard.destroy();
-    }
   }
 }

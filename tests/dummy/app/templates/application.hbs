@@ -15,7 +15,8 @@
   <DocSection @title="Set Text Directly" as |showMessage|>
     <div class="application__direct-text-example">
       <code class="application__install-cmd">ember install ember-cli-clipboard</code>
-      <CopyButton @classNames="application__copy-icon" 
+      <CopyButton 
+        class="application__copy-icon" 
         @clipboardText="ember install ember-cli-clipboard"
         @success={{ pipe (action "getSuccessMessage" "copy") (action showMessage) }}
         @error={{ pipe (action "getErrorMessage" "copy") (action showMessage) }} title="copy to clipboard">
@@ -36,15 +37,15 @@
   </DocSection>
 
   <DocSection @title="Lazily Set Text From Action" as |showMessage|>
-    {{#copy-button
-      classNames="application__copy-button" 
-      clipboardText=(action "generateToken")
-      success=(pipe (action "getSuccessMessage" "copy") (action showMessage))
-      error=(pipe (action "getErrorMessage" "copy") (action showMessage))
+    <CopyButton
+      class="application__copy-button" 
       title="copy to clipboard"
-    }}
+      @clipboardText={{action "generateToken"}}
+      @success={{pipe (action "getSuccessMessage" "copy") (action showMessage)}}
+      @error={{pipe (action "getErrorMessage" "copy") (action showMessage)}}
+    >
       Generate & Copy Token
-    {{/copy-button}}
+    </CopyButton>
     {{! template-lint-disable block-indentation }}
     {{#code-block}}
 \{{#copy-button
@@ -60,14 +61,14 @@
 
   <DocSection @title="Get Text From Target Element" as |showMessage|>
     <input id="url" class="application__textfield" type="text" value="https://github.com/jkusa/ember-cli-clipboard">
-    {{#copy-button
-      classNames="application__copy-button" 
-      clipboardTarget="#url"
-      success=(pipe (action "getSuccessMessage" "copy") (action showMessage))
-      error=(pipe (action "getErrorMessage" "copy") (action showMessage))
-    }}
+    <CopyButton
+      class="application__copy-button" 
+      @clipboardTarget="#url"
+      @success={{pipe (action "getSuccessMessage" "copy") (action showMessage)}}
+      @error={{pipe (action "getErrorMessage" "copy") (action showMessage)}}
+    >
       Copy URL
-    {{/copy-button}}
+    </CopyButton>
     {{! template-lint-disable block-indentation }}
     {{#code-block}}
 &lt;input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard"&gt;
@@ -83,15 +84,15 @@
 
   <DocSection @title="Cut Text From Target Element" as |showMessage|>
     <textarea id="textarea" class="application__textfield" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </textarea>
-    {{#copy-button
-      classNames="application__copy-button"
+    <CopyButton>
+      class="application__copy-button"
       clipboardTarget="#textarea"
       clipboardAction="cut"
       success=(pipe (action "getSuccessMessage" "cut") (action showMessage))
       error=(pipe (action "getErrorMessage" "cut") (action showMessage))
-    }}
+    >
       Cut Text
-    {{/copy-button}}
+    </CopyButton>
     {{! template-lint-disable block-indentation }}
     {{#code-block}}
 &lt;textarea id="textarea"&gt;Lorem ipsum dolor sit amet, consectetur...&lt;/textarea&gt;

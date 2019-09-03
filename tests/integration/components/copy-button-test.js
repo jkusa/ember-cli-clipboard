@@ -18,12 +18,12 @@ module('Integration | Component | copy button', function(hooks) {
     this.set('enabled', true);
     await render(hbs`
       {{#if enabled}}
-        {{#copy-button
+        <CopyButton
           class='copy-btn'
           clipboardText="text"
-        }}
+        >
           Click To Copy
-        {{/copy-button}}
+        </CopyButton>
       {{/if}}
     `);
 
@@ -39,13 +39,13 @@ module('Integration | Component | copy button', function(hooks) {
     this.set('enabled', true);
     await render(hbs`
       {{#if enabled}}
-        {{#copy-button
+        <CopyButton
           class='copy-btn'
           clipboardText="text"
           delegateClickEvent=false
-        }}
+        >
           Click To Copy
-        {{/copy-button}}
+        </CopyButton>
       {{/if}}
     `);
 
@@ -146,7 +146,6 @@ module('Integration | Component | copy button', function(hooks) {
 
     // even though remove node, document.body is still listening
     let el = document.querySelector('.copy-button');
-    await this.pauseTest();
     let clone = el.cloneNode(true);
     el.parentNode.replaceChild(clone, el);
 

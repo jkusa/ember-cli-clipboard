@@ -22,13 +22,13 @@ module('Acceptance | test helpers', function(hooks) {
         'whether clipboard is supported is shown'
       );
 
-    triggerCopySuccess();
+    triggerCopySuccess('.application__copy-button');
 
     assert
       .dom('.alert.alert-success')
       .exists('a success message is displayed when a copy is successful');
 
-    triggerCopyError();
+    triggerCopyError('.application__copy-button');
 
     assert
       .dom('.alert.alert-info')
