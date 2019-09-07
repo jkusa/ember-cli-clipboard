@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { set, action } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
 import ClipboardJS from 'clipboard';
 
 import layout from '../templates/components/copy-button';
@@ -24,12 +25,7 @@ export default class extends Component {
 
   @action
   setupElement(element) {
-    // TODO: do we really need to default to setting the element id?
-    element.id = Math.random()
-      .toString(36)
-      .replace(/[^a-z]+/g, '')
-      .substr(0, 5);
-
+    element.id = guidFor(this);
     this.buttonElement = element;
     this.buttonElementId = element.id;
   }
@@ -74,13 +70,8 @@ export default class extends Component {
     CLIPBOARD_EVENTS.forEach(event => {
       clipboard.on(event, () => {
         if (!this.disabled) {
-          const action = this[event] || (() => {});
-          if (typeof action === 'string') {
-            // eslint-disable-next-line ember/closure-actions
-            this.sendAction(action, ...arguments);
-          } else {
-            action(...arguments);
-          }
+          const action = this[event];
+          action && action(...arguments);
         }
       });
     });

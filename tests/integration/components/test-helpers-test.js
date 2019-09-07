@@ -29,17 +29,17 @@ module('Integration | Component | integration test helpers', function(hooks) {
     });
 
     await render(hbs`
-      {{#copy-button
-        class="my-copy-btn"
-        clipboardText="text"
-        success=(action success)
-        error=(action error)
-      }}
+      <CopyButton
+        class="copy-btn"
+        @clipboardText="text"
+        @success={{action success}}
+        @error={{action error}}
+      >
         Click To Copy
-      {{/copy-button}}
+      </CopyButton>
     `);
 
-    triggerCopyError('.my-copy-btn');
+    triggerCopyError('.copy-btn');
 
     this.setProperties({
       error: () => assert.notOk(true, 'error action incorrectly fired'),
@@ -50,7 +50,7 @@ module('Integration | Component | integration test helpers', function(hooks) {
         )
     });
 
-    triggerCopySuccess();
+    triggerCopySuccess('.copy-btn');
   });
 
   test('legacy test-helpers fire correct actions', async function(assert) {
@@ -66,17 +66,17 @@ module('Integration | Component | integration test helpers', function(hooks) {
     });
 
     await render(hbs`
-      {{#copy-button
-        class="my-copy-btn"
-        clipboardText="text"
-        success=(action success)
-        error=(action error)
-      }}
+      <CopyButton
+        class="copy-btn"
+        @clipboardText="text"
+        @success={{action success}}
+        @error={{action error}}
+      >
         Click To Copy
-      {{/copy-button}}
+      </CopyButton>
     `);
 
-    legacyTriggerError(this, '.my-copy-btn');
+    legacyTriggerError(this, '.copy-btn');
 
     this.setProperties({
       error: () => assert.notOk(true, 'error action incorrectly fired'),
@@ -87,6 +87,6 @@ module('Integration | Component | integration test helpers', function(hooks) {
         )
     });
 
-    legacyTriggerSuccess(this);
+    legacyTriggerSuccess(this, '.copy-btn');
   });
 });

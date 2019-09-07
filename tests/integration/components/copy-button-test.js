@@ -41,8 +41,8 @@ module('Integration | Component | copy button', function(hooks) {
       {{#if enabled}}
         <CopyButton
           class='copy-btn'
-          clipboardText="text"
-          delegateClickEvent=false
+          @clipboardText="text"
+          @delegateClickEvent={{false}}
         >
           Click To Copy
         </CopyButton>
@@ -73,32 +73,22 @@ module('Integration | Component | copy button', function(hooks) {
       .hasText('Click To Copy', 'Component yields text with block');
   });
 
-  test('error action fires', async function(assert) {
-    assert.expect(2);
+  test('callback action fires', async function(assert) {
+    assert.expect(1);
 
-    this.set('error', () =>
-      assert.ok(true, '`error` closure action successfully called')
+    this.set('callback', () =>
+      assert.ok(true, 'callback closure action successfully called')
     );
 
     await render(hbs`
       {{#copy-button
         clipboardText="text"
-        error=(action error)
+        error=(action callback)
+        success=(action callback)
       }}
         Click To Copy
       {{/copy-button}}
     `);
-
-    /*
-     * Can only directly test error case here b/c browsers do not allow simulated
-     * clicks for `execCommand('copy')`. See test-helpers to test action integration.
-     */
-    await click('button');
-
-    this.actions.error = () => {
-      assert.ok(true, '`error` bubbling action successfully called');
-    };
-    this.set('error', 'error');
 
     await click('button');
   });
@@ -106,7 +96,7 @@ module('Integration | Component | copy button', function(hooks) {
   test('error action fires with delegateClickEvent: false', async function(assert) {
     assert.expect(1);
 
-    this.set('error', () =>
+    this.set('callback', () =>
       assert.ok(true, '`error` action successfully called')
     );
 
@@ -114,59 +104,54 @@ module('Integration | Component | copy button', function(hooks) {
       {{#copy-button
         clipboardText="text"
         delegateClickEvent=false
-        error=(action error)
+        error=(action callback)
+        success=(action callback)
       }}
         Click To Copy
       {{/copy-button}}
     `);
 
-    /*
-     * Can only directly test error case here b/c browsers do not allow simulated
-     * clicks for `execCommand('copy')`. See test-helpers to test action integration.
-     */
     await click('button');
   });
 
   test('click scoped to document.body', async function(assert) {
     assert.expect(1);
 
-    this.set('error', () =>
-      assert.ok(true, '`error` action successfully called')
+    this.set('callback', () =>
+      assert.ok(true, 'callback action successfully called')
     );
 
     await render(hbs`
-      {{#copy-button
+      <CopyButton
         class="copy-button"
-        clipboardText="text"
-        error=(action error)
-      }}
+        @clipboardText="text"
+        @error={{action callback}}
+        @success={{action callback}}
+      >
         Click To Copy
-      {{/copy-button}}
-    `);
+      </CopyButton>
+  `);
 
     // even though remove node, document.body is still listening
     let el = document.querySelector('.copy-button');
     let clone = el.cloneNode(true);
     el.parentNode.replaceChild(clone, el);
 
-    /*
-     * Can only directly test error case here b/c browsers do not allow simulated
-     * clicks for `execCommand('copy')`. See test-helpers to test action integration.
-     */
     await click('.copy-button');
   });
 
   test('click scoped to element', async function(assert) {
     assert.expect(0);
 
-    this.set('error', () => assert.ok(false, 'listener should be removed'));
+    this.set('callback', () => assert.ok(false, 'listener should be removed'));
 
     await render(hbs`
       <CopyButton
         class="copy-button"
         @clipboardText="text"
-        @delegateClickEvent=false
-        @error=(action error)
+        @delegateClickEvent={{false}}
+        @error={{action callback}}
+        @success={{action callback}}
       >
         Click To Copy
       </CopyButton>
@@ -177,10 +162,6 @@ module('Integration | Component | copy button', function(hooks) {
     let clone = el.cloneNode(true);
     el.parentNode.replaceChild(clone, el);
 
-    /*
-     * Can only directly test error case here b/c browsers do not allow simulated
-     * clicks for `execCommand('copy')`. See test-helpers to test action integration.
-     */
     await click('.copy-button');
   });
 
@@ -188,9 +169,9 @@ module('Integration | Component | copy button', function(hooks) {
     assert.expect(1);
 
     await render(hbs`
-      {{#copy-button class='copy-btn'}}
+      <CopyButton class='copy-btn'>
         Click To Copy
-      {{/copy-button}}
+      </CopyButton>
     `);
 
     assert
@@ -202,17 +183,17 @@ module('Integration | Component | copy button', function(hooks) {
     assert.expect(7);
 
     await render(hbs`
-      {{#copy-button
+      <CopyButton
         class='copy-btn'
-        clipboardText="text"
-        clipboardAction="cut"
-        clipboardTarget=".foo"
-        disabled=true
         aria-label="foo bar"
         title="text"
-      }}
+        @clipboardText="text"
+        @clipboardAction="cut"
+        @clipboardTarget=".foo"
+        @disabled=true
+      >
         Click To Copy
-      {{/copy-button}}
+      </CopyButton>
     `);
 
     const btn = '.copy-btn';

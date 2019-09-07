@@ -1,5 +1,5 @@
 import { helper } from '@ember/component/helper';
+import { isSupported } from 'clipboard';
 
-export const isClipboardSupported =
-  window && window.ClipboardJS ? window.ClipboardJS.isSupported : () => false;
+export const isClipboardSupported = isSupported;
 export default helper(isClipboardSupported);
