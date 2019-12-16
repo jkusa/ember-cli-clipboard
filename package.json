@@ -46,7 +46,7 @@
     "loader.js": "^4.7.0",
     "prettier": "^1.16.4",
     "pretty-quick": "^1.10.0",
-    "qunit-dom": "^0.8.4",
+    "qunit-dom": "^0.9.2",
     "sass": "^1.22.1",
     "uuid": "^3.3.2"
   },
