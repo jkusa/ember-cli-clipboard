@@ -16,10 +16,8 @@
 /coverage/
 /libpeerconnection.log
 /npm-debug.log*
-/package-lock.json
 /testem.log
 /yarn-error.log
-/jsconfig.json
 
 # ember-try
 /.node_modules.ember-try/

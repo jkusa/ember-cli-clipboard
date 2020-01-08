@@ -1,1 +1,18 @@
-{{yield}}
+<button
+  aria-label={{@aria-label}}
+  class="copy-btn {{@class}} {{@classNames}}"
+  disabled={{@disabled}}
+  title={{@title}}
+  type={{if @buttonType @buttonType "button"}}
+  ...attributes
+  data-clipboard-text={{@clipboardText}}
+  data-clipboard-target={{@clipboardTarget}}
+  data-clipboard-action={{@clipboardAction}}
+
+  {{did-insert this.setupElement}}
+  {{did-insert this.registerClipboard}}
+  {{did-update this.registerClipboard}}
+  {{will-destroy this.destroyClipboard}}
+>
+  {{yield}}
+</button>

@@ -1,24 +1,29 @@
 import Component from '@ember/component';
-import layout from '../templates/components/doc-section';
+import { guidFor } from '@ember/object/internals';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
+import { action } from '@ember/object';
+import { filter } from '@ember/object/computed';
 
-export default Component.extend({
-  layout,
-  classNames: ['doc-section'],
-  tagName: 'section',
-  flashMessages: service(),
-  messageQueue: computed('flashMessages.arrangedQueue', function() {
-    return this.flashMessages
-      .get('arrangedQueue')
-      .filter(m => m.ctx === this.elementId);
-  }),
 
-  actions: {
-    showMessage(msgObj) {
-      this.flashMessages.add(
-        Object.assign({}, msgObj, { ctx: this.elementId })
-      );
-    }
+export default class DocSection extends Component {
+  tagName = "";
+
+  @service
+  flashMessages;
+
+  get guid() {
+    return guidFor(this);
   }
-});
+
+  @filter('flashMessages.arrangedQueue', function(m) {
+    return m.ctx === this.guid;
+  })
+  messageQueue;
+
+  @action
+  showMessage(msgObj) {
+    this.flashMessages.add(
+      Object.assign({}, msgObj, { ctx: this.guid })
+    );
+  }
+}
