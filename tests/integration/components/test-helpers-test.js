@@ -29,14 +29,14 @@ module('Integration | Component | integration test helpers', function(hooks) {
     });
 
     await render(hbs`
-      {{#copy-button
-        classNames="my-copy-btn"
-        clipboardText="text"
-        success=(action success)
-        error=(action error)
-      }}
+      <CopyButton
+        class="my-copy-btn"
+        @clipboardText="text"
+        @success={{this.success}}
+        @error={{this.error}}
+      >
         Click To Copy
-      {{/copy-button}}
+      </CopyButton>
     `);
 
     triggerCopyError('.my-copy-btn');
@@ -66,14 +66,14 @@ module('Integration | Component | integration test helpers', function(hooks) {
     });
 
     await render(hbs`
-      {{#copy-button
-        classNames="my-copy-btn"
-        clipboardText="text"
-        success=(action success)
-        error=(action error)
-      }}
+      <CopyButton
+        class="my-copy-btn"
+        @clipboardText="text"
+        @success={{this.success}}
+        @error={{this.error}}
+      >
         Click To Copy
-      {{/copy-button}}
+      </CopyButton>
     `);
 
     legacyTriggerError(this, '.my-copy-btn');

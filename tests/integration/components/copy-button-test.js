@@ -18,11 +18,11 @@ module('Integration | Component | copy button', function(hooks) {
     this.set('enabled', true);
     await render(hbs`
       {{#if enabled}}
-        {{#copy-button
-          clipboardText="text"
-        }}
+        <CopyButton
+          @clipboardText="text"
+        >
           Click To Copy
-        {{/copy-button}}
+        </CopyButton>
       {{/if}}
     `);
 
@@ -38,12 +38,12 @@ module('Integration | Component | copy button', function(hooks) {
     this.set('enabled', true);
     await render(hbs`
       {{#if enabled}}
-        {{#copy-button
-          clipboardText="text"
-          delegateClickEvent=false
-        }}
+        <CopyButton
+          @clipboardText="text"
+          @delegateClickEvent={{false}}
+        >
           Click To Copy
-        {{/copy-button}}
+        </CopyButton>
       {{/if}}
     `);
 
@@ -61,9 +61,9 @@ module('Integration | Component | copy button', function(hooks) {
     assert.dom('*').hasText('', 'Component renders no text without block');
 
     await render(hbs`
-      {{#copy-button}}
+      <CopyButton>
         Click To Copy
-      {{/copy-button}}
+      </CopyButton>
     `);
 
     assert
@@ -71,32 +71,22 @@ module('Integration | Component | copy button', function(hooks) {
       .hasText('Click To Copy', 'Component yields text with block');
   });
 
-  test('error action fires', async function(assert) {
-    assert.expect(2);
+  test('callback action fires', async function(assert) {
+    assert.expect(1);
 
-    this.set('error', () =>
-      assert.ok(true, '`error` closure action successfully called')
+    this.set('callback', () =>
+      assert.ok(true, 'callback closure action successfully called')
     );
 
     await render(hbs`
-      {{#copy-button
-        clipboardText="text"
-        error=(action error)
-      }}
+      <CopyButton
+        @clipboardText="text"
+        @error={{this.callback}}
+        @success={{this.callback}}
+      >
         Click To Copy
-      {{/copy-button}}
+      </CopyButton>
     `);
-
-    /*
-     * Can only directly test error case here b/c browsers do not allow simulated
-     * clicks for `execCommand('copy')`. See test-helpers to test action integration.
-     */
-    await click('button');
-
-    this.actions.error = () => {
-      assert.ok(true, '`error` bubbling action successfully called');
-    };
-    this.set('error', 'error');
 
     await click('button');
   });
@@ -104,70 +94,65 @@ module('Integration | Component | copy button', function(hooks) {
   test('error action fires with delegateClickEvent: false', async function(assert) {
     assert.expect(1);
 
-    this.set('error', () =>
+    this.set('callback', () =>
       assert.ok(true, '`error` action successfully called')
     );
 
     await render(hbs`
-      {{#copy-button
-        clipboardText="text"
-        delegateClickEvent=false
-        error=(action error)
-      }}
+      <CopyButton
+        @clipboardText="text"
+        @error={{this.callback}}
+        @success={{this.callback}}
+        @delegateClickEvent=false
+      >
         Click To Copy
-      {{/copy-button}}
+      </CopyButton>
     `);
 
-    /*
-     * Can only directly test error case here b/c browsers do not allow simulated
-     * clicks for `execCommand('copy')`. See test-helpers to test action integration.
-     */
     await click('button');
   });
 
   test('click scoped to document.body', async function(assert) {
     assert.expect(1);
 
-    this.set('error', () =>
-      assert.ok(true, '`error` action successfully called')
+    this.set('callback', () =>
+      assert.ok(true, 'callback action successfully called')
     );
 
     await render(hbs`
-      {{#copy-button
+      <CopyButton
         class="copy-button"
-        clipboardText="text"
-        error=(action error)
-      }}
+        @clipboardText="text"
+        @error={{action callback}}
+        @success={{action callback}}
+      >
         Click To Copy
-      {{/copy-button}}
-    `);
+      </CopyButton>
+  `);
 
     // even though remove node, document.body is still listening
     let el = document.querySelector('.copy-button');
     let clone = el.cloneNode(true);
     el.parentNode.replaceChild(clone, el);
 
-    /*
-     * Can only directly test error case here b/c browsers do not allow simulated
-     * clicks for `execCommand('copy')`. See test-helpers to test action integration.
-     */
     await click('.copy-button');
   });
 
   test('click scoped to element', async function(assert) {
     assert.expect(0);
 
-    this.set('error', () => assert.ok(false, 'listener should be removed'));
+    this.set('callback', () => assert.ok(false, 'listener should be removed'));
 
     await render(hbs`
-      {{#copy-button
+      <CopyButton
         class="copy-button"
-        clipboardText="text"
-        delegateClickEvent=false
-        error=(action error)
-      }}
+        @clipboardText="text"
+        @delegateClickEvent={{false}}
+        @error={{action callback}}
+        @success={{action callback}}
+      >
         Click To Copy
-      {{/copy-button}}
+      </CopyButton>
     `);
 
     // remove button and no assertions will be run
@@ -175,10 +160,6 @@ module('Integration | Component | copy button', function(hooks) {
     let clone = el.cloneNode(true);
     el.parentNode.replaceChild(clone, el);
 
-    /*
-     * Can only directly test error case here b/c browsers do not allow simulated
-     * clicks for `execCommand('copy')`. See test-helpers to test action integration.
-     */
     await click('.copy-button');
   });
 
@@ -186,9 +167,9 @@ module('Integration | Component | copy button', function(hooks) {
     assert.expect(1);
 
     await render(hbs`
-      {{#copy-button}}
+      <CopyButton>
         Click To Copy
-      {{/copy-button}}
+      </CopyButton>
     `);
 
     assert
@@ -197,19 +178,19 @@ module('Integration | Component | copy button', function(hooks) {
   });
 
   test('attributeBindings', async function(assert) {
-    assert.expect(7);
+    assert.expect(8);
 
     await render(hbs`
-      {{#copy-button
-        clipboardText="text"
-        clipboardAction="cut"
-        clipboardTarget=".foo"
-        disabled=true
-        aria-label="foo bar"
-        title="text"
-      }}
+      <CopyButton
+        @aria-label="foo bar"
+        @title="text"
+        @clipboardText="text"
+        @clipboardAction="cut"
+        @clipboardTarget=".foo"
+        @disabled={{true}}
+      >
         Click To Copy
-      {{/copy-button}}
+      </CopyButton>
     `);
 
     const btn = '.copy-btn';
@@ -240,10 +221,6 @@ module('Integration | Component | copy button', function(hooks) {
 
     assert
       .dom(btn)
-      .hasAttribute('type', 'button', 'buttonType correctly bound to type');
-
-    assert
-      .dom(btn)
       .hasAttribute('disabled', '', 'disabled correctly bound to type');
 
     assert
@@ -257,5 +234,21 @@ module('Integration | Component | copy button', function(hooks) {
     assert
       .dom(btn)
       .hasAttribute('title', 'text', 'text correctly bound to title');
+
+    assert
+      .dom(btn)
+      .hasAttribute('type', 'button', 'button type is button by default');
+
+    await render(hbs`
+      <CopyButton
+        @buttonType="reset"
+      >
+        Click To Copy
+      </CopyButton>
+    `);
+  
+    assert
+      .dom(btn)
+      .hasAttribute('type', 'reset', 'button type is set by @buttonType arg');
   });
 });

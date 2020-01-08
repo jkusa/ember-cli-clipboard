@@ -15,95 +15,88 @@
   <DocSection @title="Set Text Directly" as |showMessage|>
     <div class="application__direct-text-example">
       <code class="application__install-cmd">ember install ember-cli-clipboard</code>
-      <CopyButton @classNames="application__copy-icon" 
+      <CopyButton
+        class="application__copy-icon"
         @clipboardText="ember install ember-cli-clipboard"
-        @success={{ pipe (action "getSuccessMessage" "copy") (action showMessage) }}
-        @error={{ pipe (action "getErrorMessage" "copy") (action showMessage) }} title="copy to clipboard">
+        @success={{ pipe (fn this.getSuccessMessage "copy") showMessage }}
+        @error={{ pipe (fn this.getErrorMessage "copy") showMessage }}
+        title="copy to clipboard"
+      >
         <img src="clippy.svg" alt="clipboard">
       </CopyButton>
     </div>
     {{! template-lint-disable block-indentation }}
-    {{#code-block}}
-&lt;CopyButton
+    <CodeBlock>&lt;CopyButton
  @clipboardText="ember install ember-cli-clipboard"
- @success=\{{action "onSuccess"}}
- @error=\{{action "onError"}}
+ @success=\{{this.onSuccess}}
+ @error=\{{this.onError}}
  title="copy to clipboard"
 &gt;
   &lt;i class="copy"&gt;&lt;/i&gt;
-&lt;/CopyButton&gt;
-    {{/code-block}}
+&lt;/CopyButton&gt;</CodeBlock>
   </DocSection>
 
   <DocSection @title="Lazily Set Text From Action" as |showMessage|>
-    {{#copy-button
-      classNames="application__copy-button" 
-      clipboardText=(action "generateToken")
-      success=(pipe (action "getSuccessMessage" "copy") (action showMessage))
-      error=(pipe (action "getErrorMessage" "copy") (action showMessage))
+    <CopyButton
+      class="application__copy-button"
       title="copy to clipboard"
-    }}
+      @clipboardText={{this.generateToken}}
+      @success={{pipe (fn this.getSuccessMessage "copy") showMessage}}
+      @error={{pipe (fn this.getErrorMessage "copy") showMessage}}
+    >
       Generate & Copy Token
-    {{/copy-button}}
+    </CopyButton>
     {{! template-lint-disable block-indentation }}
-    {{#code-block}}
-\{{#copy-button
-  clipboardText=(action "generateToken")
-  success=(action "onSuccess")
-  error=(action "onError")
-  title="copy to clipboard"
-}}
+    <CodeBlock>&lt;CopyButton
+ @clipboardText=\{{this.generateToken}}
+ @success=\{{this.onSuccess}}
+ @error=\{{this.onError}}
+ title="copy to clipboard"
+&gt;
   Generate & Copy Token
-\{{/copy-button}}
-    {{/code-block}}
-  </DocSection>
+&lt;/CopyButton&gt;</CodeBlock>
+ </DocSection>
 
   <DocSection @title="Get Text From Target Element" as |showMessage|>
     <input id="url" class="application__textfield" type="text" value="https://github.com/jkusa/ember-cli-clipboard">
-    {{#copy-button
-      classNames="application__copy-button" 
-      clipboardTarget="#url"
-      success=(pipe (action "getSuccessMessage" "copy") (action showMessage))
-      error=(pipe (action "getErrorMessage" "copy") (action showMessage))
-    }}
+    <CopyButton
+      class="application__copy-button"
+      @clipboardTarget="#url"
+      @success={{pipe (fn this.getSuccessMessage "copy") showMessage}}
+      @error={{pipe (fn this.getErrorMessage "copy") showMessage}}
+    >
       Copy URL
-    {{/copy-button}}
+    </CopyButton>
     {{! template-lint-disable block-indentation }}
-    {{#code-block}}
-&lt;input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard"&gt;
-\{{#copy-button
-  clipboardTarget="#url"
-  success=(action "onSuccess")
-  error=(action "onError")
-}}
+    <CodeBlock>&lt;input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard"&gt;
+&lt;CopyButton
+ @clipboardTarget="#url"
+ @success=\{{this.onSuccess}}
+ @error=\{{this.onError}}
+&gt;
   Copy URL
-\{{/copy-button}}
-    {{/code-block}}
+&lt;/CopyButton&gt;</CodeBlock>
   </DocSection>
 
   <DocSection @title="Cut Text From Target Element" as |showMessage|>
     <textarea id="textarea" class="application__textfield" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </textarea>
-    {{#copy-button
-      classNames="application__copy-button"
-      clipboardTarget="#textarea"
-      clipboardAction="cut"
-      success=(pipe (action "getSuccessMessage" "cut") (action showMessage))
-      error=(pipe (action "getErrorMessage" "cut") (action showMessage))
-    }}
+    <CopyButton
+      class="application__copy-button"
+      @clipboardTarget="#textarea"
+      @clipboardAction="cut"
+      @success={{pipe (fn this.getSuccessMessage "cut") showMessage}}
+      @error={{pipe (fn this.getErrorMessage "cut") showMessage}}
+    >
       Cut Text
-    {{/copy-button}}
-    {{! template-lint-disable block-indentation }}
-    {{#code-block}}
-&lt;textarea id="textarea"&gt;Lorem ipsum dolor sit amet, consectetur...&lt;/textarea&gt;
-\{{#copy-button
-  clipboardTarget="#textarea"
-  clipboardAction="cut"
-  success=(action "onSuccess")
-  error=(action "onError")
-}}
-  Cut Text
-\{{/copy-button}}
-    {{/code-block}}
+    </CopyButton>
+    <CodeBlock>&lt;textarea id="textarea"&gt;Lorem ipsum dolor sit amet, consectetur...&lt;/textarea&gt;
+&lt;CopyButton
+ @clipboardTarget="#textarea"
+ @success=\{{this.onSuccess}}
+ @error=\{{this.onError}}
+&gt;
+  Copy URL
+&lt;/CopyButton&gt;</CodeBlock>
   </DocSection>
 
   <DocSection @title="Check If Clipboard Is Supported">
@@ -114,14 +107,11 @@
         <span>Clipboard <span class="application__is-supported">is not</span> supported</span>
       {{/if}}
     </p>
-    {{! template-lint-disable block-indentation }}
-    {{#code-block}}
-\{{#if (is-clipboard-supported)}}
+    <CodeBlock>\{{#if (is-clipboard-supported)}}
   &lt;span&gt;Clipboard is supported&lt;/span&gt;
 \{{else}}
   &lt;span&gt;Clipboard is not supported&lt;/span&gt;
-\{{/if}}
-    {{/code-block}}
+\{{/if}}</CodeBlock>
   </DocSection>
 </main>
 

@@ -55,14 +55,17 @@ http://jkusa.github.io/ember-cli-clipboard
 {{/copy-button}}
 ```
 
-### Properties
+### Arguments
 
 - `clipboardText` - string value or action that returns a string to be copied
 - `clipboardTarget` - selector string of element from which to copy text
 - `clipboardAction` - string value of operation: `copy` or `cut` (default is copy)
 - `delegateClickEvent` - clipboard.js defaults event listeners to the body in order to reduce memory footprint if there are hundreds of event listeners on a page. If you want to scope the event listener to the copy button, set this property to `false`
-- `title` - string value of the button's [title attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title)
 - `buttonType` - string value of the button's [type attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Attributes)
+
+Any HTML [button attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Attributes) passed to the component will be "splatted" on the button element. The one exception to this is the `type` attribute due to this [issue](https://github.com/emberjs/ember.js/issues/18232). The following legacy arguments are still supported:
+
+- `title` - string value of the button's [title attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title)
 - `disabled` - boolean value of the button's [disabled attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Attributes)
 - `aria-label` - string value of the button's [aria-label attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute)
 
@@ -196,7 +199,7 @@ test('copy-button integration', function(assert) {
 
   this.render(hbs`
     <CopyButton
-      @classNames="my-copy-btn"
+      class="my-copy-btn"
       @clipboardText="text to be copied"
       @success={{action "success"}}
       @error={{action "error"}}
