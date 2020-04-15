@@ -2,12 +2,13 @@ import Component from '@ember/component';
 import { action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import layout from '../templates/components/copy-button';
+import ClipboardJS from 'clipboard';
 
 const CLIPBOARD_EVENTS = ['success', 'error'];
 
 export default class CopyButtonComponent extends Component {
   layout = layout;
-  tagName = "";
+  tagName = '';
 
   /**
    * If true - scope event listener to this element
@@ -60,13 +61,13 @@ export default class CopyButtonComponent extends Component {
    */
   _createClipboard() {
     const { clipboardText: text, delegateClickEvent } = this;
-    const trigger = delegateClickEvent === false
-      ? this._buttonElement
-      : `#${this._buttonElement.id}`;
+    const trigger =
+      delegateClickEvent === false
+        ? this._buttonElement
+        : `#${this._buttonElement.id}`;
 
-    
-    return new window.ClipboardJS(trigger, {
-      text: typeof text === 'function' ? text : undefined
+    return new ClipboardJS(trigger, {
+      text: typeof text === 'function' ? text : undefined,
     });
   }
 
@@ -77,7 +78,7 @@ export default class CopyButtonComponent extends Component {
    * @returns {Void}
    */
   _registerActions(clipboard) {
-    CLIPBOARD_EVENTS.forEach(event => {
+    CLIPBOARD_EVENTS.forEach((event) => {
       clipboard.on(event, () => {
         if (!this._buttonElement.disabled) {
           const action = this[event];
