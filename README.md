@@ -17,17 +17,17 @@ http://jkusa.github.io/ember-cli-clipboard
 <!-- Set text directly -->
 <CopyButton
   @clipboardText="text to be copied"
-  @success={{action "success"}}
-  @error={{action "error"}}
+  @success={{this.onSuccess}}
+  @error={{this.onError}}
 >
   Click To Copy
 </CopyButton>
 
 <!-- Get text from action that returns a string -->
 <CopyButton
-  @clipboardText={{action "getClipboardText"}}
-  @success={{action "success"}}
-  @error={{action "error"}}
+  @clipboardText={{this.getClipboardText}}
+  @success={{this.onSuccess}}
+  @error={{this.onError}}
 >
   Click To Copy
 </CopyButton>
@@ -36,8 +36,8 @@ http://jkusa.github.io/ember-cli-clipboard
 <input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard">
 <CopyButton
   @clipboardTarget="#url"
-  @success={{action "success"}}
-  @error={{action "error"}}
+  @success={{this.onSuccess}}
+  @error={{this.onError}}
 >
   Click To Copy
 </CopyButton>
@@ -48,8 +48,8 @@ http://jkusa.github.io/ember-cli-clipboard
 ```hbs
 {{#copy-button
   clipboardText="text to be copied"
-  success=(action "success")
-  error=(action "error")
+  success=(action "onSuccess")
+  error=(action "onError")
 }}
   Click To Copy
 {{/copy-button}}
@@ -130,29 +130,23 @@ Example:
 ```js
 // tests/acceptance/my-test.js
 
-test('copy button message', function (assert) {
+test('copy button message', async function (assert) {
   assert.expect(3);
 
-  visit('/');
-  andThen(() => {
-    assert.dom('.alert').doesNotExist('no alert message is initially present');
-  });
+  await visit('/');
+  assert.dom('.alert').doesNotExist('no alert message is initially present');
 
   triggerCopySuccess();
 
-  andThen(() => {
-    assert
-      .dom('.alert.alert-success')
-      .exists('a success message is displayed when a copy is successful');
-  });
+  assert
+    .dom('.alert.alert-success')
+    .exists('a success message is displayed when a copy is successful');
 
   triggerCopyError();
 
-  andThen(() => {
-    assert
-      .dom('.alert.alert-info')
-      .exists('an error message is displayed when a copy is unsuccessful');
-  });
+  assert
+    .dom('.alert.alert-info')
+    .exists('an error message is displayed when a copy is unsuccessful');
 });
 ```
 
@@ -186,23 +180,23 @@ import {
 
 ...
 
-test('copy-button integration', function(assert) {
+test('copy-button integration', async function(assert) {
   assert.expect(2);
 
-  this.set('success', () => {
+  this.set('onSuccess', () => {
     assert.ok(true, '`success` action handler correctly fired');
   });
 
-  this.set('error', () => {
+  this.set('onError', () => {
     assert.ok(true, '`error` action handler correctly fired');
   });
 
-  this.render(hbs`
+  await render(hbs`
     <CopyButton
       class="my-copy-btn"
       @clipboardText="text to be copied"
-      @success={{action "success"}}
-      @error={{action "error"}}
+      @success={{this.onSuccess}}
+      @error={{this.onError}}
     >
       Click To Copy
     </CopyButton>
@@ -216,7 +210,6 @@ test('copy-button integration', function(assert) {
   triggerError(this, '.my-copy-btn');
   triggerSuccess(this, '.my-copy-btn');
 });
-
 ```
 
 ## Browser Support
