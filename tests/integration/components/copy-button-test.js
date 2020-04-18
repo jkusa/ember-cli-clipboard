@@ -3,16 +3,16 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | copy button', function(hooks) {
+module('Integration | Component | copy button', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.actions = {};
     this.send = (actionName, ...args) =>
       this.actions[actionName].apply(this, args);
   });
 
-  test('component renders and cleans up', async function(assert) {
+  test('component renders and cleans up', async function (assert) {
     assert.expect(2);
 
     this.set('enabled', true);
@@ -32,7 +32,7 @@ module('Integration | Component | copy button', function(hooks) {
     assert.dom('.copy-btn').doesNotExist('Component cleaned up');
   });
 
-  test('component renders and cleans up with delegateClickEvent: false', async function(assert) {
+  test('component renders and cleans up with delegateClickEvent: false', async function (assert) {
     assert.expect(2);
 
     this.set('enabled', true);
@@ -53,7 +53,7 @@ module('Integration | Component | copy button', function(hooks) {
     assert.dom('.copy-btn').doesNotExist('Component cleaned up');
   });
 
-  test('components renders text', async function(assert) {
+  test('components renders text', async function (assert) {
     assert.expect(2);
 
     await render(hbs`{{copy-button}}`);
@@ -71,7 +71,7 @@ module('Integration | Component | copy button', function(hooks) {
       .hasText('Click To Copy', 'Component yields text with block');
   });
 
-  test('callback action fires', async function(assert) {
+  test('callback action fires', async function (assert) {
     assert.expect(1);
 
     this.set('callback', () =>
@@ -91,7 +91,7 @@ module('Integration | Component | copy button', function(hooks) {
     await click('button');
   });
 
-  test('error action fires with delegateClickEvent: false', async function(assert) {
+  test('error action fires with delegateClickEvent: false', async function (assert) {
     assert.expect(1);
 
     this.set('callback', () =>
@@ -112,7 +112,7 @@ module('Integration | Component | copy button', function(hooks) {
     await click('button');
   });
 
-  test('click scoped to document.body', async function(assert) {
+  test('click scoped to document.body', async function (assert) {
     assert.expect(1);
 
     this.set('callback', () =>
@@ -138,7 +138,7 @@ module('Integration | Component | copy button', function(hooks) {
     await click('.copy-button');
   });
 
-  test('click scoped to element', async function(assert) {
+  test('click scoped to element', async function (assert) {
     assert.expect(0);
 
     this.set('callback', () => assert.ok(false, 'listener should be removed'));
@@ -163,7 +163,7 @@ module('Integration | Component | copy button', function(hooks) {
     await click('.copy-button');
   });
 
-  test('button is not disabled by default', async function(assert) {
+  test('button is not disabled by default', async function (assert) {
     assert.expect(1);
 
     await render(hbs`
@@ -177,7 +177,7 @@ module('Integration | Component | copy button', function(hooks) {
       .doesNotHaveAttribute('disabled', 'disabled correctly bound to type');
   });
 
-  test('attributeBindings', async function(assert) {
+  test('attributeBindings', async function (assert) {
     assert.expect(8);
 
     await render(hbs`
@@ -246,7 +246,7 @@ module('Integration | Component | copy button', function(hooks) {
         Click To Copy
       </CopyButton>
     `);
-  
+
     assert
       .dom(btn)
       .hasAttribute('type', 'reset', 'button type is set by @buttonType arg');

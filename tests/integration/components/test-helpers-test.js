@@ -5,18 +5,18 @@ import hbs from 'htmlbars-inline-precompile';
 
 import {
   triggerCopyError,
-  triggerCopySuccess
+  triggerCopySuccess,
 } from 'ember-cli-clipboard/test-support';
 
 import {
   triggerError as legacyTriggerError,
-  triggerSuccess as legacyTriggerSuccess
+  triggerSuccess as legacyTriggerSuccess,
 } from '../../helpers/ember-cli-clipboard';
 
-module('Integration | Component | integration test helpers', function(hooks) {
+module('Integration | Component | integration test helpers', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('test-helpers fire correct actions', async function(assert) {
+  test('test-helpers fire correct actions', async function (assert) {
     assert.expect(2);
 
     this.setProperties({
@@ -25,7 +25,7 @@ module('Integration | Component | integration test helpers', function(hooks) {
         assert.ok(
           true,
           'triggerError correctly fired `error` action for selector'
-        )
+        ),
     });
 
     await render(hbs`
@@ -47,13 +47,13 @@ module('Integration | Component | integration test helpers', function(hooks) {
         assert.ok(
           true,
           'triggerSuccess correctly fired `success` action for selector'
-        )
+        ),
     });
 
     triggerCopySuccess();
   });
 
-  test('legacy test-helpers fire correct actions', async function(assert) {
+  test('legacy test-helpers fire correct actions', async function (assert) {
     assert.expect(2);
 
     this.setProperties({
@@ -62,7 +62,7 @@ module('Integration | Component | integration test helpers', function(hooks) {
         assert.ok(
           true,
           'triggerError correctly fired `error` action for selector'
-        )
+        ),
     });
 
     await render(hbs`
@@ -84,7 +84,7 @@ module('Integration | Component | integration test helpers', function(hooks) {
         assert.ok(
           true,
           'triggerSuccess correctly fired `success` action for selector'
-        )
+        ),
     });
 
     legacyTriggerSuccess(this);

@@ -12,7 +12,7 @@ export default class ApplicationController extends Controller {
   getSuccessMessage(type) {
     return {
       type: 'success',
-      message: `Success! Text ${type} to clipboard.`
+      message: `Success! Text ${type} to clipboard.`,
     };
   }
 
