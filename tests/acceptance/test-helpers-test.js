@@ -3,13 +3,13 @@ import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import {
   triggerCopyError,
-  triggerCopySuccess
+  triggerCopySuccess,
 } from 'ember-cli-clipboard/test-support';
 
-module('Acceptance | test helpers', function(hooks) {
+module('Acceptance | test helpers', function (hooks) {
   setupApplicationTest(hooks);
 
-  test('test-helpers', async function(assert) {
+  test('test-helpers', async function (assert) {
     assert.expect(4);
 
     await visit('/');

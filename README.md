@@ -106,7 +106,7 @@ If you are using the **NEW Ember Testing API**, available in **ember-cli-qunit >
 
 import {
   triggerCopyError,
-  triggerCopySuccess
+  triggerCopySuccess,
 } from 'ember-cli-clipboard/test-support';
 ```
 
@@ -130,7 +130,7 @@ Example:
 ```js
 // tests/acceptance/my-test.js
 
-test('copy button message', function(assert) {
+test('copy button message', function (assert) {
   assert.expect(3);
 
   visit('/');
