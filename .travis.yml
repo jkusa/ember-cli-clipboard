@@ -34,13 +34,12 @@ jobs:
     - stage: 'Tests'
       name: 'Tests'
       script:
-        - yarn lint:hbs
-        - yarn lint:js
-        - yarn test
+        - yarn lint
+        - yarn test:ember
 
     - name: 'Floating Dependencies'
       script:
-        - yarn test
+        - yarn test:ember
 
     - stage: 'Additional Tests'
       name: 'Floating Dependencies'
