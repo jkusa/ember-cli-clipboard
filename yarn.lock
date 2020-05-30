@@ -1946,16 +1946,16 @@ babel-plugin-ember-data-packages-polyfill@^0.1.2:
   dependencies:
     "@ember-data/rfc395-data" "^0.0.4"
 
-babel-plugin-ember-modules-api-polyfill@^2.13.1, babel-plugin-ember-modules-api-polyfill@^2.6.0:
-  version "2.13.1"
-  resolved "https://codeload.github.com/fivetanley/babel-plugin-ember-modules-api-polyfill/tar.gz/39515f63a92c0be1af31bde8b0aa634c6abfea42"
-  dependencies:
-    ember-rfc176-data "^0.3.13"
-
 babel-plugin-ember-modules-api-polyfill@^2.13.2:
   version "2.13.2"
   resolved "https://registry.yarnpkg.com/babel-plugin-ember-modules-api-polyfill/-/babel-plugin-ember-modules-api-polyfill-2.13.2.tgz#635c58120fe85caa842febb321ef173ce8528ffb"
   integrity sha512-OHXf1pV3uiUNyc/agAofkZiA3MPQLmv4OpZ6Se8cGP1NbsvGaM5j5DdJ/nOl5y9us5/iDJGHFKq2yN1heOcUoQ==
+  dependencies:
+    ember-rfc176-data "^0.3.13"
+
+babel-plugin-ember-modules-api-polyfill@^2.6.0:
+  version "2.13.1"
+  resolved "https://codeload.github.com/fivetanley/babel-plugin-ember-modules-api-polyfill/tar.gz/39515f63a92c0be1af31bde8b0aa634c6abfea42"
   dependencies:
     ember-rfc176-data "^0.3.13"
 
@@ -4357,39 +4357,7 @@ ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.16.0, ember-cli-babel@^6.17.0,
     ember-cli-version-checker "^2.1.2"
     semver "^5.5.0"
 
-ember-cli-babel@^7.1.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.10.0, ember-cli-babel@^7.11.0, ember-cli-babel@^7.11.1, ember-cli-babel@^7.12.0, ember-cli-babel@^7.13.2, ember-cli-babel@^7.18.0, ember-cli-babel@^7.7.3, ember-cli-babel@^7.8.0:
-  version "7.20.1"
-  resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.20.1.tgz#e214d4d1db6d602d6bb79ae1b962d429607acd67"
-  integrity sha512-EA3ZbSM62HImghZ3TQl7pvB2+AdWHmjXBj+NEgdlhrcoArqiLHSInYRZKUY2yDr0W/W4JgMZrYgkbbhvFvdMyw==
-  dependencies:
-    "@babel/core" "^7.9.0"
-    "@babel/helper-compilation-targets" "^7.8.7"
-    "@babel/plugin-proposal-class-properties" "^7.8.3"
-    "@babel/plugin-proposal-decorators" "^7.8.3"
-    "@babel/plugin-transform-modules-amd" "^7.9.0"
-    "@babel/plugin-transform-runtime" "^7.9.0"
-    "@babel/plugin-transform-typescript" "^7.9.0"
-    "@babel/polyfill" "^7.8.7"
-    "@babel/preset-env" "^7.9.0"
-    "@babel/runtime" "^7.9.0"
-    amd-name-resolver "^1.2.1"
-    babel-plugin-debug-macros "^0.3.0"
-    babel-plugin-ember-data-packages-polyfill "^0.1.2"
-    babel-plugin-ember-modules-api-polyfill "^2.13.1"
-    babel-plugin-module-resolver "^3.1.1"
-    broccoli-babel-transpiler "^7.4.0"
-    broccoli-debug "^0.6.4"
-    broccoli-funnel "^2.0.1"
-    broccoli-source "^1.1.0"
-    clone "^2.1.2"
-    ember-cli-babel-plugin-helpers "^1.1.0"
-    ember-cli-version-checker "^4.1.0"
-    ensure-posix-path "^1.0.2"
-    fixturify-project "^1.10.0"
-    rimraf "^3.0.1"
-    semver "^5.5.0"
-
-ember-cli-babel@^7.20.2:
+ember-cli-babel@^7.1.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.10.0, ember-cli-babel@^7.11.0, ember-cli-babel@^7.11.1, ember-cli-babel@^7.12.0, ember-cli-babel@^7.13.2, ember-cli-babel@^7.18.0, ember-cli-babel@^7.20.2, ember-cli-babel@^7.7.3, ember-cli-babel@^7.8.0:
   version "7.20.2"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.20.2.tgz#4663927d11d52bc4ed7238b5d832a9eea9ba1035"
   integrity sha512-FFbyE7VkHyB7VGGj0bbL1RRIEo3ERVoTFRYyu0726WvB2mKtDyFG3L4xNIy1zjB/L7OJzXkQ6t+0oZG3JTxM9g==
@@ -4773,14 +4741,14 @@ ember-compatibility-helpers@^1.0.2, ember-compatibility-helpers@^1.1.2, ember-co
     ember-cli-version-checker "^2.1.1"
     semver "^5.4.1"
 
-ember-composable-helpers@^2.3.1:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/ember-composable-helpers/-/ember-composable-helpers-2.4.0.tgz#024bd6a8c338cc9cdf10f1141b119b8f72de205f"
-  integrity sha512-91ZqFnNG1EDL3WzxXWTgAy6EonPS7htWHletI5SOw5ezEzKbt6EGNBwT6QPhwariugtR8LEfYNQ9lXEiCZrX1w==
+ember-composable-helpers@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/ember-composable-helpers/-/ember-composable-helpers-4.0.0.tgz#856cf4d86f2245feeb69ae1684e5a58ec742fcca"
+  integrity sha512-SF/mrLEoB0W7Mf+G2ye13K1I9IgkUaeFaWDVDTRzSAX7xmjBiPepLsqZvNJ1WcXimFTodGffku4AbQ2D0t+/2Q==
   dependencies:
     "@babel/core" "^7.0.0"
     broccoli-funnel "2.0.1"
-    ember-cli-babel "^7.1.0"
+    ember-cli-babel "^7.11.1"
     resolve "^1.10.0"
 
 ember-decorators-polyfill@^1.1.1:
