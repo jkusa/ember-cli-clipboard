@@ -60,7 +60,7 @@ export default class CopyButtonComponent extends Component {
    * @returns {Object} newly created ClipboardJS object
    */
   _createClipboard() {
-    const { clipboardText: text, delegateClickEvent } = this;
+    const { clipboardText: text, container, delegateClickEvent } = this;
     const trigger =
       delegateClickEvent === false
         ? this._buttonElement
@@ -68,6 +68,10 @@ export default class CopyButtonComponent extends Component {
 
     return new ClipboardJS(trigger, {
       text: typeof text === 'function' ? text : undefined,
+      container:
+        typeof container === 'string'
+          ? document.querySelector(container)
+          : container,
     });
   }
 
