@@ -6,11 +6,11 @@ export default class IsClipboardSupportedHelper extends Helper {
   constructor() {
     super(...arguments);
     const service = getOwner(this).lookup('service:fastboot');
-    this.isFastboot = service?.isFastBoot;
+    this.isFastBoot = service ? service.isFastBoot : false;
   }
 
   compute([action]) {
-    const { isFastboot } = this;
-    return isFastboot ? false : ClipboardJS.isSupported(action);
+    const { isFastBoot } = this;
+    return isFastBoot ? false : ClipboardJS.isSupported(action);
   }
 }
