@@ -83,14 +83,14 @@ export default class CopyButtonComponent extends Component {
    */
   _registerActions(clipboard) {
     CLIPBOARD_EVENTS.forEach((event) => {
-      clipboard.on(event, () => {
+      clipboard.on(event, (clipboardEvent) => {
         if (!this._buttonElement.disabled) {
           const action = this[event];
           if (typeof action === 'string') {
             // eslint-disable-next-line ember/closure-actions
-            this.sendAction(action, ...arguments);
+            this.sendAction(action, clipboardEvent);
           } else {
-            action && action(...arguments);
+            action && action(clipboardEvent);
           }
         }
       });
