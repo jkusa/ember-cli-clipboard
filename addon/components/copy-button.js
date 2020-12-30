@@ -1,3 +1,4 @@
+// eslint-disable-next-line ember/no-classic-components
 import Component from '@ember/component';
 import { action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';

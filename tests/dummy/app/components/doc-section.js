@@ -1,23 +1,19 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { guidFor } from '@ember/object/internals';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
-import { filter } from '@ember/object/computed';
 
 export default class DocSection extends Component {
-  tagName = '';
-
   @service
   flashMessages;
 
-  get guid() {
-    return guidFor(this);
-  }
+  guid = guidFor(this);
 
-  @filter('flashMessages.arrangedQueue', function (m) {
-    return m.ctx === this.guid;
-  })
-  messageQueue;
+  get messageQueue() {
+    return this.flashMessages.arrangedQueue.filter(
+      ({ ctx }) => ctx === this.guid
+    );
+  }
 
   @action
   showMessage(msgObj) {
