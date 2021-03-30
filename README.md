@@ -1,7 +1,8 @@
 # ember-cli-clipboard
 
 [![Downloads](http://img.shields.io/npm/dm/ember-cli-clipboard.svg?style=flat-square)](https://npmjs.org/package/ember-cli-clipboard)
-[![Build Status](https://travis-ci.org/jkusa/ember-cli-clipboard.svg?branch=master)](https://travis-ci.org/jkusa/ember-cli-clipboard) [![Ember Observer Score](http://emberobserver.com/badges/ember-cli-clipboard.svg)](http://emberobserver.com/addons/ember-cli-clipboard)
+[![Build Status](https://github.com/jkusa/ember-cli-clipboard/actions/workflows/ci.yml/badge.svg)](https://github.com/jkusa/ember-cli-clipboard/actions?query=branch%3Amain)
+[![Ember Observer Score](http://emberobserver.com/badges/ember-cli-clipboard.svg)](http://emberobserver.com/addons/ember-cli-clipboard)
 
 A simple ember wrapper around [clipboard.js](http://zenorocha.github.io/clipboard.js/) (no flash)
 
