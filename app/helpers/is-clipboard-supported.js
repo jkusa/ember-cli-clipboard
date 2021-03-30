@@ -1,4 +1,1 @@
-export {
-  default,
-  isClipboardSupported,
-} from 'ember-cli-clipboard/helpers/is-clipboard-supported';
+export { default } from 'ember-cli-clipboard/helpers/is-clipboard-supported';
