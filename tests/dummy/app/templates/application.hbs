@@ -20,8 +20,8 @@
       <CopyButton
         class="application__copy-icon"
         @clipboardText="ember install ember-cli-clipboard"
-        @success={{ pipe (fn this.getSuccessMessage "copy") showMessage }}
-        @error={{ pipe (fn this.getErrorMessage "copy") showMessage }}
+        @success={{fn showMessage this.successMsg}}
+        @error={{fn showMessage this.copyErrorMsg}}
         title="copy to clipboard"
       >
         <img src="clippy.svg" alt="clipboard">
@@ -43,8 +43,8 @@
       class="application__copy-button"
       title="copy to clipboard"
       @clipboardText={{this.generateToken}}
-      @success={{pipe (fn this.getSuccessMessage "copy") showMessage}}
-      @error={{pipe (fn this.getErrorMessage "copy") showMessage}}
+      @success={{fn showMessage this.successMsg}}
+      @error={{fn showMessage this.copyErrorMsg}}
     >
       Generate & Copy Token
     </CopyButton>
@@ -64,8 +64,8 @@
     <CopyButton
       class="application__copy-button"
       @clipboardTarget="#url"
-      @success={{pipe (fn this.getSuccessMessage "copy") showMessage}}
-      @error={{pipe (fn this.getErrorMessage "copy") showMessage}}
+      @success={{fn showMessage this.successMsg}}
+      @error={{fn showMessage this.copyErrorMsg}}
     >
       Copy URL
     </CopyButton>
@@ -86,8 +86,8 @@
       class="application__copy-button"
       @clipboardTarget="#textarea"
       @clipboardAction="cut"
-      @success={{pipe (fn this.getSuccessMessage "cut") showMessage}}
-      @error={{pipe (fn this.getErrorMessage "cut") showMessage}}
+      @success={{fn showMessage this.successMsg}}
+      @error={{fn showMessage this.cutErrorMsg}}
     >
       Cut Text
     </CopyButton>

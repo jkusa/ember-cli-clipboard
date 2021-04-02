@@ -5,5 +5,5 @@ import handlebars from 'highlight.js/lib/languages/handlebars';
 hljs.registerLanguage('handlebars', handlebars);
 
 export default modifier(function highlight(element /*, params, hash*/) {
-  hljs.highlightBlock(element);
+  hljs.highlightElement(element);
 });
