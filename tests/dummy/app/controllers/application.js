@@ -8,15 +8,18 @@ export default class ApplicationController extends Controller {
     return uuidv1();
   }
 
-  @action
-  getSuccessMessage(type) {
-    return {
-      type: 'success',
-      message: `Success! Text ${type} to clipboard.`,
-    };
+  successMsg = {
+    type: 'success',
+    message: `Success! Text copied to clipboard.`,
+  };
+
+  get copyErrorMsg() {
+    return this.getErrorMessage('cut');
+  }
+  get cutErrorMsg() {
+    return this.getErrorMessage('cut');
   }
 
-  @action
   getErrorMessage(type) {
     const options = {};
 
