@@ -14,5 +14,7 @@ module.exports = function (defaults) {
     behave. You most likely want to be modifying `./index.js` or app's build file
   */
   app.import('node_modules/highlight.js/styles/atom-one-dark-reasonable.css');
-  return app.toTree();
+
+  const { maybeEmbroider } = require('@embroider/test-setup');
+  return maybeEmbroider(app);
 };
