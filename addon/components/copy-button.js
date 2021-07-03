@@ -4,12 +4,13 @@ import { action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import layout from '../templates/components/copy-button';
 import ClipboardJS from 'clipboard';
+import { tagName } from '@ember-decorators/component';
 
 const CLIPBOARD_EVENTS = ['success', 'error'];
 
+@tagName('')
 export default class CopyButtonComponent extends Component {
   layout = layout;
-  tagName = '';
 
   /**
    * If true - scope event listener to this element
