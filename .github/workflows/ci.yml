@@ -6,8 +6,6 @@ on:
     # filtering branches here prevents duplicate builds from pull_request and push
     branches:
       - main
-  schedule:
-    - cron: '0 3 * * 0' # every Sunday at 3am
 
 env:
   CI: true
