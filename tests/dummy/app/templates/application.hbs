@@ -27,7 +27,7 @@
         <img src="clippy.svg" alt="clipboard">
       </CopyButton>
     </div>
-    {{! template-lint-disable block-indentation }}
+    {{! template-lint-disable block-indentation no-unbalanced-curlies}}
     <CodeBlock>&lt;CopyButton
  @clipboardText="ember install ember-cli-clipboard"
  @success=\{{this.onSuccess}}
@@ -48,7 +48,7 @@
     >
       Generate & Copy Token
     </CopyButton>
-    {{! template-lint-disable block-indentation }}
+    {{! template-lint-disable block-indentation no-unbalanced-curlies}}
     <CodeBlock>&lt;CopyButton
  @clipboardText=\{{this.generateToken}}
  @success=\{{this.onSuccess}}
@@ -69,7 +69,7 @@
     >
       Copy URL
     </CopyButton>
-    {{! template-lint-disable block-indentation }}
+    {{! template-lint-disable block-indentation no-unbalanced-curlies}}
     <CodeBlock>&lt;input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard"&gt;
 &lt;CopyButton
  @clipboardTarget="#url"
@@ -91,6 +91,7 @@
     >
       Cut Text
     </CopyButton>
+    {{! template-lint-disable block-indentation no-unbalanced-curlies}}
     <CodeBlock>&lt;textarea id="textarea"&gt;Lorem ipsum dolor sit amet, consectetur...&lt;/textarea&gt;
 &lt;CopyButton
  @clipboardTarget="#textarea"
@@ -109,6 +110,7 @@
         <span>Clipboard <span class="application__is-supported">is not</span> supported</span>
       {{/if}}
     </p>
+    {{! template-lint-disable block-indentation no-unbalanced-curlies}}
     <CodeBlock>\{{#if (is-clipboard-supported)}}
   &lt;span&gt;Clipboard is supported&lt;/span&gt;
 \{{else}}

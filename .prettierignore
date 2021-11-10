@@ -19,3 +19,6 @@
 /.node_modules.ember-try/
 /bower.json.ember-try
 /package.json.ember-try
+
+# ignore due to block indent issues for code samples
+/tests/dummy/app/templates/application.hbs
