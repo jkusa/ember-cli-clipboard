@@ -10,9 +10,8 @@ export default class DocSection extends Component {
   guid = guidFor(this);
 
   get messageQueue() {
-    return this.flashMessages.arrangedQueue.filter(
-      ({ ctx }) => ctx === this.guid
-    );
+    const { flashMessages, guid } = this;
+    return flashMessages.arrangedQueue.filter((m) => m.ctx === guid);
   }
 
   @action
