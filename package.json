@@ -24,6 +24,7 @@
     "@glimmer/tracking": "^1.0.4",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
+    "cz-conventional-changelog": "^3.3.0",
     "ember-angle-bracket-invocation-polyfill": "^3.0.0",
     "ember-cli": "~3.28.3",
     "ember-cli-dependency-checker": "^3.2.0",
@@ -103,6 +104,11 @@
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
