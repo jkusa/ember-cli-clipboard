@@ -1,100 +1,34 @@
 // eslint-disable-next-line ember/no-classic-components
-import Component from '@ember/component';
-import { action } from '@ember/object';
+import Component from '@glimmer/component';
 import { guidFor } from '@ember/object/internals';
-import layout from '../templates/components/copy-button';
-import ClipboardJS from 'clipboard';
+import { arg, forbidExtraArgs } from 'ember-arg-types';
+import { string, oneOf, boolean, oneOfType, func, element } from 'prop-types';
 
-const CLIPBOARD_EVENTS = ['success', 'error'];
-
+@forbidExtraArgs
 export default class CopyButtonComponent extends Component {
-  layout = layout;
-  tagName = '';
+  guid = guidFor(this);
 
-  /**
-   * If true - scope event listener to this element
-   * If false - scope event listener to document.body (ClipboardJS)
-   * @property {Boolean} delegateClickEvent
-   */
-  delegateClickEvent = true;
+  @arg(oneOfType([string, func]))
+  text;
 
-  /**
-   * Assigns button element an id
-   * @returns {Void}
-   */
-  @action
-  setupElement(element) {
-    element.id = guidFor(this);
-    this._buttonElement = element;
-  }
+  @arg(oneOfType([string, func]))
+  target;
 
-  /**
-   * Registers ClipboardJS object with component
-   * @private
-   * @returns {Void}
-   */
-  @action
-  registerClipboard() {
-    if (this.clipboard) {
-      this.clipboard.destroy();
-    }
+  @arg(oneOf(['copy', 'cut']))
+  action;
 
-    const clipboard = this._createClipboard();
-    this._registerActions(clipboard);
-    this.clipboard = clipboard;
-  }
+  @arg(boolean)
+  delegateClickEvent;
 
-  /**
-   * Destroys `ClipboardJS` instance
-   * @returns {Void}
-   */
-  @action
-  destroyClipboard() {
-    if (this.clipboard) {
-      this.clipboard.destroy();
-    }
-  }
+  @arg(oneOfType([string, element]))
+  container;
 
-  /**
-   * Creates new `ClipboardJS` instance
-   * @private
-   * @returns {Object} newly created ClipboardJS object
-   */
-  _createClipboard() {
-    const { clipboardText: text, container, delegateClickEvent } = this;
-    const trigger =
-      delegateClickEvent === false
-        ? this._buttonElement
-        : `#${this._buttonElement.id}`;
+  @arg(string)
+  buttonType = 'button';
 
-    return new ClipboardJS(trigger, {
-      text: typeof text === 'function' ? text : undefined,
-      container:
-        typeof container === 'string'
-          ? document.querySelector(container)
-          : container,
-    });
-  }
+  @arg(boolean)
+  onError;
 
-  /**
-   * Registers Ember Actions with ClipboardJS events
-   * @private
-   * @param {Object} clipboard - ClipboardJS object
-   * @returns {Void}
-   */
-  _registerActions(clipboard) {
-    CLIPBOARD_EVENTS.forEach((event) => {
-      clipboard.on(event, () => {
-        if (!this._buttonElement.disabled) {
-          const action = this[event];
-          if (typeof action === 'string') {
-            // eslint-disable-next-line ember/closure-actions
-            this.sendAction(action, ...arguments);
-          } else {
-            action && action(...arguments);
-          }
-        }
-      });
-    });
-  }
+  @arg(boolean)
+  onSuccess;
 }
