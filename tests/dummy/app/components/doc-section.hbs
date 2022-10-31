@@ -1,13 +1,13 @@
-<section class="doc-section">
-  <div class="doc-section__header">
+<section class='doc-section'>
+  <div class='doc-section__header'>
     {{#each this.messageQueue as |flash|}}
       <FlashMessage @flash={{flash}} as |component flash|>
         <p>{{flash.message}}</p>
       </FlashMessage>
     {{/each}}
-    <p class="doc-section__header-title">{{@title}}</p>
+    <p class='doc-section__header-title'>{{@title}}</p>
   </div>
-  <div class="doc-section__body">
+  <div class='doc-section__body'>
     {{yield this.showMessage}}
   </div>
 </section>

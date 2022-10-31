@@ -1,5 +1,7 @@
+import Ember from 'ember';
 import { getContext } from '@ember/test-helpers';
 import { run } from '@ember/runloop';
+import { guidFor } from '@ember/object/internals';
 
 /**
  * Fires `success` action for an instance of a copy-button component
@@ -9,7 +11,7 @@ import { run } from '@ember/runloop';
  */
 export function triggerCopySuccess(selector) {
   const { owner } = getContext();
-  _fireComponentAction(owner, selector, 'success');
+  _fireComponentAction(owner, selector, 'onSuccess');
 }
 
 /**
@@ -20,7 +22,7 @@ export function triggerCopySuccess(selector) {
  */
 export function triggerCopyError(selector) {
   const { owner } = getContext();
-  _fireComponentAction(owner, selector, 'error');
+  _fireComponentAction(owner, selector, 'onError');
 }
 
 /**
@@ -44,8 +46,18 @@ export function _fireComponentAction(owner, selector, actionName) {
  * @returns {Ember.Component} component object
  */
 function _getComponentBySelector(owner, selector = '.copy-btn') {
-  const emberId = document.querySelector(selector).getAttribute('id');
-  return owner.lookup('-view-registry:main')[emberId];
+  const renderTree = Ember._captureRenderTree(owner);
+  const guid = document.querySelector(selector).id;
+  return _findComponentInstance(renderTree[0], guid);
+}
+
+function _findComponentInstance(node, guid) {
+  if (guidFor(node.instance) === guid) {
+    return node.instance;
+  }
+
+  const { children = [] } = node;
+  return children.map((c) => _findComponentInstance(c, guid)).find((c) => c);
 }
 
 /**
@@ -56,13 +68,6 @@ function _getComponentBySelector(owner, selector = '.copy-btn') {
  * @returns {Void}
  */
 function _fireActionByName(component, actionName) {
-  const action = component[actionName];
-
-  run(() => {
-    if (typeof action === 'string') {
-      component.sendAction(action);
-    } else {
-      action();
-    }
-  });
+  const action = component.args[actionName];
+  run(() => action());
 }

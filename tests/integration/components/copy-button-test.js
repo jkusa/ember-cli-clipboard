@@ -17,9 +17,9 @@ module('Integration | Component | copy button', function (hooks) {
 
     this.set('enabled', true);
     await render(hbs`
-      {{#if enabled}}
+      {{#if this.enabled}}
         <CopyButton
-          @clipboardText="text"
+          @text="text"
         >
           Click To Copy
         </CopyButton>
@@ -37,9 +37,9 @@ module('Integration | Component | copy button', function (hooks) {
 
     this.set('enabled', true);
     await render(hbs`
-      {{#if enabled}}
+      {{#if this.enabled}}
         <CopyButton
-          @clipboardText="text"
+          @text="text"
           @delegateClickEvent={{false}}
         >
           Click To Copy
@@ -80,9 +80,9 @@ module('Integration | Component | copy button', function (hooks) {
 
     await render(hbs`
       <CopyButton
-        @clipboardText="text"
-        @error={{this.callback}}
-        @success={{this.callback}}
+        @text="text"
+        @onError={{this.callback}}
+        @onSuccess={{this.callback}}
       >
         Click To Copy
       </CopyButton>
@@ -100,9 +100,9 @@ module('Integration | Component | copy button', function (hooks) {
 
     await render(hbs`
       <CopyButton
-        @clipboardText="text"
-        @error={{this.callback}}
-        @success={{this.callback}}
+        @text="text"
+        @onError={{this.callback}}
+        @onSuccess={{this.callback}}
         @delegateClickEvent=false
       >
         Click To Copy
@@ -122,9 +122,9 @@ module('Integration | Component | copy button', function (hooks) {
     await render(hbs`
       <CopyButton
         class="copy-button"
-        @clipboardText="text"
-        @error={{action callback}}
-        @success={{action callback}}
+        @text="text"
+        @onError={{this.callback}}
+        @onSuccess={{this.callback}}
       >
         Click To Copy
       </CopyButton>
@@ -146,10 +146,10 @@ module('Integration | Component | copy button', function (hooks) {
     await render(hbs`
       <CopyButton
         class="copy-button"
-        @clipboardText="text"
+        @text="text"
         @delegateClickEvent={{false}}
-        @error={{action callback}}
-        @success={{action callback}}
+        @onError={{this.callback}}
+        @onSuccess={{this.callback}}
       >
         Click To Copy
       </CopyButton>
@@ -182,12 +182,12 @@ module('Integration | Component | copy button', function (hooks) {
 
     await render(hbs`
       <CopyButton
-        @aria-label="foo bar"
-        @title="text"
-        @clipboardText="text"
-        @clipboardAction="cut"
-        @clipboardTarget=".foo"
-        @disabled={{true}}
+        @text="text"
+        @action="cut"
+        @target=".foo"
+        aria-label="foo bar"
+        title="text"
+        disabled={{true}}
       >
         Click To Copy
       </CopyButton>
@@ -200,7 +200,7 @@ module('Integration | Component | copy button', function (hooks) {
       .hasAttribute(
         'data-clipboard-text',
         'text',
-        'clipboardText correctly bound to data-clipboard-text'
+        'text correctly bound to data-clipboard-text'
       );
 
     assert
@@ -208,7 +208,7 @@ module('Integration | Component | copy button', function (hooks) {
       .hasAttribute(
         'data-clipboard-target',
         '.foo',
-        'clipboardTarget correctly bound to data-clipboard-target'
+        'target correctly bound to data-clipboard-target'
       );
 
     assert
@@ -216,19 +216,17 @@ module('Integration | Component | copy button', function (hooks) {
       .hasAttribute(
         'data-clipboard-action',
         'cut',
-        'clipboardAction correctly bound to data-clipboard-action'
+        'action correctly bound to data-clipboard-action'
       );
 
-    assert
-      .dom(btn)
-      .hasAttribute('disabled', '', 'disabled correctly bound to type');
+    assert.dom(btn).isDisabled('disabled attribute correctly passed through');
 
     assert
       .dom(btn)
       .hasAttribute(
         'aria-label',
         'foo bar',
-        'aria-label attribute correctly bound'
+        'aria-label attribute attribute correctly passed through'
       );
 
     assert
@@ -249,6 +247,6 @@ module('Integration | Component | copy button', function (hooks) {
 
     assert
       .dom(btn)
-      .hasAttribute('type', 'reset', 'button type is set by @buttonType arg');
+      .hasAttribute('type', 'reset', 'button type is set by `type` attribute');
   });
 });

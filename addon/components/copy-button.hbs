@@ -1,0 +1,17 @@
+<button
+  class='copy-btn'
+  type={{this.buttonType}}
+  id={{this.guid}}
+  ...attributes
+  {{clipboard
+    text=this.text
+    target=this.target
+    action=this.action
+    delegateClickEvent=this.delegateClickEvent
+    container=this.container
+    onError=this.onError
+    onSuccess=this.onSuccess
+  }}
+>
+  {{yield}}
+</button>

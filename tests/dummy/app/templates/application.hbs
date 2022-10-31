@@ -19,9 +19,9 @@
       <code class="application__install-cmd">ember install ember-cli-clipboard</code>
       <CopyButton
         class="application__copy-icon"
-        @clipboardText="ember install ember-cli-clipboard"
-        @success={{ pipe (fn this.getSuccessMessage "copy") showMessage }}
-        @error={{ pipe (fn this.getErrorMessage "copy") showMessage }}
+        @text="ember install ember-cli-clipboard"
+        @onSuccess={{ pipe (fn this.getSuccessMessage "copy") showMessage }}
+        @onError={{ pipe (fn this.getErrorMessage "copy") showMessage }}
         title="copy to clipboard"
       >
         <img src="clippy.svg" alt="clipboard">
@@ -29,9 +29,9 @@
     </div>
     {{! template-lint-disable block-indentation no-unbalanced-curlies}}
     <CodeBlock>&lt;CopyButton
- @clipboardText="ember install ember-cli-clipboard"
- @success=\{{this.onSuccess}}
- @error=\{{this.onError}}
+ @text="ember install ember-cli-clipboard"
+ @onSuccess=\{{this.onSuccess}}
+ @onError=\{{this.onError}}
  title="copy to clipboard"
 &gt;
   &lt;i class="copy"&gt;&lt;/i&gt;
@@ -42,17 +42,17 @@
     <CopyButton
       class="application__copy-button"
       title="copy to clipboard"
-      @clipboardText={{this.generateToken}}
-      @success={{pipe (fn this.getSuccessMessage "copy") showMessage}}
-      @error={{pipe (fn this.getErrorMessage "copy") showMessage}}
+      @text={{this.generateToken}}
+      @onSuccess={{pipe (fn this.getSuccessMessage "copy") showMessage}}
+      @onError={{pipe (fn this.getErrorMessage "copy") showMessage}}
     >
       Generate & Copy Token
     </CopyButton>
     {{! template-lint-disable block-indentation no-unbalanced-curlies}}
     <CodeBlock>&lt;CopyButton
- @clipboardText=\{{this.generateToken}}
- @success=\{{this.onSuccess}}
- @error=\{{this.onError}}
+ @text=\{{this.generateToken}}
+ @onSuccess=\{{this.onSuccess}}
+ @onError=\{{this.onError}}
  title="copy to clipboard"
 &gt;
   Generate & Copy Token
@@ -63,18 +63,18 @@
     <input id="url" class="application__textfield" type="text" value="https://github.com/jkusa/ember-cli-clipboard">
     <CopyButton
       class="application__copy-button"
-      @clipboardTarget="#url"
-      @success={{pipe (fn this.getSuccessMessage "copy") showMessage}}
-      @error={{pipe (fn this.getErrorMessage "copy") showMessage}}
+      @target="#url"
+      @onSuccess={{pipe (fn this.getSuccessMessage "copy") showMessage}}
+      @onError={{pipe (fn this.getErrorMessage "copy") showMessage}}
     >
       Copy URL
     </CopyButton>
     {{! template-lint-disable block-indentation no-unbalanced-curlies}}
     <CodeBlock>&lt;input id="url" type="text" value="https://github.com/jkusa/ember-cli-clipboard"&gt;
 &lt;CopyButton
- @clipboardTarget="#url"
- @success=\{{this.onSuccess}}
- @error=\{{this.onError}}
+ @target="#url"
+ @onSuccess=\{{this.onSuccess}}
+ @onError=\{{this.onError}}
 &gt;
   Copy URL
 &lt;/CopyButton&gt;</CodeBlock>
@@ -84,19 +84,19 @@
     <textarea id="textarea" class="application__textfield" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </textarea>
     <CopyButton
       class="application__copy-button"
-      @clipboardTarget="#textarea"
-      @clipboardAction="cut"
-      @success={{pipe (fn this.getSuccessMessage "cut") showMessage}}
-      @error={{pipe (fn this.getErrorMessage "cut") showMessage}}
+      @target="#textarea"
+      @action="cut"
+      @onSuccess={{pipe (fn this.getSuccessMessage "cut") showMessage}}
+      @onError={{pipe (fn this.getErrorMessage "cut") showMessage}}
     >
       Cut Text
     </CopyButton>
     {{! template-lint-disable block-indentation no-unbalanced-curlies}}
     <CodeBlock>&lt;textarea id="textarea"&gt;Lorem ipsum dolor sit amet, consectetur...&lt;/textarea&gt;
 &lt;CopyButton
- @clipboardTarget="#textarea"
- @success=\{{this.onSuccess}}
- @error=\{{this.onError}}
+ @target="#textarea"
+ @onSuccess=\{{this.onSuccess}}
+ @onError=\{{this.onError}}
 &gt;
   Copy URL
 &lt;/CopyButton&gt;</CodeBlock>

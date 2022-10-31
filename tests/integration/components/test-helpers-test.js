@@ -8,11 +8,6 @@ import {
   triggerCopySuccess,
 } from 'ember-cli-clipboard/test-support';
 
-import {
-  triggerError as legacyTriggerError,
-  triggerSuccess as legacyTriggerSuccess,
-} from '../../helpers/ember-cli-clipboard';
-
 module('Integration | Component | integration test helpers', function (hooks) {
   setupRenderingTest(hooks);
 
@@ -31,9 +26,9 @@ module('Integration | Component | integration test helpers', function (hooks) {
     await render(hbs`
       <CopyButton
         class="my-copy-btn"
-        @clipboardText="text"
-        @success={{this.success}}
-        @error={{this.error}}
+        @text="text"
+        @onSuccess={{this.success}}
+        @onError={{this.error}}
       >
         Click To Copy
       </CopyButton>
@@ -51,42 +46,5 @@ module('Integration | Component | integration test helpers', function (hooks) {
     });
 
     triggerCopySuccess();
-  });
-
-  test('legacy test-helpers fire correct actions', async function (assert) {
-    assert.expect(2);
-
-    this.setProperties({
-      success: () => assert.notOk(true, 'success action incorrectly fired'),
-      error: () =>
-        assert.ok(
-          true,
-          'triggerError correctly fired `error` action for selector'
-        ),
-    });
-
-    await render(hbs`
-      <CopyButton
-        class="my-copy-btn"
-        @clipboardText="text"
-        @success={{this.success}}
-        @error={{this.error}}
-      >
-        Click To Copy
-      </CopyButton>
-    `);
-
-    legacyTriggerError(this, '.my-copy-btn');
-
-    this.setProperties({
-      error: () => assert.notOk(true, 'error action incorrectly fired'),
-      success: () =>
-        assert.ok(
-          true,
-          'triggerSuccess correctly fired `success` action for selector'
-        ),
-    });
-
-    legacyTriggerSuccess(this);
   });
 });
