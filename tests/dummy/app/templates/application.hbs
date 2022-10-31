@@ -80,6 +80,27 @@
 &lt;/CopyButton&gt;</CodeBlock>
   </DocSection>
 
+  <DocSection @title="Get Text From Dynamic Target" as |showMessage|>
+    <input id="url-text" class="application__textfield" type="text" value="https://jkusa.github.io/ember-cli-clipboard">
+    <CopyButton
+      class="application__copy-button"
+      @target={{this.getTarget}}
+      @onSuccess={{pipe (fn this.getSuccessMessage "copy") showMessage}}
+      @onError={{pipe (fn this.getErrorMessage "copy") showMessage}}
+    >
+      Copy URL
+    </CopyButton>
+    {{! template-lint-disable block-indentation no-unbalanced-curlies}}
+    <CodeBlock>&lt;input id="url" type="text" value="https://jkusa.github.io/ember-cli-clipboard/"&gt;
+&lt;CopyButton
+ @target=\{{this.getTarget}}
+ @onSuccess=\{{this.onSuccess}}
+ @onError=\{{this.onError}}
+&gt;
+  Copy URL
+&lt;/CopyButton&gt;</CodeBlock>
+  </DocSection>
+
   <DocSection @title="Cut Text From Target Element" as |showMessage|>
     <textarea id="textarea" class="application__textfield" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </textarea>
     <CopyButton

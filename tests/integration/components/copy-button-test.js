@@ -56,7 +56,7 @@ module('Integration | Component | copy button', function (hooks) {
   test('components renders text', async function (assert) {
     assert.expect(2);
 
-    await render(hbs`{{copy-button}}`);
+    await render(hbs`<CopyButton />`);
 
     assert.dom('*').hasText('', 'Component renders no text without block');
 
@@ -175,6 +175,25 @@ module('Integration | Component | copy button', function (hooks) {
     assert
       .dom('.copy-btn')
       .doesNotHaveAttribute('disabled', 'disabled correctly bound to type');
+  });
+
+  test('dynamic target', async function (assert) {
+    assert.expect(1);
+
+    this.getTarget = () => {
+      assert.ok(true);
+      return document.querySelector('#url-text');
+    };
+
+    await render(hbs`
+      <input id="url-text" type="text" value="https://github.com/jkusa/ember-cli-clipboard">
+      <CopyButton
+        @target={{this.getTarget}}
+      >
+        Click To Copy
+      </CopyButton>
+    `);
+    await click('.copy-btn');
   });
 
   test('attributeBindings', async function (assert) {

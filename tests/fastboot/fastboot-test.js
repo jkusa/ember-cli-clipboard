@@ -8,7 +8,7 @@ module('FastBoot | fastboot', function (hooks) {
     await visit('/');
     assert
       .dom('button.copy-btn')
-      .exists({ count: 4 }, '`<CopyButton>` renders in FastBoot');
+      .exists({ count: 5 }, '`<CopyButton>` renders in FastBoot');
     assert
       .dom('.application__supported-text')
       .hasText(
