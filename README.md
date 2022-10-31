@@ -51,7 +51,7 @@ http://jkusa.github.io/ember-cli-clipboard
 ### Arguments
 
 - `text` - string value or action that returns a string to be copied
-- `target` - selector string of element from which to copy text
+- `target` - selector string of element or action that returns an element from which to copy text
 - `action` - string value of operation: `copy` or `cut` (default is copy)
 - `container` - selector string or element object of containing element. "For use in Bootstrap Modals or with any other library that changes the focus you'll want to set the focused element as the container value".
 - `delegateClickEvent` - clipboard.js defaults event listeners to the body in order to reduce memory footprint if there are hundreds of event listeners on a page. If you want to scope the event listener to the copy button, set this property to `false`

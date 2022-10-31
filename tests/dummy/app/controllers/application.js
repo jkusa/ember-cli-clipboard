@@ -9,6 +9,11 @@ export default class ApplicationController extends Controller {
   }
 
   @action
+  getTarget() {
+    return document.querySelector('#url-text');
+  }
+
+  @action
   getSuccessMessage(type) {
     return {
       type: 'success',
