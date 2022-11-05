@@ -2,6 +2,7 @@ import { modifier } from 'ember-modifier';
 import ClipboardJS from 'clipboard';
 import { isBlank } from '@ember/utils';
 import { capitalize } from '@ember/string';
+import { guidFor } from '@ember/object/internals';
 
 const CLIPBOARD_EVENTS = ['success', 'error'];
 
@@ -27,7 +28,14 @@ export default modifier(function clipboard(element, params, hash) {
     element.setAttribute('data-clipboard-target', target);
   }
 
-  const trigger = delegateClickEvent === false ? element : `#${element.id}`;
+  if (isBlank(element.dataset.clipboardId)) {
+    element.setAttribute('data-clipboard-id', guidFor(element));
+  }
+
+  const trigger =
+    delegateClickEvent === false
+      ? element
+      : `[data-clipboard-id=${element.dataset.clipboardId}]`;
 
   const clipboard = new ClipboardJS(trigger, {
     text: typeof text === 'function' ? text : undefined,

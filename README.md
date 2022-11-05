@@ -12,7 +12,7 @@ http://jkusa.github.io/ember-cli-clipboard
 
 ## Usage
 
-### Angle Bracket Invocation
+### CopyButton Component
 
 ```hbs
 <!-- Set text directly -->
@@ -48,7 +48,7 @@ http://jkusa.github.io/ember-cli-clipboard
 </CopyButton>
 ```
 
-### Arguments
+#### Arguments
 
 - `text` - string value or action that returns a string to be copied
 - `target` - selector string of element or action that returns an element from which to copy text
@@ -59,7 +59,7 @@ http://jkusa.github.io/ember-cli-clipboard
 
 Any HTML [button attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Attributes) passed to the component will be "splatted" on the button element. The one exception to this is the `type` attribute due to this [issue](https://github.com/emberjs/ember.js/issues/18232) < Ember `3.25.x`.
 
-### Actions
+#### Actions
 
 The following clipboard.js custom events are sent as actions
 
@@ -68,7 +68,21 @@ The following clipboard.js custom events are sent as actions
 
 More information about the clipboard.js events can be found [here](https://github.com/zenorocha/clipboard.js/#events)
 
-## Template Helper
+### Clipboard Element Modifier
+
+Under the hood the `<CopyButton>` component is powered by a `{{clipboard}}` element modifier. This can be used directly as an alternative to the `<CopyButton>` component. It has the same argument contract as the `<CopyButton>` component except for the exclusion of the `buttonType` argument.
+
+```hbs
+<button
+  class='button is-outline'
+  type='button'
+  {{clipboard text='text to be copied' onSuccess=this.onSuccess}}
+>
+  Click To Copy
+</button>
+```
+
+### Template Helper
 
 The helper `is-clipboard-supported` can be used to check if [clipboard.js](http://zenorocha.github.io/clipboard.js/) is supported or not.
 

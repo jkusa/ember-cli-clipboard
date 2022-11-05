@@ -123,6 +123,29 @@
 &lt;/CopyButton&gt;</CodeBlock>
   </DocSection>
 
+  <DocSection @title="Clipboard Element Modifier" as |showMessage|>
+    <button
+      class="application__copy-button"
+      type="button"
+      {{clipboard
+        text='element modifier'
+        onSuccess=(pipe (fn this.getSuccessMessage "copy") showMessage)
+      }}
+    >
+      Copy Text
+    </button>
+    {{! template-lint-disable block-indentation no-unbalanced-curlies}}
+    <CodeBlock>&lt;button
+ type="button"
+ \{{clipboard
+   text="clipboard modifier"
+   onSuccess=this.onSuccess
+ }}
+&gt;
+  Copy Text
+&lt;/button&gt;</CodeBlock>
+  </DocSection>
+
   <DocSection @title="Check If Clipboard Is Supported">
     <p class="application__supported-text">
       {{#if (is-clipboard-supported)}}

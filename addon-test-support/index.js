@@ -47,7 +47,7 @@ export function _fireComponentAction(owner, selector, actionName) {
  */
 function _getComponentBySelector(owner, selector = '.copy-btn') {
   const renderTree = Ember._captureRenderTree(owner);
-  const guid = document.querySelector(selector).id;
+  const guid = document.querySelector(selector).dataset.clipboardId;
   return _findComponentInstance(renderTree[0], guid);
 }
 
