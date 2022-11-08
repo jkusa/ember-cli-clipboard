@@ -16,6 +16,6 @@ export default class DocSection extends Component {
 
   @action
   showMessage(msgObj) {
-    this.flashMessages.add(Object.assign({}, msgObj, { ctx: this.guid }));
+    this.flashMessages.add({ ...msgObj, ctx: this.guid });
   }
 }
