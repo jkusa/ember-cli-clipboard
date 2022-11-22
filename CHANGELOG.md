@@ -1,3 +1,34 @@
+## 1.0.0 (2022-11-22)
+
+- Bump loader-utils from 1.4.0 to 1.4.1 (#382) ([f654bdc](https://github.com/jkusa/ember-cli-clipboard/commit/f654bdc)), closes [#382](https://github.com/jkusa/ember-cli-clipboard/issues/382)
+- build: move ember-modifer to dependencies (#381) ([87bb0cb](https://github.com/jkusa/ember-cli-clipboard/commit/87bb0cb)), closes [#381](https://github.com/jkusa/ember-cli-clipboard/issues/381)
+- feat: support `target` to be set dynamically (#379) ([66bf3a7](https://github.com/jkusa/ember-cli-clipboard/commit/66bf3a7)), closes [#379](https://github.com/jkusa/ember-cli-clipboard/issues/379)
+- feat: support direct use of the clipboard modifier ([7e3f448](https://github.com/jkusa/ember-cli-clipboard/commit/7e3f448))
+- chore: make changelog with conventional-changelog-cli (#378) ([fae8d89](https://github.com/jkusa/ember-cli-clipboard/commit/fae8d89)), closes [#378](https://github.com/jkusa/ember-cli-clipboard/issues/378)
+- chore: make repo commitizen friendly (#371) ([0b2eede](https://github.com/jkusa/ember-cli-clipboard/commit/0b2eede)), closes [#371](https://github.com/jkusa/ember-cli-clipboard/issues/371)
+- chore: simplify demo component ([3169422](https://github.com/jkusa/ember-cli-clipboard/commit/3169422))
+- chore: update ember-auto-import to v2 & ember-cli v4 (#370) ([8e1aa28](https://github.com/jkusa/ember-cli-clipboard/commit/8e1aa28)), closes [#370](https://github.com/jkusa/ember-cli-clipboard/issues/370)
+
+### BREAKING CHANGE
+
+- This commit contains many breaking changes:
+
+  - Drops ember classic component support (glimmer only)
+  - Drops support for `sendAction`
+  - Requires ember-auto-import 2.x
+  - `<CopyButton>` component arg name changes:
+
+  | Old Argument Name  | New Argument Name                      |
+  | ------------------ | -------------------------------------- |
+  | `@clipboardText`   | `@text`                                |
+  | `@clipboardTarget` | `@target`                              |
+  | `@clipboardAction` | `@action`                              |
+  | `@success`         | `@onSuccess`                           |
+  | `@error`           | `@onError`                             |
+  | `@title`           | no longer supported, pass as attribute |
+  | `@disabled`        | no longer supported, pass as attribute |
+  | `@aria-label`      | no longer supported, pass as attribute |
+
 ## 0.16.0 (2021-11-15)
 
 - [Security] Bump elliptic from 6.5.2 to 6.5.3 (#233) ([6215398](https://github.com/jkusa/ember-cli-clipboard/commit/6215398)), closes [#233](https://github.com/jkusa/ember-cli-clipboard/issues/233)
