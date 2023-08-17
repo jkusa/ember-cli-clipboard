@@ -57,8 +57,10 @@ jobs:
       fail-fast: false
       matrix:
         try-scenario:
-          - ember-lts-3.24
           - ember-lts-3.28
+          - ember-lts-4.4
+          - ember-lts-4.8
+          - ember-lts-4.12
           - ember-release
           - ember-beta
           - ember-canary
@@ -71,7 +73,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
           cache: npm
       - name: Install Dependencies
         run: npm ci
