@@ -268,4 +268,29 @@ module('Integration | Component | copy button', function (hooks) {
       .dom(btn)
       .hasAttribute('type', 'reset', 'button type is set by `type` attribute');
   });
+
+  test('dynamic text', async function (assert) {
+    assert.expect(3);
+
+    this.set('text', () => {
+      assert.step('one', 'initial text generating function is called');
+      return 'text 1';
+    });
+
+    await render(hbs`
+      <CopyButton @text={{this.text}}>
+        Click To Copy
+      </CopyButton>
+    `);
+    await click('button');
+
+    this.set('text', () => {
+      assert.step('two', 'updated text generating function is called');
+      return 'text 2';
+    });
+
+    await click('button');
+
+    assert.verifySteps(['one', 'two']);
+  });
 });

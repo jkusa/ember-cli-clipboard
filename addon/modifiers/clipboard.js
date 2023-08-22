@@ -3,10 +3,11 @@ import ClipboardJS from 'clipboard';
 import { isBlank } from '@ember/utils';
 import { capitalize } from '@ember/string';
 import { guidFor } from '@ember/object/internals';
+import { macroCondition, dependencySatisfies } from '@embroider/macros';
 
 const CLIPBOARD_EVENTS = ['success', 'error'];
 
-export default modifier(function clipboard(element, params, hash) {
+function clipboard(element, params, hash) {
   const {
     action = 'copy',
     container,
@@ -56,4 +57,14 @@ export default modifier(function clipboard(element, params, hash) {
   });
 
   return () => clipboard.destroy();
-});
+}
+
+let clipboardModifier;
+
+if (macroCondition(dependencySatisfies('ember-modifier', '4.x'))) {
+  clipboardModifier = modifier(clipboard, { eager: false });
+} else {
+  clipboardModifier = modifier(clipboard);
+}
+
+export default clipboardModifier;
