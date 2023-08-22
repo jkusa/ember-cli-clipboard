@@ -1,3 +1,10 @@
+## 1.1.0 (2023-08-22)
+
+- chore: support ember-modifier 3.x and 4.x ([e398557](https://github.com/jkusa/ember-cli-clipboard/commit/e398557)), closes [#396](https://github.com/jkusa/ember-cli-clipboard/issues/396)
+- Bump decode-uri-component from 0.2.0 to 0.2.2 (#385) ([1f79ea4](https://github.com/jkusa/ember-cli-clipboard/commit/1f79ea4)), closes [#385](https://github.com/jkusa/ember-cli-clipboard/issues/385)
+- Bump engine.io from 6.2.0 to 6.2.1 (#384) ([3fc748a](https://github.com/jkusa/ember-cli-clipboard/commit/3fc748a)), closes [#384](https://github.com/jkusa/ember-cli-clipboard/issues/384)
+- Bump loader-utils from 1.4.1 to 1.4.2 (#383) ([55e7f95](https://github.com/jkusa/ember-cli-clipboard/commit/55e7f95)), closes [#383](https://github.com/jkusa/ember-cli-clipboard/issues/383)
+
 ## 1.0.0 (2022-11-22)
 
 - Bump loader-utils from 1.4.0 to 1.4.1 (#382) ([f654bdc](https://github.com/jkusa/ember-cli-clipboard/commit/f654bdc)), closes [#382](https://github.com/jkusa/ember-cli-clipboard/issues/382)
