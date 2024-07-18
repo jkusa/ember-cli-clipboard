@@ -1,11 +1,14 @@
 import { modifier } from 'ember-modifier';
 import ClipboardJS from 'clipboard';
 import { isBlank } from '@ember/utils';
-import { capitalize } from '@ember/string';
 import { guidFor } from '@ember/object/internals';
 import { macroCondition, dependencySatisfies } from '@embroider/macros';
 
 const CLIPBOARD_EVENTS = ['success', 'error'];
+
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 function clipboard(element, params, hash) {
   const {
