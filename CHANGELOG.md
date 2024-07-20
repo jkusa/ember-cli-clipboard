@@ -1,3 +1,20 @@
+## 1.2.0 (2024-07-20)
+
+- refactor: remove use of @ember/string ([5dbca8e](https://github.com/jkusa/ember-cli-clipboard/commit/5dbca8e)), closes [#409](https://github.com/jkusa/ember-cli-clipboard/issues/409)
+- Bump @babel/traverse from 7.22.10 to 7.23.2 (#403) ([63c624f](https://github.com/jkusa/ember-cli-clipboard/commit/63c624f)), closes [#403](https://github.com/jkusa/ember-cli-clipboard/issues/403)
+- Bump browserify-sign from 4.2.1 to 4.2.2 (#404) ([ad919eb](https://github.com/jkusa/ember-cli-clipboard/commit/ad919eb)), closes [#404](https://github.com/jkusa/ember-cli-clipboard/issues/404)
+- Bump engine.io and socket.io (#398) ([42e776f](https://github.com/jkusa/ember-cli-clipboard/commit/42e776f)), closes [#398](https://github.com/jkusa/ember-cli-clipboard/issues/398)
+- Bump express from 4.18.2 to 4.19.2 (#408) ([55452c9](https://github.com/jkusa/ember-cli-clipboard/commit/55452c9)), closes [#408](https://github.com/jkusa/ember-cli-clipboard/issues/408)
+- Bump follow-redirects from 1.15.2 to 1.15.6 (#407) ([8b1b85b](https://github.com/jkusa/ember-cli-clipboard/commit/8b1b85b)), closes [#407](https://github.com/jkusa/ember-cli-clipboard/issues/407)
+- Bump http-cache-semantics from 4.1.0 to 4.1.1 (#387) ([77c2f6d](https://github.com/jkusa/ember-cli-clipboard/commit/77c2f6d)), closes [#387](https://github.com/jkusa/ember-cli-clipboard/issues/387)
+- Bump markdown-it and ember-cli (#395) ([6d6a9f8](https://github.com/jkusa/ember-cli-clipboard/commit/6d6a9f8)), closes [#395](https://github.com/jkusa/ember-cli-clipboard/issues/395)
+- Bump minimist from 0.2.2 to 0.2.4 (#389) ([cc674a0](https://github.com/jkusa/ember-cli-clipboard/commit/cc674a0)), closes [#389](https://github.com/jkusa/ember-cli-clipboard/issues/389)
+- Bump postcss from 8.4.18 to 8.4.31 (#402) ([ea13a05](https://github.com/jkusa/ember-cli-clipboard/commit/ea13a05)), closes [#402](https://github.com/jkusa/ember-cli-clipboard/issues/402)
+- Bump socket.io-parser from 4.2.1 to 4.2.4 (#399) ([4544a0f](https://github.com/jkusa/ember-cli-clipboard/commit/4544a0f)), closes [#399](https://github.com/jkusa/ember-cli-clipboard/issues/399)
+- Bump tough-cookie from 4.1.2 to 4.1.3 (#401) ([1c916dc](https://github.com/jkusa/ember-cli-clipboard/commit/1c916dc)), closes [#401](https://github.com/jkusa/ember-cli-clipboard/issues/401)
+- Bump webpack from 5.74.0 to 5.76.0 (#392) ([70d8a7f](https://github.com/jkusa/ember-cli-clipboard/commit/70d8a7f)), closes [#392](https://github.com/jkusa/ember-cli-clipboard/issues/392)
+- Bump word-wrap from 1.2.3 to 1.2.5 (#400) ([43c8863](https://github.com/jkusa/ember-cli-clipboard/commit/43c8863)), closes [#400](https://github.com/jkusa/ember-cli-clipboard/issues/400)
+
 ## 1.1.0 (2023-08-22)
 
 - chore: support ember-modifier 3.x and 4.x ([e398557](https://github.com/jkusa/ember-cli-clipboard/commit/e398557)), closes [#396](https://github.com/jkusa/ember-cli-clipboard/issues/396)
