@@ -1,196 +1,141 @@
-# ember-cli-clipboard
+# @aklkv/ember-cli-clipboard
 
-[![Downloads](http://img.shields.io/npm/dm/ember-cli-clipboard.svg?style=flat-square)](https://npmjs.org/package/ember-cli-clipboard)
-[![Build Status](https://github.com/jkusa/ember-cli-clipboard/actions/workflows/ci.yml/badge.svg)](https://github.com/jkusa/ember-cli-clipboard/actions?query=branch%3Amain)
-[![Ember Observer Score](http://emberobserver.com/badges/ember-cli-clipboard.svg)](http://emberobserver.com/addons/ember-cli-clipboard)
+A simple Ember wrapper around [clipboard.js](https://clipboardjs.com) for
+copying or cutting text to the clipboard.
 
-A simple ember wrapper around [clipboard.js](http://zenorocha.github.io/clipboard.js/) (no flash)
+> **Note:** This is a maintained fork of
+> [ember-cli-clipboard](https://github.com/jkusa/ember-cli-clipboard) by
+> [@jkusa](https://github.com/jkusa), rebuilt as an Embroider v2 addon and
+> published under the `@aklkv` scope. The original package is unmaintained.
 
-## Demo Page
+## Compatibility
 
-http://jkusa.github.io/ember-cli-clipboard
+- Ember.js v5.8 or above
+- Embroider or ember-auto-import v2
+
+## Installation
+
+```shell
+pnpm add @aklkv/ember-cli-clipboard
+```
 
 ## Usage
 
-### CopyButton Component
+This addon exposes three public APIs plus a set of test helpers:
 
-```hbs
-<!-- Set text directly -->
-<CopyButton
-  @text='text to be copied'
-  @onSuccess={{this.onSuccess}}
-  @onError={{this.onError}}
->
-  Click To Copy
-</CopyButton>
+- [`<CopyButton>`](#copybutton-component) — a ready-made button component
+- [`clipboard`](#clipboard-modifier) — the underlying element modifier
+- [`isClipboardSupported`](#isclipboardsupported-helper) — a helper to detect support
+- [test helpers](#test-helpers) — `triggerCopySuccess` / `triggerCopyError`
 
-<!-- Get text from action that returns a string -->
-<CopyButton
-  @text={{this.getText}}
-  @onSuccess={{this.onSuccess}}
-  @onError={{this.onError}}
->
-  Click To Copy
-</CopyButton>
+### `<CopyButton>` component
 
-<!-- Get text from target element -->
-<input
-  id='url'
-  type='text'
-  value='https://github.com/jkusa/ember-cli-clipboard'
-/>
-<CopyButton
-  @target='#url'
-  @onSuccess={{this.onSuccess}}
-  @onError={{this.onError}}
->
-  Click To Copy
-</CopyButton>
-```
+```gjs
+import { CopyButton } from '@aklkv/ember-cli-clipboard';
 
-#### Arguments
-
-- `text` - string value or action that returns a string to be copied
-- `target` - selector string of element or action that returns an element from which to copy text
-- `action` - string value of operation: `copy` or `cut` (default is copy)
-- `container` - selector string or element object of containing element. "For use in Bootstrap Modals or with any other library that changes the focus you'll want to set the focused element as the container value".
-- `delegateClickEvent` - clipboard.js defaults event listeners to the body in order to reduce memory footprint if there are hundreds of event listeners on a page. If you want to scope the event listener to the copy button, set this property to `false`
-- `buttonType` - string value of the button's [type attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Attributes) (for Ember < `3.25.x`, see below)
-
-Any HTML [button attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Attributes) passed to the component will be "splatted" on the button element. The one exception to this is the `type` attribute due to this [issue](https://github.com/emberjs/ember.js/issues/18232) < Ember `3.25.x`.
-
-#### Actions
-
-The following clipboard.js custom events are sent as actions
-
-- `onSuccess` sent on successful copy
-- `onError` sent on failed copy
-
-More information about the clipboard.js events can be found [here](https://github.com/zenorocha/clipboard.js/#events)
-
-### Clipboard Element Modifier
-
-Under the hood the `<CopyButton>` component is powered by a `{{clipboard}}` element modifier. This can be used directly as an alternative to the `<CopyButton>` component. It has the same argument contract as the `<CopyButton>` component except for the exclusion of the `buttonType` argument.
-
-```hbs
-<button
-  class='button is-outline'
-  type='button'
-  {{clipboard text='text to be copied' onSuccess=this.onSuccess}}
->
-  Click To Copy
-</button>
-```
-
-### Template Helper
-
-The helper `is-clipboard-supported` can be used to check if [clipboard.js](http://zenorocha.github.io/clipboard.js/) is supported or not.
-
-```hbs
-{{#if (is-clipboard-supported)}}
-  <CopyButton @target='#url'>
-    Click To Copy
+<template>
+  <CopyButton @text="text to copy" @onSuccess={{this.onSuccess}}>
+    Copy
   </CopyButton>
+</template>
+```∫
+
+`<CopyButton>` renders a `<button class="copy-btn" type="button">` and accepts
+all of the modifier arguments below. Splattributes are supported, so you can add
+your own `class`, `title`, etc.
+
+| Argument              | Type                                    | Default  | Description                                                                                      |
+| --------------------- | --------------------------------------- | -------- | ----------------------------------------------------------------------------------------------- |
+| `@text`               | `string` or `(trigger) => string`       | none     | Text to copy. A function is evaluated on click. Takes precedence over `@target`.                |
+| `@target`             | `string` or `(trigger) => Element`      | none     | CSS selector or function resolving the element to copy/cut from.                                |
+| `@action`             | `'copy'` or `'cut'`                     | `'copy'` | Whether to copy or cut from the target.                                                         |
+| `@delegateClickEvent` | `boolean`                               | `true`   | When `true`, the listener is delegated to `document.body`; set `false` to scope to the element. |
+| `@container`          | `string` or `HTMLElement`               | none     | Container element (useful inside a `<dialog>` or other focus-trapping element).                 |
+| `@onSuccess`          | `(event) => void`                       | none     | Called after a successful copy/cut.                                                             |
+| `@onError`            | `(event) => void`                       | none     | Called when the copy/cut fails.                                                                 |
+
+You must provide either `@text` or `@target`.
+
+### `clipboard` modifier
+
+Use the element modifier directly when you don't need the `<CopyButton>` wrapper:
+
+```gjs
+import { clipboard } from '@aklkv/ember-cli-clipboard';
+
+<template>
+  <button
+    type="button"
+    {{clipboard text="copied via the modifier" onSuccess=this.onSuccess}}
+  >
+    Copy
+  </button>
+</template>
+```
+
+The modifier accepts the same named arguments as the component (`text`,
+`target`, `action`, `delegateClickEvent`, `container`, `onSuccess`, `onError`).
+
+### `isClipboardSupported` helper
+
+```gjs
+import { isClipboardSupported } from '@aklkv/ember-cli-clipboard';
+
+<template>
+  {{#if (isClipboardSupported)}}
+    Clipboard is supported 🎉
+  {{else}}
+    Clipboard is not supported 😔
+  {{/if}}
+</template>
+```
+
+Pass an optional action to check support for `copy` or `cut` specifically:
+
+```hbs
+{{#if (isClipboardSupported "cut")}}
+  Cut is supported
 {{/if}}
 ```
 
-## Test Helpers
+The helper returns `false` in a FastBoot environment.
 
-Some browsers do not allow simulated clicks to fire `execCommand('copy')`. This makes testing difficult. To assist with integration testing, the following test helpers are available to test the wiring of the `success` and `error` action handlers.
+### Test helpers
 
-### Acceptance Test Helpers
+Fire a button's `@onSuccess` / `@onError` actions in tests without real
+clipboard access:
 
-- `triggerCopySuccess(selector='.copy-btn')`
-- `triggerCopyError(selector='.copy-btn')`
+```gjs
+import { triggerCopySuccess, triggerCopyError } from '@aklkv/ember-cli-clipboard/test-support';
 
-```js
-// tests/acceptance/my-test.js
+test('fires success/error actions', async function (assert) {
+  await render(
+    <template>
+      <CopyButton class="my-btn" @text="text" @onSuccess={{this.onSuccess}} />
+    </template>,
+  );
 
-import {
-  triggerCopyError,
-  triggerCopySuccess,
-} from 'ember-cli-clipboard/test-support';
-```
+  // fire the success action for a specific button
+  triggerCopySuccess('.my-btn');
 
-Example:
-
-```js
-// tests/acceptance/my-test.js
-
-test('copy button message', async function (assert) {
-  assert.expect(3);
-
-  await visit('/');
-  assert.dom('.alert').doesNotExist('no alert message is initially present');
-
-  triggerCopySuccess();
-
-  assert
-    .dom('.alert.alert-success')
-    .exists('a success message is displayed when a copy is successful');
-
+  // omit the selector to default to '.copy-btn'
   triggerCopyError();
-
-  assert
-    .dom('.alert.alert-info')
-    .exists('an error message is displayed when a copy is unsuccessful');
 });
 ```
 
-### Integration Test Helpers
+| Helper                          | Description                                                              |
+| ------------------------------- | ------------------------------------------------------------------------ |
+| `triggerCopySuccess(selector?)` | Fires the `@onSuccess` action of the matching copy button.               |
+| `triggerCopyError(selector?)`   | Fires the `@onError` action of the matching copy button.                 |
 
-- `triggerCopySuccess(selector='.copy-btn')`
-- `triggerCopyError(selector='.copy-btn')`
-
-Example:
-
-```js
-// tests/integration/components/my-test.js
-
-// if using NEW ember testing api
-import {
-  triggerCopyError,
-  triggerCopySuccess,
-} from 'ember-cli-clipboard/test-support';
-
-test('copy-button integration', async function (assert) {
-  assert.expect(2);
-
-  this.set('onSuccess', () => {
-    assert.ok(true, '`success` action handler correctly fired');
-  });
-
-  this.set('onError', () => {
-    assert.ok(true, '`error` action handler correctly fired');
-  });
-
-  await render(hbs`
-    <CopyButton
-      class="my-copy-btn"
-      @text="text to be copied"
-      @onSuccess={{this.onSuccess}}
-      @onError={{this.onError}}
-    >
-      Click To Copy
-    </CopyButton>
-  `);
-
-  //If using NEW ember testing api
-  triggerCopyError('.my-copy-btn');
-  triggerCopySuccess('.my-copy-btn');
-});
-```
-
-## Browser Support
-
-For browser support information, checkout the [clipboard.js](http://zenorocha.github.io/clipboard.js/) documentation:
-
-https://github.com/zenorocha/clipboard.js/#browser-support
+Both default to the `.copy-btn` selector rendered by `<CopyButton>` when no
+selector is passed.
 
 ## Contributing
 
-Contributions are welcomed. Please read the [contributing guidelines](CONTRIBUTING.md).
+See the [Contributing](CONTRIBUTING.md) guide for details.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE.md).
+This project is licensed under the [MIT License](LICENSE.md). Original work
+copyright the `ember-cli-clipboard` authors; fork modifications copyright aklkv.

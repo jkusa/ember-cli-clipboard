@@ -1,0 +1,394 @@
+/**
+* See: https://vite.dev/guide/features.html#css
+*      for features beyond normal CSS that are available to you.
+*
+* This CSS is meant for the demo-app only, and will not be included in the published assets for this library.
+*/
+
+:root {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --border: #e2e5ea;
+  --text: #1c1e21;
+  --muted: #687078;
+  --accent: #e8590c;
+  --accent-hover: #d9480f;
+  --code-bg: #2b2d31;
+  --code-text: #e6e6e6;
+  --success: #2b8a3e;
+  --success-bg: #ebfbee;
+  --error: #c92a2a;
+  --error-bg: #fff5f5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.5;
+}
+
+.hero {
+  text-align: center;
+  padding: 3.5rem 1.5rem 2.5rem;
+  background: linear-gradient(135deg, #fff1e6 0%, #f7f8fa 100%);
+  border-bottom: 1px solid var(--border);
+}
+
+.hero h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2.5rem;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  margin: 0 0 1.25rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.tagline a,
+.footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.tagline a:hover,
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.github-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  transition:
+    border-color 0.15s ease,
+    transform 0.05s ease;
+}
+
+.github-link:hover {
+  border-color: var(--accent);
+}
+
+.github-link:active {
+  transform: translateY(1px);
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+}
+
+.toc {
+  position: fixed;
+  top: 50%;
+  left: max(1rem, calc((100% - 720px) / 2 - 260px));
+  transform: translateY(-50%);
+  width: 240px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 0.85rem;
+}
+
+.toc a {
+  white-space: nowrap;
+}
+
+.toc-title {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toc li {
+  margin: 0;
+}
+
+.toc a {
+  display: block;
+  padding: 0.45rem 0.5rem;
+  border-radius: 6px;
+  color: var(--text);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+}
+
+.toc a:hover {
+  background: var(--bg);
+  border-left-color: transparent;
+  color: var(--text);
+}
+
+.toc a.active {
+  background: transparent;
+  border-left-color: transparent;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.example {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  scroll-margin-top: 1rem;
+}
+
+.example h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.example p {
+  margin: 0 0 1rem;
+  color: var(--muted);
+}
+
+.example code {
+  font-family:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.875em;
+}
+
+.example p code {
+  background: #f1f3f5;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  color: var(--accent-hover);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.05s ease;
+}
+
+.btn:hover {
+  background: var(--accent-hover);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: #fff;
+  color: var(--text);
+}
+
+.textarea {
+  resize: vertical;
+}
+
+.demo-dialog {
+  position: static;
+  display: block;
+  margin: 0 0 0.25rem;
+  padding: 1rem;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  background: #fafbfc;
+  color: var(--text);
+}
+
+/* Shiki output */
+.example pre.shiki {
+  margin: 1rem 0 0;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.example pre.shiki code {
+  font-family:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+.supported {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.unsupported {
+  color: var(--error);
+  font-weight: 600;
+}
+
+.alert {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 90%;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  z-index: 1000;
+}
+
+.alert-success {
+  color: var(--success);
+  background: var(--success-bg);
+  border-color: #b2f2bb;
+}
+
+.alert-error {
+  color: var(--error);
+  background: var(--error-bg);
+  border-color: #ffc9c9;
+}
+
+.alert-close {
+  border: none;
+  background: none;
+  color: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem 1.5rem 3rem;
+  color: var(--muted);
+}
+
+@media (max-width: 1160px) {
+  .toc {
+    position: sticky;
+    top: 0;
+    left: auto;
+    transform: none;
+    width: auto;
+    max-height: none;
+    margin: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    z-index: 900;
+    backdrop-filter: saturate(180%) blur(8px);
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  .toc-title {
+    display: none;
+  }
+
+  .toc ul {
+    display: flex;
+    gap: 0.25rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .toc ul::-webkit-scrollbar {
+    display: none;
+  }
+
+  .toc li {
+    flex: 0 0 auto;
+  }
+
+  .toc a {
+    white-space: nowrap;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+  }
+
+  .toc a:hover,
+  .toc a.active {
+    border-left-color: transparent;
+    border-bottom-color: var(--accent);
+    background: transparent;
+  }
+
+  .example {
+    scroll-margin-top: 3.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 2.5rem 1rem 2rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .container {
+    padding: 1.5rem 1rem 2.5rem;
+  }
+
+  .example {
+    padding: 1.25rem;
+  }
+
+  .alert {
+    max-width: calc(100% - 2rem);
+  }
+}
