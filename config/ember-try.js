@@ -14,6 +14,7 @@ module.exports = async function () {
             'ember-source': '~3.28.0',
             '@ember/test-helpers': '^2.9.3',
             'ember-qunit': '^6.2.0',
+            'ember-cli-fastboot-testing': '0.6.1',
           },
         },
       },
@@ -81,6 +82,7 @@ module.exports = async function () {
             'ember-source': '~3.28.0',
             '@ember/test-helpers': '^2.9.3',
             'ember-qunit': '^6.2.0',
+            'ember-cli-fastboot-testing': '0.6.1',
           },
           ember: {
             edition: 'classic',
