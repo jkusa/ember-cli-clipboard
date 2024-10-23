@@ -1,3 +1,8 @@
+## <small>1.2.1 (2024-10-23)</small>
+
+- fix: move `@ember/test-helpers` to dependencies (#420) ([7f63845](https://github.com/jkusa/ember-cli-clipboard/commit/7f63845)), closes [#420](https://github.com/jkusa/ember-cli-clipboard/issues/420)
+- Bump ws, engine.io and socket.io-adapter ([5de68e2](https://github.com/jkusa/ember-cli-clipboard/commit/5de68e2))
+
 ## 1.2.0 (2024-07-20)
 
 - refactor: remove use of @ember/string ([5dbca8e](https://github.com/jkusa/ember-cli-clipboard/commit/5dbca8e)), closes [#409](https://github.com/jkusa/ember-cli-clipboard/issues/409)
