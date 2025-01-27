@@ -1,0 +1,26 @@
+.gh-link {
+  margin: 10px 0;
+  text-align: center;
+
+  &__icon {
+    height: 22px;
+  }
+
+  &__anchor {
+    align-items: center;
+    border: 1px solid #4b4b4d;
+    border-radius: 3px;
+    display: inline-flex;
+    padding: 3px 5px;
+
+    &:hover {
+      background-color: #4b4b4d;
+      color: #fffdfd;
+
+      /* stylelint-disable-next-line selector-class-pattern */
+      .gh-link__icon {
+        filter: invert(100%);
+      }
+    }
+  }
+}

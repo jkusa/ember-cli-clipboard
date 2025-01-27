@@ -13,39 +13,44 @@ concurrency:
 
 jobs:
   test:
-    name: 'Tests'
+    name: "Tests"
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          node-version: 14.x
-          cache: npm
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: pnpm
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
       - name: Lint
-        run: npm run lint
+        run: pnpm lint
       - name: Run Tests
-        run: npm run test:ember
+        run: pnpm test
 
   floating:
-    name: 'Floating Dependencies'
+    name: "Floating Dependencies"
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          node-version: 14.x
-          cache: npm
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: pnpm
       - name: Install Dependencies
-        run: npm install --no-shrinkwrap
+        run: pnpm install
       - name: Run Tests
-        run: npm run test:ember
+        run: pnpm test
 
   try-scenarios:
     name: ${{ matrix.try-scenario }}
@@ -57,25 +62,25 @@ jobs:
       fail-fast: false
       matrix:
         try-scenario:
-          - ember-lts-3.28
-          - ember-lts-4.4
-          - ember-lts-4.8
           - ember-lts-4.12
+          - ember-lts-5.4
           - ember-release
           - ember-beta
           - ember-canary
-          - ember-classic
           - embroider-safe
           - embroider-optimized
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          node-version: 16.x
-          cache: npm
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: pnpm
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
       - name: Run Tests
-        run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
+        run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }} --skip-cleanup
+        working-directory: test-app
