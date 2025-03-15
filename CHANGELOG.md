@@ -1,3 +1,12 @@
+## 1.3.0 (2025-03-15)
+
+- build(deps-dev): bump webpack from 5.76.0 to 5.95.0 (#419) ([089528e](https://github.com/jkusa/ember-cli-clipboard/commit/089528e)), closes [#419](https://github.com/jkusa/ember-cli-clipboard/issues/419)
+- build(deps): bump @babel/helpers from 7.22.10 to 7.26.10 (#425) ([9c38066](https://github.com/jkusa/ember-cli-clipboard/commit/9c38066)), closes [#425](https://github.com/jkusa/ember-cli-clipboard/issues/425)
+- build(deps): bump cross-spawn (#424) ([618dc07](https://github.com/jkusa/ember-cli-clipboard/commit/618dc07)), closes [#424](https://github.com/jkusa/ember-cli-clipboard/issues/424)
+- build(deps): bump express from 4.19.2 to 4.21.2 (#427) ([ef9c13b](https://github.com/jkusa/ember-cli-clipboard/commit/ef9c13b)), closes [#427](https://github.com/jkusa/ember-cli-clipboard/issues/427)
+- build(deps): bump semver (#428) ([88d74df](https://github.com/jkusa/ember-cli-clipboard/commit/88d74df)), closes [#428](https://github.com/jkusa/ember-cli-clipboard/issues/428)
+- chore: add type declarations (#423) ([7379070](https://github.com/jkusa/ember-cli-clipboard/commit/7379070)), closes [#423](https://github.com/jkusa/ember-cli-clipboard/issues/423)
+
 ## <small>1.2.1 (2024-10-23)</small>
 
 - fix: move `@ember/test-helpers` to dependencies (#420) ([7f63845](https://github.com/jkusa/ember-cli-clipboard/commit/7f63845)), closes [#420](https://github.com/jkusa/ember-cli-clipboard/issues/420)
